@@ -38,18 +38,18 @@ conn = psycopg2.connect(
 
 # Crear un cursor para ejecutar consultas
 cur = conn.cursor()
-
+print("🚀 Iniciando borrado de migración de datos...")
 cur.execute("""
     DROP TABLE IF EXISTS aircrafts;
     DROP TABLE IF EXISTS airports;
     DROP TABLE IF EXISTS flights;
-    DROP TABLE IF EXISTS airlines;
+    DROP TABLE IF EXISTS airlines
 """)
-
+print("🚀 Iniciando script de migración de datos...")
 cur.execute("""
 CREATE TABLE IF NOT EXISTS airlines (
     airline_id INT PRIMARY KEY,
-    unique_carrier VARCHAR(5),
+    unique_carrier VARCHAR(5)
 );
 """)
 
@@ -94,8 +94,9 @@ CREATE TABLE IF NOT EXISTS flights (
     flights FLOAT
 );
 """)
-
+print("🚀 Tablas creadas")
 conn.commit()
+print("Commit de tablas")
 # 2. Cargar los datos existentes de la tabla `flight`
 df = pd.read_sql_query("SELECT * FROM datos_vuelos", conn)
 df.columns = df.columns.str.lower()
@@ -104,13 +105,17 @@ df.columns = df.columns.str.lower()
 # 4. Insertar datos únicos en airlines
 
 airlines = df[['op_unique_carrier', 'op_carrier_airline_id']].drop_duplicates()
-for _, row in airlines.iterrows():
+print("⏳ Insertando datos en airlines...")
+total_rows=len(df)
+for i, row in airlines.iterrows():
     cur.execute("""
         INSERT INTO airlines (airline_id, unique_carrier)
         VALUES (%s, %s)
         ON CONFLICT (airline_id) DO NOTHING;
     """, (row['op_carrier_airline_id'], row['op_unique_carrier']))
-
+    if i % 10000 == 0:
+        print(f"🔄 Procesando fila {i} de {total_rows} ({(i/total_rows)*100:.1f}%)")
+print("✅ Datos en flights insertados.")
 # 5. Insertar datos únicos en airports
 
 origin_airports = df[['origin_airport_id', 'origin_airport_seq_id', 'origin_city_market_id',
@@ -130,8 +135,9 @@ dest_airports.columns = origin_airports.columns
 
 # Unir los aeropuertos origen y destino
 airports = pd.concat([origin_airports, dest_airports]).drop_duplicates()
+print("⏳ Insertando datos en airports...")
 
-for _, row in airports.iterrows():
+for i, row in airports.iterrows():
     cur.execute("""
         INSERT INTO airports (airport_id, airport_seq_id, city_market_id,
                                code, city_name, state_abr, state_fips,
@@ -140,6 +146,9 @@ for _, row in airports.iterrows():
         ON CONFLICT (airport_id, airport_seq_id) DO NOTHING;  -- Clave compuesta completa;
     """, tuple(row))
 
+    if i % 10000 == 0:
+        print(f"🔄 Procesando fila {i} de {total_rows} ({(i/total_rows)*100:.1f}%)")
+print("✅ Datos en flights insertados.")
 # 6. Insertar los vuelos en flights
 
 def convert_hhmm(time_val):
@@ -202,8 +211,9 @@ def parse_fl_date(date_val):
     except Exception as e:
         print(f"Error parsing date {date_val}: {str(e)}")
         return None
+print("⏳ Insertando datos en flights...")
 
-for _, row in df.iterrows():
+for i, row in df.iterrows():
     # Convertir todos los campos
     fl_date = parse_fl_date(row['fl_date'])
     
@@ -215,44 +225,45 @@ for _, row in df.iterrows():
     arr_time = convert_hhmm(row['arr_time'])   
     
     cur.execute("""
-        INSERT INTO flights (fl_date, op_unique_carrier, op_carrier_airline_id,
-                             op_carrier, tail_num, op_carrier_fl_num,
-                             origin_airport_id, dest_airport_id,
-                             crs_dep_time, dep_time, dep_delay, wheels_off,
-                             wheels_on, crs_arr_time, arr_time, arr_delay,
-                             cancelled, diverted, air_time,
-                             distance, flights)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s,
-                %s, %s, %s, %s, %s, %s, %s, %s,
-                CASE WHEN %s = 1 THEN TRUE ELSE FALSE END,
-                %s,
-                CASE WHEN %s = 1 THEN TRUE ELSE FALSE END,
-                %s, %s, %s
-        );
-    """, (
-        fl_date,
-        row['op_unique_carrier'],
-        row['op_carrier_airline_id'],
-        row['op_carrier'],
-        row['tail_num'],
-        row['op_carrier_fl_num'],
-        row['origin_airport_id'],
-        row['dest_airport_id'],
-        crs_dep_time,
-        dep_time,
-        row['dep_delay'],
-        wheels_off,
-        wheels_on,
-        crs_arr_time,
-        arr_time,
-        row['arr_delay'],
-        float(row['cancelled']) if not pd.isna(row['cancelled']) else 0,
-        float(row['diverted']) if not pd.isna(row['diverted']) else 0,
-        row['air_time'],
-        row['distance'],
-        row['flights']
-    ))
-
+    INSERT INTO flights (
+        fl_date, op_unique_carrier, op_carrier_airline_id,
+        op_carrier, tail_num, op_carrier_fl_num,
+        origin_airport_id, dest_airport_id,
+        crs_dep_time, dep_time, dep_delay, wheels_off,
+        wheels_on, crs_arr_time, arr_time, arr_delay,
+        cancelled, diverted, air_time,
+        distance, flights
+    ) VALUES (
+        %s, %s, %s, %s, %s, %s, %s, %s,
+        %s, %s, %s, %s, %s, %s, %s, %s,
+        %s, %s, %s, %s, %s
+    );
+""", (
+    fl_date,
+    row['op_unique_carrier'],
+    row['op_carrier_airline_id'],
+    row['op_carrier'],
+    row['tail_num'],
+    row['op_carrier_fl_num'],
+    row['origin_airport_id'],
+    row['dest_airport_id'],
+    crs_dep_time,
+    dep_time,
+    row['dep_delay'],
+    wheels_off,
+    wheels_on,
+    crs_arr_time,
+    arr_time,
+    row['arr_delay'],
+    bool(row['cancelled']) if not pd.isna(row['cancelled']) else False,
+    bool(row['diverted']) if not pd.isna(row['diverted']) else False,
+    row['air_time'],
+    row['distance'],
+    row['flights']
+))
+    if i % 10000 == 0:
+        print(f"🔄 Procesando fila {i} de {total_rows} ({(i/total_rows)*100:.1f}%)")
+print("✅ Datos en flights insertados.")
 
 # Finalizar cambios
 conn.commit()
