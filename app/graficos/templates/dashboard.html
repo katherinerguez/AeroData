@@ -1,0 +1,96 @@
+<body>
+    <head>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    </head>
+
+    <form method="get" action="/" style="display: flex; flex-direction: column; gap: 10px; max-width: 300px;">
+        <label for="start_date">Fecha inicial:</label>
+        <input type="date" id="start_date" name="start_date" value="{{ start_date or '' }}">
+        
+        <label for="end_date">Fecha final:</label>
+        <input type="date" id="end_date" name="end_date" value="{{ end_date or '' }}">
+      
+        <label for="selected_route">Ruta:</label>
+        <select name="selected_route" id="selected_route">
+          <option value="">Todas las rutas</option>
+          {% for route in routes %}
+            <option value="{{ route }}" {% if route == selected_route %}selected{% endif %}>{{ route }}</option>
+          {% endfor %}
+        </select>
+      
+        <label for="selected_plane">Avión:</label>
+        <select name="selected_plane" id="selected_plane">
+        <option value="">Todos los aviones</option>
+        {% for plane in planes %}
+            <option value="{{ plane }}" {% if plane == selected_plane %}selected{% endif %}>{{ plane }}</option>
+        {% endfor %}
+        </select>
+    
+        <button type="submit">Filtrar</button>
+    </form>
+    
+      
+    
+    <h1>📊 Dashboard de Vuelos</h1>
+    <div id="graph1"></div>
+    <div id="graph2"></div>
+    <div id="graph3"></div>
+    <div id="graph4"></div>
+    <div id="graph5"></div>
+    <div id="graph6"></div>
+    <div id="graph7"></div>
+    <div id="graph8"></div>
+    <div id="graph9"></div>
+    <div id="graph10"></div>
+    <div id="graph11"></div>
+    <div id="graph12"></div>
+    <div id="graph13"></div>
+    <div id="graph14"></div>
+
+    <script>
+        var graph1 = {{ graph1 | safe }};
+        Plotly.newPlot("graph1", graph1.data, graph1.layout);
+        
+        var graph2 = {{ graph2 | safe }};
+        Plotly.newPlot("graph2", graph2.data, graph2.layout);
+
+        var graph3 = {{ graph3 | safe }};
+        Plotly.newPlot("graph3", graph3.data, graph3.layout);
+        
+        var graph4 = {{ graph4 | safe }};
+        Plotly.newPlot("graph4", graph4.data, graph4.layout);
+
+        var graph5 = {{ graph5 | safe }};
+        Plotly.newPlot("graph5", graph5.data, graph5.layout);
+        
+        var graph6 = {{ graph6 | safe }};
+        Plotly.newPlot("graph6", graph6.data, graph6.layout);       
+         
+        var graph7 = {{ graph7 | safe }};
+        Plotly.newPlot("graph7", graph7.data, graph7.layout);
+        
+        var graph8 = {{ graph8 | safe }};
+        Plotly.newPlot("graph8", graph8.data, graph8.layout);
+        
+        var graph9 = {{ graph9 | safe }};
+        Plotly.newPlot("graph9", graph9.data, graph9.layout);
+
+        var graph10 = {{ graph10 | safe }};
+        Plotly.newPlot("graph10", graph10.data, graph10.layout);
+
+        var graph11 = {{ graph11 | safe }};
+        Plotly.newPlot("graph11", graph11.data, graph11.layout);
+        
+        var graph12 = {{ graph12 | safe }};
+        Plotly.newPlot("graph12", graph12.data, graph12.layout);       
+         
+        var graph13 = {{ graph13 | safe }};
+        Plotly.newPlot("graph13", graph13.data, graph13.layout);
+        
+        var graph14 = {{ graph14 | safe }};
+        Plotly.newPlot("graph14", graph14.data, graph14.layout);
+        
+        
+        // ... y así para los 7 gráficos
+    </script>
+</body>
