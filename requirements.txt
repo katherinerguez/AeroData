@@ -1,0 +1,11 @@
+Python  
+jinja2
+fastapi 
+uvicorn
+sqlalchemy
+supabase
+pandas
+psycopg2
+plotly
+dask
+pydantic
