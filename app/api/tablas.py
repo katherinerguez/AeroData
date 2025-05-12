@@ -2,6 +2,17 @@
 from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime, Time
 from database import Base
 
+from sqlalchemy.ext.declarative import declarative_base
+import uuid
+
+Base = declarative_base()
+
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True)
+    api_key = Column(String, unique=True, index=True)
+    
 # ---------------- AIRPORT ----------------
 class Airport(Base):
     __tablename__ = "airports"

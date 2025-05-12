@@ -3,6 +3,17 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime, time
 
+class UserCreate(BaseModel):
+    username: str
+
+class UserOut(BaseModel):
+    id: int
+    username: str
+    api_key: str
+
+    class Config:
+        orm_mode = True
+
 # ---------------- AIRPORT ----------------
 class AirportSchema(BaseModel):
     airport_id: int
@@ -16,7 +27,7 @@ class AirportSchema(BaseModel):
     wac: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # ---------------- AIRLINE ----------------
 class AirlineSchema(BaseModel):
@@ -24,7 +35,7 @@ class AirlineSchema(BaseModel):
     unique_carrier: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # ---------------- FLIGHT ----------------
 class FlightSchema(BaseModel):
@@ -52,4 +63,4 @@ class FlightSchema(BaseModel):
     flights: Optional[float]
 
     class Config:
-        orm_mode = True
+        from_attributes = True

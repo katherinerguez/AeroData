@@ -1,7 +1,8 @@
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Depends, Request
 from fastapi.responses import StreamingResponse, HTMLResponse
 from pydantic import BaseModel
 from database import execute_sql
+from auth import get_current_user
 import pandas as pd
 import io
 import os
@@ -25,18 +26,19 @@ async def mostrar_dashboard():
         raise HTTPException(status_code=404, detail="Archivo consultas.html no encontrado")
 
 # --- Ruta para ejecutar consultas SQL ---
+
 @app.post("/execute")
-async def run_sql(query: SQLQuery):
-    if not query.query.strip().lower().startswith("select"):
-        raise HTTPException(status_code=400, detail="Solo se permiten consultas SELECT")
-    
+async def run_sql(query: SQLQuery, user: dict = Depends(get_current_user)):
+    if user["role"] != "admin" and not query.query.strip().lower().startswith("select"):
+        raise HTTPException(status_code=403, detail="Solo puedes realizar consultas SELECT")
+
     try:
         result = execute_sql(query.query)
-        # Convertir resultado a DataFrame
         df = pd.DataFrame(result)
         return {"result": df.to_dict(orient="records")}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 # --- Ruta para descargar como CSV o Excel ---
 @app.post("/download/{formato}")
