@@ -20,20 +20,24 @@
         .query-block { border-top: 2px dashed #ccc; padding-top: 20px; margin-top: 30px; }
     </style>
 </head>
+<script>
+    const usuario = localStorage.getItem("usuario");
+    const contrasena = localStorage.getItem("contrasena");
+
+    if (!usuario || !contrasena) {
+        alert("No has iniciado sesión. Serás redirigido al login.");
+        window.location.href = "/login";
+    }
+</script>
+
 <body>
     <h1>Consulta SQL con Historial Dinámico</h1>
 
-    <div>
-        <label>Usuario: <input type="text" id="usuario" /></label><br>
-        <label>Contraseña: <input type="password" id="contrasena" /></label><br>
-        <button onclick="guardarCredenciales()">Guardar credenciales</button>
-        <p id="login-status" style="color: green;"></p>
-    </div>
+
 
     <div id="query-container"></div>
 
     <script>
-        let usuario = "", contrasena = "";
 
         function guardarCredenciales() {
             usuario = document.getElementById("usuario").value;
@@ -54,7 +58,7 @@
                 <div class="query-block" id="queryBlock${queryCount}">
                     <form id="${formId}">
                         <label for="${textareaId}">Escribe tu consulta SQL:</label><br>
-                        <textarea id="${textareaId}" name="query" placeholder="SELECT * FROM vuelos LIMIT 10;"></textarea><br><br>
+                        <textarea id="${textareaId}" name="query" placeholder="SELECT * FROM airports LIMIT 10;"></textarea><br><br>
                         <button type="submit">Ejecutar Consulta</button>
                     </form>
                     <div id="${resultId}"></div>

@@ -1,11 +1,12 @@
-from fastapi import FastAPI, HTTPException, Depends, Request
+from fastapi import FastAPI, HTTPException,Body, Form, Depends, Request
 from fastapi.responses import StreamingResponse, HTMLResponse
 from pydantic import BaseModel
 from database import execute_sql
-from auth import get_current_user
+from auth import get_current_user,registrar_usuario
 import pandas as pd
 import io
 import os
+
 
 app = FastAPI()
 
@@ -14,6 +15,15 @@ class SQLQuery(BaseModel):
     query: str
 
 # --- Ruta para mostrar la interfaz web ---
+@app.get("/login", response_class=HTMLResponse)
+async def mostrar_login():
+    html_path = os.path.join(os.path.dirname(__file__), "login.html")
+    try:
+        with open(html_path, "r", encoding="utf-8") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Archivo login.html no encontrado")
+
 @app.get("/", response_class=HTMLResponse)
 async def mostrar_dashboard():
     # Leer el archivo HTML directamente
@@ -26,7 +36,30 @@ async def mostrar_dashboard():
         raise HTTPException(status_code=404, detail="Archivo consultas.html no encontrado")
 
 # --- Ruta para ejecutar consultas SQL ---
+# @app.post("/execute")
+# async def run_sql(query: SQLQuery, user: dict = Depends(get_current_user)):
+#     if user["role"] != "admin" and not query.query.strip().lower().startswith("select"):
+#         raise HTTPException(status_code=403, detail="Solo puedes realizar consultas SELECT")
 
+#     try:
+#         result = execute_sql(query.query)
+#         df = pd.DataFrame(result)
+#         return {"result": df.to_dict(orient="records")}
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/register")
+async def register(username: str = Form(...), password: str = Form(...)):
+    if not username or not password:
+        raise HTTPException(status_code=400, detail="Faltan usuario o contraseña")
+    
+    try:
+        registrar_usuario(username, password, role="usuario")
+        return {"message": "Usuario registrado correctamente"}
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    
+# --- Ruta para ejecutar consultas SQL ---
 @app.post("/execute")
 async def run_sql(query: SQLQuery, user: dict = Depends(get_current_user)):
     if user["role"] != "admin" and not query.query.strip().lower().startswith("select"):
@@ -38,9 +71,7 @@ async def run_sql(query: SQLQuery, user: dict = Depends(get_current_user)):
         return {"result": df.to_dict(orient="records")}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-
-# --- Ruta para descargar como CSV o Excel ---
+# --- Ruta para descargar como CSV  ---
 @app.post("/download/{formato}")
 async def download_sql(query: SQLQuery, formato: str):
     if not query.query.strip().lower().startswith("select"):
@@ -50,19 +81,14 @@ async def download_sql(query: SQLQuery, formato: str):
         result = execute_sql(query.query)
         df = pd.DataFrame(result)
 
-        # Generar archivo CSV o Excel
+        # Generar archivo CSV 
         if formato.lower() == "csv":
             stream = io.StringIO()
             df.to_csv(stream, index=False)
             media_type = "text/csv"
             filename = "consulta.csv"
-        elif formato.lower() in ["xlsx", "excel"]:
-            stream = io.BytesIO()
-            df.to_excel(stream, index=False, engine='openpyxl')
-            media_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            filename = "consulta.xlsx"
         else:
-            raise HTTPException(status_code=400, detail="Formato no soportado. Usa 'csv' o 'xlsx'.")
+            raise HTTPException(status_code=400, detail="Formato no soportado. Usa 'csv' .")
 
         # Devolver archivo como descarga
         stream.seek(0)

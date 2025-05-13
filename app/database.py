@@ -1,9 +1,8 @@
 # database.py
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine,text
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-# Cambia según tu contraseña y configuración
-db_url = "postgresql://postgres:Jennifer2004*@localhost:5432/fligth-database"
+db_url = "postgresql://postgres:kMefGeoDHCOvnbxXeyuaesTsnkMkxREi@shuttle.proxy.rlwy.net:43283/railway"
 
 engine = create_engine(db_url)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -14,10 +13,7 @@ def get_engine():
 
 def get_db_url():
     return db_url
-engine = get_engine()  # ✅ Usamos la función para crear el motor
-
-def get_db_url():
-    return db_url
+engine = get_engine()  
 
 def execute_sql(query: str):
     """Ejecuta una consulta SQL y devuelve los resultados"""
