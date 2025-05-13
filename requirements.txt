@@ -9,3 +9,6 @@ psycopg2
 plotly
 dask
 pydantic
+openpyxl
+redis
+bcrypt
