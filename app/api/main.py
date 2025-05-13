@@ -6,19 +6,6 @@ from database import SessionLocal, engine
 import tablas, schemas
 import uuid
 
-# Crear las tablas en la BD si no existen
-tablas.Base.metadata.create_all(bind=engine)
-
-app = FastAPI(title="Flight API")
-
-# Dependencia para obtener la sesión de base de datos
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
 
 tablas.Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Flight API")
