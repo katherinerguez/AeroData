@@ -1,9 +1,8 @@
 # database.py
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine,text
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-# Cambia según tu contraseña y configuración
-db_url = "postgresql://postgres:Jennifer2004*@localhost:5432/fligth-database"
+db_url = "postgresql://postgres:kMefGeoDHCOvnbxXeyuaesTsnkMkxREi@shuttle.proxy.rlwy.net:43283/railway"
 
 engine = create_engine(db_url)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

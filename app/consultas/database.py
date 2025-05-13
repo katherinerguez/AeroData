@@ -1,8 +1,7 @@
-from sqlalchemy import create_engine, text  # ✅ Importación faltante de 'text'
+from sqlalchemy import create_engine, text  
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-# Cadena de conexión (¡verifica que el nombre de la base de datos sea correcto!)
-db_url = "postgresql://postgres:Jennifer2004*@localhost:5432/fligth-database"
+db_url = "postgresql://postgres:kMefGeoDHCOvnbxXeyuaesTsnkMkxREi@shuttle.proxy.rlwy.net:43283/railway"
 
 # Función para obtener un motor de base de datos
 def get_engine():
