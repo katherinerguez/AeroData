@@ -54,8 +54,8 @@
         <hr>
 
         <!-- Botón para mostrar/ocultar formulario de registro -->
-        <button type="button" onclick="toggleRegistro()" style="background-color: #28a745;">Crear cuenta</button>
-
+        <button type="button" onclick="window.location.href='/register'" style="background-color: #28a745;">Crear cuenta</button>       
+        
         <!-- Formulario de Registro (oculto al inicio) -->
         <div id="registroForm">
             <h3 style="margin-top: 15px;">Registrarse</h3>
@@ -82,9 +82,12 @@
             });
 
             if (res.status === 200) {
-                localStorage.setItem("token", btoa(usuario + ":" + contrasena));
-                window.location.href = "/";
-            } else {
+            localStorage.setItem("usuario", usuario);
+            localStorage.setItem("contrasena", contrasena);
+            window.location.href = "/consultas";
+        }
+
+             else {
                 const data = await res.json();
                 document.getElementById("error").textContent = data.detail || "Error al iniciar sesión";
             }

@@ -24,7 +24,13 @@ async def mostrar_login():
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Archivo login.html no encontrado")
 
+from fastapi.responses import RedirectResponse
+
 @app.get("/", response_class=HTMLResponse)
+async def raiz():
+    return RedirectResponse(url="/login")
+
+@app.get("/consultas", response_class=HTMLResponse)
 async def mostrar_dashboard():
     # Leer el archivo HTML directamente
     html_path = os.path.join(os.path.dirname(__file__), "consultas.html")
@@ -35,18 +41,14 @@ async def mostrar_dashboard():
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Archivo consultas.html no encontrado")
 
-# --- Ruta para ejecutar consultas SQL ---
-# @app.post("/execute")
-# async def run_sql(query: SQLQuery, user: dict = Depends(get_current_user)):
-#     if user["role"] != "admin" and not query.query.strip().lower().startswith("select"):
-#         raise HTTPException(status_code=403, detail="Solo puedes realizar consultas SELECT")
-
-#     try:
-#         result = execute_sql(query.query)
-#         df = pd.DataFrame(result)
-#         return {"result": df.to_dict(orient="records")}
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=str(e))
+@app.get("/register", response_class=HTMLResponse)
+async def mostrar_registro():
+    html_path = os.path.join(os.path.dirname(__file__), "register.html")
+    try:
+        with open(html_path, "r", encoding="utf-8") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Archivo register.html no encontrado")
 
 @app.post("/register")
 async def register(username: str = Form(...), password: str = Form(...)):
