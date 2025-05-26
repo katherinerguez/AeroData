@@ -27,13 +27,8 @@ user=os.getenv('user')
 # datos_lista = datos_locales.to_dict(orient="records")  # Convierte DataFrame a lista de dicts
 # supabase.table(table_name).insert(datos_lista).execute()
 
-
-
-
-
 # Conexión a la base de datos
 conn = psycopg2.connect(
-    
     dbname="fligth-database",
     user=user
     password=password,
