@@ -4,13 +4,17 @@ from supabase import create_client
 from sqlalchemy import create_engine
 from datetime import datetime, time
 import json
+from dotenv import load_dotenv
+import os
+load_dotenv()
+supabase_url = os.getenv('supabase_url')
+supabase_key =os.getenv('supabase_key')
+local_Jenni =os.getenv('local_Jenni')
 # Configuración de Supabase
-supabase_url = 'https://lxmcnjbmubtqmmctodja.supabase.co'
-supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx4bWNuamJtdWJ0cW1tY3RvZGphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU1MTQ2NjUsImV4cCI6MjA2MTA5MDY2NX0.oxeZkWABTipAgcQ68wKqvvG17U8HfmduO-1udhfOyKs"
 supabase = create_client(supabase_url, supabase_key)
 
 # Conexión PostgreSQL local
-engine = create_engine('postgresql+psycopg2://postgres:Jennifer2004*@localhost:5432/fligth-database')
+engine = create_engine(local_Jenni)
 
 def leer_datos(tabla):
     return pd.read_sql(f"SELECT * FROM {tabla}", engine)

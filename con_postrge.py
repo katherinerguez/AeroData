@@ -2,7 +2,11 @@ import psycopg2
 import pandas as pd
 from supabase import create_client, Client
 from datetime import datetime, time
-
+from dotenv import load_dotenv
+import os
+load_dotenv()
+password=os.getenv('password')
+user=os.getenv('user')
 # # Configuración de Supabase
 # SUPABASE_URL = "https://supabase.com/dashboard/project/lxmcnjbmubtqmmctodja"
 # SUPABASE_KEY = "Jennifer2004*"
@@ -29,23 +33,24 @@ from datetime import datetime, time
 
 # Conexión a la base de datos
 conn = psycopg2.connect(
+    
     dbname="fligth-database",
-    user="postgres",
-    password="Jennifer2004*",
+    user=user
+    password=password,
     host="localhost",
     port="5432"
 )
 
 # Crear un cursor para ejecutar consultas
 cur = conn.cursor()
-print("🚀 Iniciando borrado de migración de datos...")
+print(" Iniciando borrado de migración de datos...")
 cur.execute("""
     DROP TABLE IF EXISTS aircrafts;
     DROP TABLE IF EXISTS airports;
     DROP TABLE IF EXISTS flights;
     DROP TABLE IF EXISTS airlines
 """)
-print("🚀 Iniciando script de migración de datos...")
+print(" Iniciando script de migración de datos...")
 cur.execute("""
 CREATE TABLE IF NOT EXISTS airlines (
     airline_id INT PRIMARY KEY,
@@ -94,7 +99,7 @@ CREATE TABLE IF NOT EXISTS flights (
     flights FLOAT
 );
 """)
-print("🚀 Tablas creadas")
+print(" Tablas creadas")
 conn.commit()
 print("Commit de tablas")
 # 2. Cargar los datos existentes de la tabla `flight`
@@ -105,7 +110,7 @@ df.columns = df.columns.str.lower()
 # 4. Insertar datos únicos en airlines
 
 airlines = df[['op_unique_carrier', 'op_carrier_airline_id']].drop_duplicates()
-print("⏳ Insertando datos en airlines...")
+print(" Insertando datos en airlines...")
 total_rows=len(df)
 for i, row in airlines.iterrows():
     cur.execute("""
@@ -114,8 +119,8 @@ for i, row in airlines.iterrows():
         ON CONFLICT (airline_id) DO NOTHING;
     """, (row['op_carrier_airline_id'], row['op_unique_carrier']))
     if i % 10000 == 0:
-        print(f"🔄 Procesando fila {i} de {total_rows} ({(i/total_rows)*100:.1f}%)")
-print("✅ Datos en flights insertados.")
+        print(f" Procesando fila {i} de {total_rows} ({(i/total_rows)*100:.1f}%)")
+print("Datos en flights insertados.")
 # 5. Insertar datos únicos en airports
 
 origin_airports = df[['origin_airport_id', 'origin_airport_seq_id', 'origin_city_market_id',
@@ -147,8 +152,8 @@ for i, row in airports.iterrows():
     """, tuple(row))
 
     if i % 10000 == 0:
-        print(f"🔄 Procesando fila {i} de {total_rows} ({(i/total_rows)*100:.1f}%)")
-print("✅ Datos en flights insertados.")
+        print(f" Procesando fila {i} de {total_rows} ({(i/total_rows)*100:.1f}%)")
+print(" Datos en flights insertados.")
 # 6. Insertar los vuelos en flights
 
 def convert_hhmm(time_val):
@@ -211,7 +216,7 @@ def parse_fl_date(date_val):
     except Exception as e:
         print(f"Error parsing date {date_val}: {str(e)}")
         return None
-print("⏳ Insertando datos en flights...")
+print(" Insertando datos en flights...")
 
 for i, row in df.iterrows():
     # Convertir todos los campos
@@ -262,8 +267,8 @@ for i, row in df.iterrows():
     row['flights']
 ))
     if i % 10000 == 0:
-        print(f"🔄 Procesando fila {i} de {total_rows} ({(i/total_rows)*100:.1f}%)")
-print("✅ Datos en flights insertados.")
+        print(f" Procesando fila {i} de {total_rows} ({(i/total_rows)*100:.1f}%)")
+print(" Datos en flights insertados.")
 
 # Finalizar cambios
 conn.commit()
