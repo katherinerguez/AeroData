@@ -45,7 +45,7 @@ setup_logging()
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
-templates = Jinja2Templates(directory="app.graficos.templates")
+templates = Jinja2Templates(directory="app/graficos/templates")
 cache = Cache("./plot_cache")
 
 def get_cache_key(*args, **kwargs):
