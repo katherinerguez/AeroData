@@ -5,7 +5,7 @@ import json
 import plotly
 from app.graficos.database import get_db_url
 import dask.dataframe as dd
-import app.graficos.plots
+import app.graficos.plots as plots
 from datetime import datetime, timedelta
 import pandas as pd
 from diskcache import Cache
@@ -229,10 +229,7 @@ async def dashboard(
 
     except Exception as e:
         logger.error(f"Error en el dashboard: {str(e)}", exc_info=True)
-        return templates.TemplateResponse("error.html", {
-            "request": request,
-            "error": f"Error al cargar datos: {str(e)}"
-        })
+        return f"Ha ocurrido un error {e}"
         
 if __name__ == "__main__":
     import uvicorn
