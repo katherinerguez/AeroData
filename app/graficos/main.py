@@ -12,6 +12,38 @@ from diskcache import Cache
 import hashlib
 import pickle
 
+import logging
+from logging.handlers import RotatingFileHandler
+import sys
+import os
+from datetime import datetime
+
+def setup_logging():
+    if not os.path.exists('logs'):
+        os.makedirs('logs')
+    
+    log_filename = f"logs/app_{datetime.now().strftime('%Y%m%d')}.log"
+    
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s - %(message)s')
+    
+    file_handler = RotatingFileHandler(
+        log_filename, maxBytes=1024*1024*5, backupCount=5
+    )
+    file_handler.setFormatter(formatter)
+    
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(formatter)
+    
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
+
+setup_logging()
+
+logger = logging.getLogger(__name__)
+
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 cache = Cache("./plot_cache")
@@ -30,103 +62,103 @@ async def dashboard(
     selected_airline: list = Query(None),
     selected_airport: str = Query(None)
 ):
+    logger.info(
+        f"Iniciando dashboard con parámetros: start_date={start_date}, end_date={end_date}, "
+        f"selected_route={selected_route}, selected_plane={selected_plane}, "
+        f"selected_airline={selected_airline}, selected_airport={selected_airport}"
+    )
+    
     db_url = get_db_url()
 
     try:
-        # Obtener rango de fechas mínimo y máximo
+        logger.info("Obteniendo rango de fechas mínimo y máximo")
         min_date, max_date = plots.get_min_max_dates(db_url)
         last_year = (max_date - timedelta(days=365)).strftime("%Y-%m-%d")
         max_date_str = max_date.strftime("%Y-%m-%d")
 
-        # Validar end_date: si es mayor que max_date, usar max_date
         try:
-            user_end_date = datetime.strptime(end_date, "%Y-%m-%d").date()  # Convertimos a date
+            user_end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
         except (TypeError, ValueError):
             user_end_date = None
+            logger.debug("No se proporcionó end_date o formato inválido")
 
         if user_end_date and user_end_date > max_date:
-            end_date = max_date_str  # Ajustar al máximo disponible
+            end_date = max_date_str
             warning_message = f"La fecha final seleccionada fue ajustada al último día disponible: {max_date_str}"
+            logger.warning(warning_message)
         else:
             warning_message = None
-    
+
         if start_date and end_date:
-            if start_date>end_date:
-                start_date,end_date=end_date,start_date
+            if start_date > end_date:
+                start_date, end_date = end_date, start_date
+                logger.info("Fechas invertidas para corregir orden")
                 
-        # Establecer fechas por defecto
         start_date = start_date or last_year
         end_date = end_date or max_date_str
-        print(end_date)
-        # Cargar datos filtrados por fecha
+        logger.info(f"Fechas finales usadas: start_date={start_date}, end_date={end_date}")
+
+        logger.info("Cargando datos filtrados por fecha")
         df, airports_df = plots.load_data(db_url, start_date=start_date, end_date=end_date)
-        print("data cargada")
-        # Convertir fl_date a datetime si no lo está ya
+        
+        row_count = df.map_partitions(len).compute().sum()
+        logger.info(f"Datos cargados - Número de registros: {row_count}")
+
         if not isinstance(df["fl_date"].dtype, pd.DatetimeTZDtype):
-            print(0)
+            logger.debug("Convirtiendo fl_date a datetime")
             df["fl_date"] = dd.to_datetime(df["fl_date"])
-        print(9)
-        # Filtrar por aerolínea si hay selección
+
         if selected_airline:
+            logger.info(f"Filtrando por aerolíneas: {selected_airline}")
             df = df[df["op_carrier"].isin(selected_airline)]
-        print(8)
-        # Filtrar por número de vuelo si hay selección
+            new_count = df.map_partitions(len).compute().sum()
+            logger.info(f"Registros después de filtrar aerolíneas: {new_count}")
+
         if selected_plane:
+            logger.info(f"Filtrando por vuelo: {selected_plane}")
             df = df[df["op_carrier_fl_num"] == selected_plane]
-        print(10)
-        # Crear columna de ruta
+            new_count = df.map_partitions(len).compute().sum()
+            logger.info(f"Registros después de filtrar vuelo: {new_count}")
+
         df["route"] = df["origin_airport_id"].astype(str) + " → " + df["dest_airport_id"].astype(str)
-        # Obtener listas únicas basadas SOLO en los datos filtrados
-        print(10.0)
+        
+        logger.info("Calculando listas únicas de rutas, aviones y aerolíneas")
         unique_routes = df["route"].dropna().unique().compute().tolist()
         unique_planes = df["op_carrier_fl_num"].dropna().unique().compute().tolist()
         unique_airlines = df["op_carrier"].dropna().unique().compute().tolist()
-        print(11)
+        logger.info(f"Encontradas {len(unique_routes)} rutas únicas, {len(unique_planes)} aviones únicos, {len(unique_airlines)} aerolíneas únicas")
 
         valid_airports = df["origin_airport_id"].dropna().unique().compute().tolist()
         valid_airports += df["dest_airport_id"].dropna().unique().compute().tolist()
         valid_airports = sorted(set(valid_airports))
-        print(12)
+        logger.info(f"Encontrados {len(valid_airports)} aeropuertos válidos")
 
-        # Top aerolíneas y aviones globales (opcional)
+        logger.info("Obteniendo top aerolíneas y aviones")
         top_planes = plots.get_top_planes(db_url, limit=5)
         top_airlines = plots.get_top_airlines(db_url, limit=5)
-        print("top creados")
-        # Valores por defecto
+        
         selected_plane = selected_plane or (top_planes[0] if top_planes else None)
         selected_airline = selected_airline or (top_airlines if top_airlines else [])
         selected_route = selected_route or (unique_routes[0] if unique_routes else None)
-        print("select configurados")
-        # Validar selecciones contra listas filtradas
-        if selected_route and selected_route not in unique_routes:
-            selected_route = unique_routes[0] if unique_routes else None
+        logger.info(f"Selecciones finales: route={selected_route}, plane={selected_plane}, airline={selected_airline}")
 
-        if selected_plane and selected_plane not in unique_planes:
-            selected_plane = unique_planes[0] if unique_planes else None
-
-        if selected_airline:
-            if isinstance(selected_airline, list):
-                selected_airline = [a for a in selected_airline if a in unique_airlines]
-            else:
-                selected_airline = [selected_airline] if selected_airline in unique_airlines else []
-
-        if selected_airport and selected_airport not in valid_airports:
-            selected_airport = valid_airports[0] if valid_airports else None
-
-        # Aplicar filtro por aeropuerto si existe
         if selected_airport:
+            logger.info(f"Filtrando por aeropuerto: {selected_airport}")
             df = df[
                 (df["origin_airport_id"] == selected_airport) |
                 (df["dest_airport_id"] == selected_airport)
             ]
-            
-        if df.map_partitions(len).compute().sum() == 0:
+            new_count = df.map_partitions(len).compute().sum()
+            logger.info(f"Registros después de filtrar aeropuerto: {new_count}")
+
+        if row_count == 0:
+            logger.warning("No hay datos disponibles para los filtros seleccionados")
             return templates.TemplateResponse("dashboard.html", {
                 "request": request,
                 "start_date": start_date,
                 "end_date": end_date,
                 "warning_message": warning_message,
-                "no_data": True,  # Usamos esta variable para mostrar un mensaje en HTML
+                "no_data": True,
                 "routes": [],
                 "selected_route": selected_route,
                 "planes": [],
@@ -137,8 +169,7 @@ async def dashboard(
                 "selected_airport": selected_airport,
             })
             
-        print("vamos a empezar con los graficos")
-        # Generar gráficos
+        logger.info("Generando gráficos")
         plot_funcs = [
             plots.plot_delay_by_airport,
             plots.plot_flight_counts,
@@ -156,22 +187,31 @@ async def dashboard(
             plots.plot_most_diverted_airports,
             plots.plot_monthly_delay_trend,
         ]
-        print("graficos creados")
+        
         figs = []
+        cache_hits = 0
+        cache_misses = 0
+        
         for i, func in enumerate(plot_funcs):
             func_name = func.__name__ if hasattr(func, "__name__") else f"plot_func_{i}"
             key = get_cache_key(func_name, start_date, end_date, selected_route, selected_plane, selected_airline)
-            print("grafico",i)
+            
             if key in cache:
                 fig = cache[key]
+                cache_hits += 1
+                logger.debug(f"Gráfico {i+1} ({func_name}) obtenido de caché")
             else:
                 fig = func(df) if func_name != "plot_delay_by_state" else func(df, airports_df)
-                cache.set(key, fig, expire=3600)  # Cache por 1 hora
+                cache.set(key, fig, expire=3600)
+                cache_misses += 1
+                logger.debug(f"Gráfico {i+1} ({func_name}) generado y almacenado en caché")
 
             figs.append(fig)
-        print("creadas las figs")
+        
+        logger.info(f"Gráficos generados - Cache hits: {cache_hits}, Cache misses: {cache_misses}")
         graphs_json = [json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder) for fig in figs]
 
+        logger.info("Preparando respuesta exitosa")
         return templates.TemplateResponse("dashboard.html", {
             "request": request,
             "start_date": start_date,
@@ -184,9 +224,12 @@ async def dashboard(
             "selected_airline": selected_airline,
             "valid_airports": valid_airports,
             "selected_airport": selected_airport,
-            **{f"graph{i+1}": graph for i, graph in enumerate(graphs_json)}
-        })
+            **{f"graph{i+1}": graph for i, graph in enumerate(graphs_json)}}
+        )
 
     except Exception as e:
-        print(f"Error en el dashboard: {e}")
-        return f"error,{e}"
+        logger.error(f"Error en el dashboard: {str(e)}", exc_info=True)
+        return templates.TemplateResponse("error.html", {
+            "request": request,
+            "error": f"Error al cargar datos: {str(e)}"
+        })
