@@ -101,3 +101,4 @@ async def download_sql(query: SQLQuery, formato: str):
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
