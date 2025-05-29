@@ -3,9 +3,9 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 import json
 import plotly
-from database import get_db_url
+from app.graficos.database import get_db_url
 import dask.dataframe as dd
-import plots
+import app.graficos.plots
 from datetime import datetime, timedelta
 import pandas as pd
 from diskcache import Cache
