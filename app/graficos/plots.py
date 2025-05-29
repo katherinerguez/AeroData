@@ -50,16 +50,11 @@ def load_data(db_url, start_date=None, end_date=None, filters=None,limit=1000,of
     """
     engine = create_engine(db_url)
     metadata = MetaData()
-    print(1)
-    # Reflejar la estructura de las tablas
-    flights = Table('flights', metadata, autoload_with=engine)
 
+    flights = Table('flights', metadata, autoload_with=engine)
     airports = Table('airports', metadata, autoload_with=engine)
-    print(2)
-    # Construir consulta base
-    print(3)
+
     query = select(flights)
-    print(4)
     if limit:
         query = query.limit(limit)
     if offset:
@@ -67,7 +62,6 @@ def load_data(db_url, start_date=None, end_date=None, filters=None,limit=1000,of
     # Aplicar filtros de fecha
     if start_date and end_date:
         query = query.where(flights.c.fl_date.between(start_date, end_date))
-    print(5)
     # Aplicar filtros adicionales
     if filters:
         for col, val in filters.items():
@@ -76,7 +70,7 @@ def load_data(db_url, start_date=None, end_date=None, filters=None,limit=1000,of
                     query = query.where(flights.c[col].in_(val))
                 else:
                     query = query.where(flights.c[col] == val)
-    print(6)
+    
     # Cargar datos de vuelos
     flights_df = dd.read_sql_query(
         query,
@@ -84,14 +78,12 @@ def load_data(db_url, start_date=None, end_date=None, filters=None,limit=1000,of
         index_col="flight_id",
         npartitions=10
     )
-    print(flights_df.head())
     # Cargar datos de aeropuertos (usando el nombre de la tabla como string)
     airports_df = dd.read_sql_table(
         "airports",
         db_url,
         index_col="airport_id"
         ).persist()
-    print(airports_df.head())
 
         # Al final de load_data():
     for col in ["arr_delay", "dep_delay", "air_time", "distance"]:
