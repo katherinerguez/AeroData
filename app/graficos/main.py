@@ -45,7 +45,7 @@ setup_logging()
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="app.graficos.templates")
 cache = Cache("./plot_cache")
 
 def get_cache_key(*args, **kwargs):
@@ -212,7 +212,7 @@ async def dashboard(
         graphs_json = [json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder) for fig in figs]
 
         logger.info("Preparando respuesta exitosa")
-        return templates.TemplateResponse("app.graficos.dashboard.html", {
+        return templates.TemplateResponse("dashboard.html", {
             "request": request,
             "start_date": start_date,
             "end_date": end_date,
