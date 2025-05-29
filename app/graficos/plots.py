@@ -1,7 +1,7 @@
 import dask.dataframe as dd
 import plotly.express as px
 import pandas as pd  
-from database import create_engine
+from app.graficos.database import create_engine
 from sqlalchemy import text ,select, Table, MetaData
 
 def get_min_max_dates(db_url):
