@@ -16,4 +16,4 @@ diskcache
 python-multipart  
 dotenv
 plotly
-diskcache
+pyarrow
