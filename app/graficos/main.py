@@ -212,7 +212,7 @@ async def dashboard(
         graphs_json = [json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder) for fig in figs]
 
         logger.info("Preparando respuesta exitosa")
-        return templates.TemplateResponse("dashboard.html", {
+        return templates.TemplateResponse("app.graficos.dashboard.html", {
             "request": request,
             "start_date": start_date,
             "end_date": end_date,
