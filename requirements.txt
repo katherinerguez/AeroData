@@ -1,6 +1,6 @@
+fastapi
+uvicorn[standard]
 jinja2
-fastapi 
-uvicorn
 sqlalchemy
 supabase
 pandas
@@ -11,3 +11,9 @@ pydantic
 openpyxl
 redis
 bcrypt
+python-dotenv
+diskcache
+python-multipart  
+dotenv
+plotly
+diskcache
