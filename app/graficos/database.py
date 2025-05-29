@@ -1,7 +1,18 @@
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-db_url = "postgresql://postgres:kMefGeoDHCOvnbxXeyuaesTsnkMkxREi@shuttle.proxy.rlwy.net:43283/railway"
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+# local_Jenni=os.getenv('local_Jenni')
+# db_url = f"postgresql://{local_Jenni}"
+user=os.getenv('user')
+password=os.getenv('password')
+host=os.getenv('host')
+port=os.getenv('port')
+dbname=os.getenv('dbname')
+db_url = f"postgresql://{user}:{password}@{host}:{port}/{dbname}"
 
 def get_engine():
     return create_engine(db_url)
