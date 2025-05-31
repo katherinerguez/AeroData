@@ -10,3 +10,4 @@ plotly
 dask
 pydantic
 dotenv
+kafka 2.6.0

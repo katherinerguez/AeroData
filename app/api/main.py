@@ -30,7 +30,7 @@ def get_db():
     finally:
         db.close()
 
-# ✅ Registro de usuario
+# Registro de usuario
 @app.post("/register/", response_model=schemas.UserOut)
 def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     existing = db.query(tablas.User).filter(tablas.User.username == user.username).first()
