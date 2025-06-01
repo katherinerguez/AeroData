@@ -2,7 +2,18 @@
 from sqlalchemy import create_engine,text
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-db_url = "postgresql://postgres:kMefGeoDHCOvnbxXeyuaesTsnkMkxREi@shuttle.proxy.rlwy.net:43283/railway"
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+# local_Jenni=os.getenv('local_Jenni')
+# db_url = f"postgresql://{local_Jenni}"
+user=os.getenv('user')
+password=os.getenv('password')
+host=os.getenv('host')
+port=os.getenv('port')
+dbname=os.getenv('dbname')
+db_url = f"postgresql://{user}:{password}@{host}:{port}/{dbname}"
 
 engine = create_engine(db_url)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -13,18 +24,15 @@ def get_engine():
 
 def get_db_url():
     return db_url
-engine = get_engine()  # ✅ Usamos la función para crear el motor
-
-def get_db_url():
-    return db_url
+engine = get_engine() 
 
 def execute_sql(query: str):
     """Ejecuta una consulta SQL y devuelve los resultados"""
     try:
         with engine.connect() as conn:
-            result = conn.execute(text(query))  # ✅ Ahora 'text' está importado
+            result = conn.execute(text(query))  
             return result.fetchall()
     except Exception as e:
-        # ✅ Manejo básico de errores
+       
         print(f"Error ejecutando SQL: {e}")
         return []
