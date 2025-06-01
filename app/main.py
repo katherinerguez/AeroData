@@ -5,6 +5,6 @@ from consultas.main import app as consultas_app
 
 app = FastAPI()
 
-app.mount("/graficos", graficos_app)
 app.mount("/api", api_app)
+app.mount("/graficos", graficos_app)
 app.mount("/consultas", consultas_app)
