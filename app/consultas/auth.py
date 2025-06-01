@@ -1,41 +1,33 @@
-# ("admin", "admin123", "admin")
-# ("lector", "lector123", "lector")
-
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
-import redis
 import bcrypt
-import os
+from database import get_usuario, insert_usuario
 
 security = HTTPBasic()
-r = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
 
 def get_current_user(credentials: HTTPBasicCredentials = Depends(security)):
     username = credentials.username
     password = credentials.password
 
-    # Verificar si el usuario existe
-    if not r.exists(f"user:{username}"):
+    user_data = get_usuario(username)
+
+    if not user_data:
         raise HTTPException(status_code=401, detail="Usuario no encontrado")
 
-    user_data = r.hgetall(f"user:{username}")
-    stored_hash = user_data.get("password")
-
-    if not stored_hash:
-        raise HTTPException(status_code=500, detail="Contraseña no configurada")
+    stored_hash = user_data[1]
 
     # Validar contraseña
     if not bcrypt.checkpw(password.encode('utf-8'), stored_hash.encode('utf-8')):
         raise HTTPException(status_code=401, detail="Credenciales inválidas")
 
     return {
-        "username": username,
-        "role": user_data.get("role", "usuario")
+        "username": user_data[0],
+        "role": user_data[2]
     }
 
 def registrar_usuario(username: str, password: str, role: str = "usuario"):
-    if r.exists(f"user:{username}"):
+    if get_usuario(username):
         raise ValueError("El usuario ya existe")
 
     hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-    r.hset(f"user:{username}", mapping={"password": hashed, "role": "lector"})
+    insert_usuario(username, hashed, role)
