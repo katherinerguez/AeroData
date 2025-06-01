@@ -2,8 +2,9 @@
 from fastapi import FastAPI, Depends,HTTPException , Header
 from sqlalchemy.orm import Session
 from typing import List, Optional
-from database import SessionLocal, engine
-import tablas, schemas
+from app.database import SessionLocal, engine
+import app.tablas as tablas
+import app.schemas as schemas
 import uuid
 
 
