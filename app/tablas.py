@@ -1,6 +1,5 @@
-# models.py
 from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime, Time
-from database import Base
+from app.api.database import Base
 
 from sqlalchemy.ext.declarative import declarative_base
 import uuid
