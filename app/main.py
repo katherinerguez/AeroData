@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from graficos.main import app as graficos_app
-from api.main import app as api_app
-from consultas.main import app as consultas_app
+from app.graficos.main import app as graficos_app
+from app.api.main import app as api_app
+from app.consultas.main import app as consultas_app
 
 app = FastAPI()
 
