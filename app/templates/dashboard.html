@@ -2,18 +2,77 @@
     <head>
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     </head>
+    {% if error_message %}
+        <div style="color: red; font-weight: bold; margin-bottom: 10px;">
+            {{ error_message }}
+        </div>
+    {% endif %}
 
-    <form method="get">
-        <label for="start_date">Fecha de inicio:</label>
-        <input type="date" id="start_date" name="start_date" required>
+    <form method="get" action="/" style="display: flex; flex-direction: column; gap: 10px; max-width: 300px;">
+        <label for="start_date">Fecha inicial:</label>
+        <input type="date" id="start_date" name="start_date" value="{{ start_date or '' }}">
         
-        <label for="end_date">Fecha de fin:</label>
-        <input type="date" id="end_date" name="end_date" required>
+        <label for="end_date">Fecha final:</label>
+        <input type="date" id="end_date" name="end_date" value="{{ end_date or '' }}">
         
+        <label for="selected_airline">Aerolínea:</label>
+            <select name="selected_airline" id="selected_airline" multiple>
+            {% for airline in airlines %}
+                <option value="{{ airline }}" 
+                {% if airline in selected_airline or (loop.index <= 5 and not selected_airline) %}
+                    selected
+                {% endif %}>
+                {{ airline }}
+                </option>
+            {% endfor %}
+            </select>
+
+        <label for="selected_route">Ruta:</label>
+            <select name="selected_route" id="selected_route">
+            <option value="">Todas las rutas</option>
+            {% for route in routes %}
+                <option value="{{ route }}" {% if route == selected_route %}selected{% endif %}>{{ route }}</option>
+            {% endfor %}
+            </select>
+      
+        <label for="selected_plane">Avión:</label>
+            <select name="selected_plane" id="selected_plane">
+            <option value="">Todos los aviones</option>
+            {% for plane in planes %}
+                <option value="{{ plane }}" {% if plane == selected_plane %}selected{% endif %}>{{ plane }}</option>
+            {% endfor %}
+            </select>
+
+        <label for="selected_airport">Aeropuerto:</label>
+            <select name="selected_airport" id="selected_airport">
+                {% for airport in valid_airports %}
+                    <option value="{{ airport }}" {% if airport == selected_airport %}selected{% endif %}>{{ airport }}</option>
+                {% endfor %}
+            </select>
+
         <button type="submit">Filtrar</button>
+        
     </form>
     
-    <h1>📊 Dashboard de Vuelos</h1>
+    {% if no_data %}
+        <div class="alert alert-info">
+            <h1>El rango de fechas elegido no tuvo vuelos planificados. Por favor, elija otro.</h1>
+        </div>
+            {% else %}
+            <!-- Aquí van tus gráficos -->
+        <div class="graphs">
+            {% for i in range(15) %}
+            <div class="graph-container">
+                {{ graphi|safe }}
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    {% if not no_data %}
+        <h1>📊 Dashboard de Vuelos</h1>
+    {% endif %}
+    
     <div id="graph1"></div>
     <div id="graph2"></div>
     <div id="graph3"></div>
@@ -30,49 +89,52 @@
     <div id="graph14"></div>
 
     <script>
-        var graph1 = {{ graph1 | safe }};
+
+        var graph1 = JSON.parse('{{ graph1 | safe }}');
         Plotly.newPlot("graph1", graph1.data, graph1.layout);
+
         
-        var graph2 = {{ graph2 | safe }};
+        var graph2 = JSON.parse('{{ graph2 | safe }}');
         Plotly.newPlot("graph2", graph2.data, graph2.layout);
 
-        var graph3 = {{ graph3 | safe }};
+        var graph3 = JSON.parse('{{ graph3 | safe }}');
         Plotly.newPlot("graph3", graph3.data, graph3.layout);
         
-        var graph4 = {{ graph4 | safe }};
+        var graph4 = JSON.parse('{{ graph4 | safe }}');
         Plotly.newPlot("graph4", graph4.data, graph4.layout);
 
-        var graph5 = {{ graph5 | safe }};
+        var graph5 = JSON.parse('{{ graph5 | safe }}');
         Plotly.newPlot("graph5", graph5.data, graph5.layout);
         
-        var graph6 = {{ graph6 | safe }};
+        var graph6 = JSON.parse('{{ graph6 | safe }}');
         Plotly.newPlot("graph6", graph6.data, graph6.layout);       
          
-        var graph7 = {{ graph7 | safe }};
+        var graph7 = JSON.parse('{{ graph7 | safe }}');
         Plotly.newPlot("graph7", graph7.data, graph7.layout);
         
-        var graph8 = {{ graph8 | safe }};
+        var graph8 = JSON.parse('{{ graph8 | safe }}');
         Plotly.newPlot("graph8", graph8.data, graph8.layout);
         
-        var graph9 = {{ graph9 | safe }};
+        var graph9 = JSON.parse('{{ graph9 | safe }}');
         Plotly.newPlot("graph9", graph9.data, graph9.layout);
 
-        var graph10 = {{ graph10 | safe }};
+        var graph10 = JSON.parse('{{ graph10 | safe }}');
         Plotly.newPlot("graph10", graph10.data, graph10.layout);
 
-        var graph11 = {{ graph11 | safe }};
+        var graph11 = JSON.parse('{{ graph11 | safe }}');
         Plotly.newPlot("graph11", graph11.data, graph11.layout);
         
-        var graph12 = {{ graph12 | safe }};
+        var graph12 = JSON.parse('{{ graph12 | safe }}');
         Plotly.newPlot("graph12", graph12.data, graph12.layout);       
          
-        var graph13 = {{ graph13 | safe }};
+        var graph13 = JSON.parse('{{ graph13 | safe }}');
         Plotly.newPlot("graph13", graph13.data, graph13.layout);
         
-        var graph14 = {{ graph14 | safe }};
+        var graph14 = JSON.parse('{{ graph14 | safe }}');
         Plotly.newPlot("graph14", graph14.data, graph14.layout);
         
+        var graph15 = JSON.parse('{{ graph15 | safe }}');
+        Plotly.newPlot("graph15", graph15.data, graph15.layout);
         
-        // ... y así para los 7 gráficos
     </script>
 </body>
