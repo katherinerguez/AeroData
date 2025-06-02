@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException,Body, Form, Depends, Request
 from fastapi.responses import StreamingResponse, HTMLResponse
 from pydantic import BaseModel
-from database import execute_sql
+from app.consultas.database import execute_sql
 from auth import get_current_user,registrar_usuario
 import pandas as pd
 import io
