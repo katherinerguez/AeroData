@@ -15,7 +15,7 @@ class SQLQuery(BaseModel):
     query: str
 
 # --- Ruta para mostrar la interfaz web ---
-@app.get("consultas/login", response_class=HTMLResponse)
+@app.get("/login", response_class=HTMLResponse)
 async def mostrar_login():
     html_path = os.path.join(os.path.dirname(__file__), "login.html")
     try:
@@ -28,7 +28,7 @@ from fastapi.responses import RedirectResponse
 
 @app.get("/", response_class=HTMLResponse)
 async def raiz():
-    return RedirectResponse(url="consultas/login")
+    return RedirectResponse(url="/consultas/login")
 
 @app.get("/", response_class=HTMLResponse)
 async def mostrar_dashboard():
@@ -41,7 +41,7 @@ async def mostrar_dashboard():
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Archivo consultas.html no encontrado")
 
-@app.get("consultas/register", response_class=HTMLResponse)
+@app.get("/register", response_class=HTMLResponse)
 async def mostrar_registro():
     html_path = os.path.join(os.path.dirname(__file__), "register.html")
     try:
@@ -50,7 +50,7 @@ async def mostrar_registro():
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Archivo register.html no encontrado")
 
-@app.post("consultas/register")
+@app.post("/register")
 async def register(username: str = Form(...), password: str = Form(...)):
     if not username or not password:
         raise HTTPException(status_code=400, detail="Faltan usuario o contraseña")
@@ -62,7 +62,7 @@ async def register(username: str = Form(...), password: str = Form(...)):
         raise HTTPException(status_code=400, detail=str(e))
     
 # --- Ruta para ejecutar consultas SQL ---
-@app.post("consultas/execute")
+@app.post("/execute")
 async def run_sql(query: SQLQuery, user: dict = Depends(get_current_user)):
     if user["role"] != "admin" and not query.query.strip().lower().startswith("select"):
         raise HTTPException(status_code=403, detail="Solo puedes realizar consultas SELECT")
@@ -74,7 +74,7 @@ async def run_sql(query: SQLQuery, user: dict = Depends(get_current_user)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 # --- Ruta para descargar como CSV  ---
-@app.post("consultas/download/{formato}")
+@app.post("/download/{formato}")
 async def download_sql(query: SQLQuery, formato: str):
     if not query.query.strip().lower().startswith("select"):
         raise HTTPException(status_code=400, detail="Solo se permiten consultas SELECT")
