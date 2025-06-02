@@ -1,0 +1,1367 @@
+2025-06-01 00:37:11,340 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-06-01 00:37:11,341 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 00:37:11,341 - ERROR - main - Error en el dashboard: name 'plots' is not defined
+Traceback (most recent call last):
+  File "/home/jennifer/Documentos/tercer_año/segundo_semestre/ID/AeroData/app/graficos/main.py", line 90, in dashboard
+    min_date, max_date = plots.get_min_max_dates(db_url)
+                         ^^^^^
+NameError: name 'plots' is not defined. Did you mean: 'plotly'?
+2025-06-01 00:37:40,648 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-06-01 00:37:40,649 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 00:37:56,530 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 00:37:56,530 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 00:38:44,716 - INFO - main - Datos cargados - Número de registros: 1000
+2025-06-01 00:38:44,729 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 00:39:29,654 - INFO - main - Encontradas 66 rutas únicas, 177 aviones únicos, 7 aerolíneas únicas
+2025-06-01 00:39:46,885 - INFO - main - Encontrados 24 aeropuertos válidos
+2025-06-01 00:39:46,886 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-06-01 00:40:13,565 - INFO - main - Selecciones finales: route=10599 → 13204, plane=10397, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 00:40:13,566 - INFO - main - Generando gráficos
+2025-06-01 00:42:03,368 - INFO - main - Precargando gráficos en el arranque del servidor
+2025-06-01 00:42:31,039 - INFO - main - Precargando gráficos en el arranque del servidor
+2025-06-01 00:45:53,779 - INFO - main - Gráfico plot_delay_by_airport precargado
+2025-06-01 00:46:02,241 - INFO - main - Gráfico plot_flight_counts precargado
+2025-06-01 00:46:12,932 - INFO - main - Gráfico plot_arrival_delay_distribution precargado
+2025-06-01 00:46:21,608 - INFO - main - Gráfico plot_cancelled_flights precargado
+2025-06-01 00:46:33,677 - INFO - main - Gráfico plot_airtime_by_route precargado
+2025-06-01 00:46:42,467 - INFO - main - Gráfico plot_flights_by_date precargado
+2025-06-01 00:46:50,452 - INFO - main - Gráfico plot_delay_by_hour precargado
+2025-06-01 00:46:58,908 - INFO - main - Gráfico plot_delay_by_airline precargado
+2025-06-01 00:47:14,038 - INFO - main - Gráfico plot_distance_vs_airtime precargado
+2025-06-01 00:47:48,580 - INFO - main - Gráfico plot_cancellation_rate precargado
+2025-06-01 00:47:58,574 - INFO - main - Gráfico plot_most_common_routes precargado
+2025-06-01 00:48:07,441 - INFO - main - Gráfico plot_delay_by_weekday precargado
+2025-06-01 00:48:22,652 - INFO - main - Gráfico <lambda> precargado
+2025-06-01 00:48:59,193 - INFO - main - Gráfico plot_most_diverted_airports precargado
+2025-06-01 00:49:12,911 - INFO - main - Gráfico plot_monthly_delay_trend precargado
+2025-06-01 00:49:12,911 - INFO - main - Precarga de gráficos completada
+2025-06-01 00:49:23,234 - INFO - main - ==== INICIO: Precargando gráficos en el arranque del servidor ====
+2025-06-01 00:49:23,234 - INFO - main - Obtenida URL base de datos: postgresql://postgres.lxmcnjbmubtqmmctodja:Jennifer2004*@aws-0-us-east-1.pooler.supabase.com:6543/postgres
+2025-06-01 00:49:44,938 - INFO - main - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=21.70s)
+2025-06-01 00:49:44,938 - INFO - main - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 00:52:07,273 - INFO - main - Datos cargados: 5000 filas, 422 aeropuertos (t=142.33s)
+2025-06-01 00:52:07,278 - INFO - main - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 00:52:07,278 - INFO - main - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 00:52:07,278 - INFO - main - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 00:52:07,278 - INFO - main - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 00:52:07,279 - INFO - main - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 00:52:07,279 - INFO - main - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 00:52:07,279 - INFO - main - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 00:52:07,279 - INFO - main - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 00:52:07,279 - INFO - main - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 00:52:07,280 - INFO - main - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 00:52:07,280 - INFO - main - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 00:52:07,280 - INFO - main - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 00:52:07,280 - INFO - main - Gráfico <lambda> ya está en cache, no se regenera
+2025-06-01 00:52:07,280 - INFO - main - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 00:52:07,280 - INFO - main - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 00:52:07,281 - INFO - main - ==== FIN: Precarga de gráficos completada en 164.05 segundos ====
+2025-06-01 00:52:09,857 - INFO - main - ==== INICIO: Precargando gráficos en el arranque del servidor ====
+2025-06-01 00:52:09,858 - INFO - main - Obtenida URL base de datos 
+2025-06-01 00:52:42,497 - INFO - main - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=32.64s)
+2025-06-01 00:52:42,498 - INFO - main - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 00:54:39,345 - INFO - main - Datos cargados: 1000 filas, 422 aeropuertos (t=116.85s)
+2025-06-01 00:54:39,350 - INFO - main - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 00:54:39,350 - INFO - main - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 00:54:39,350 - INFO - main - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 00:54:39,350 - INFO - main - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 00:54:39,350 - INFO - main - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 00:54:39,350 - INFO - main - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 00:54:39,350 - INFO - main - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 00:54:39,350 - INFO - main - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 00:54:39,350 - INFO - main - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 00:54:39,351 - INFO - main - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 00:54:39,351 - INFO - main - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 00:54:39,351 - INFO - main - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 00:54:39,351 - INFO - main - Gráfico <lambda> ya está en cache, no se regenera
+2025-06-01 00:54:39,351 - INFO - main - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 00:54:39,351 - INFO - main - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 00:54:39,351 - INFO - main - ==== FIN: Precarga de gráficos completada en 149.49 segundos ====
+2025-06-01 00:54:41,586 - INFO - main - ==== INICIO: Precargando gráficos en el arranque del servidor ====
+2025-06-01 00:54:41,586 - INFO - main - Obtenida URL base de datos 
+2025-06-01 00:54:54,483 - INFO - main - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=12.90s)
+2025-06-01 00:54:54,484 - INFO - main - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 00:56:18,970 - INFO - main - Datos cargados: 1000 filas, 422 aeropuertos (t=84.49s)
+2025-06-01 00:56:18,985 - INFO - main - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 00:56:18,986 - INFO - main - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 00:56:18,986 - INFO - main - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 00:56:18,987 - INFO - main - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 00:56:18,987 - INFO - main - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 00:56:18,988 - INFO - main - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 00:56:18,988 - INFO - main - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 00:56:18,989 - INFO - main - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 00:56:18,989 - INFO - main - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 00:56:18,990 - INFO - main - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 00:56:18,990 - INFO - main - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 00:56:18,991 - INFO - main - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 00:56:18,991 - INFO - main - Gráfico <lambda> ya está en cache, no se regenera
+2025-06-01 00:56:18,992 - INFO - main - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 00:56:18,992 - INFO - main - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 00:56:18,992 - INFO - main - ==== FIN: Precarga de gráficos completada en 97.41 segundos ====
+2025-06-01 00:56:30,784 - INFO - main - Solicitud recibida en /api/dashboard
+2025-06-01 00:56:43,385 - INFO - main - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 00:56:43,405 - INFO - main - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 00:56:43,430 - INFO - main - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 00:56:43,456 - INFO - main - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 00:56:43,484 - INFO - main - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 00:56:43,529 - INFO - main - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 00:56:43,561 - INFO - main - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 00:56:43,591 - INFO - main - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 00:56:43,632 - INFO - main - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 00:56:43,657 - INFO - main - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 00:56:43,680 - INFO - main - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 00:56:43,704 - INFO - main - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 00:56:43,726 - INFO - main - Gráfico <lambda> cargado desde cache
+2025-06-01 00:56:43,751 - INFO - main - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 00:56:43,774 - INFO - main - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 00:56:43,774 - INFO - main - /api/dashboard procesado en 12.99 segundos
+2025-06-01 00:56:47,707 - INFO - main - Solicitud recibida en /api/dashboard
+2025-06-01 00:56:56,388 - INFO - main - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 00:56:56,403 - INFO - main - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 00:56:56,422 - INFO - main - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 00:56:56,447 - INFO - main - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 00:56:56,471 - INFO - main - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 00:56:56,497 - INFO - main - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 00:56:56,522 - INFO - main - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 00:56:56,541 - INFO - main - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 00:56:56,566 - INFO - main - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 00:56:56,588 - INFO - main - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 00:56:56,612 - INFO - main - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 00:56:56,635 - INFO - main - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 00:56:56,661 - INFO - main - Gráfico <lambda> cargado desde cache
+2025-06-01 00:56:56,687 - INFO - main - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 00:56:56,715 - INFO - main - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 00:56:56,716 - INFO - main - /api/dashboard procesado en 9.01 segundos
+2025-06-01 00:59:22,735 - INFO - main - Solicitud recibida en /api/dashboard
+2025-06-01 00:59:53,808 - INFO - main - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 00:59:53,830 - INFO - main - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 00:59:53,858 - INFO - main - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 00:59:53,886 - INFO - main - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 00:59:53,921 - INFO - main - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 00:59:53,963 - INFO - main - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 00:59:54,010 - INFO - main - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 00:59:54,059 - INFO - main - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 00:59:54,101 - INFO - main - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 00:59:54,139 - INFO - main - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 00:59:54,179 - INFO - main - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 00:59:54,227 - INFO - main - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 00:59:54,267 - INFO - main - Gráfico <lambda> cargado desde cache
+2025-06-01 00:59:54,321 - INFO - main - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 00:59:54,355 - INFO - main - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 00:59:54,355 - INFO - main - /api/dashboard procesado en 31.62 segundos
+2025-06-01 00:59:54,360 - INFO - main - Solicitud recibida en /api/dashboard
+2025-06-01 01:00:08,744 - INFO - main - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 01:00:08,758 - INFO - main - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 01:00:08,780 - INFO - main - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 01:00:08,802 - INFO - main - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 01:00:08,818 - INFO - main - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 01:00:08,842 - INFO - main - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 01:00:08,868 - INFO - main - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 01:00:08,903 - INFO - main - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 01:00:08,940 - INFO - main - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 01:00:08,988 - INFO - main - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 01:00:09,032 - INFO - main - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 01:00:09,075 - INFO - main - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 01:00:09,139 - INFO - main - Gráfico <lambda> cargado desde cache
+2025-06-01 01:00:09,188 - INFO - main - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 01:00:09,236 - INFO - main - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 01:00:09,236 - INFO - main - /api/dashboard procesado en 14.88 segundos
+2025-06-01 01:00:19,633 - INFO - main - Solicitud recibida en /api/dashboard
+2025-06-01 01:00:28,417 - INFO - main - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 01:00:28,430 - INFO - main - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 01:00:28,453 - INFO - main - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 01:00:28,471 - INFO - main - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 01:00:28,486 - INFO - main - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 01:00:28,503 - INFO - main - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 01:00:28,517 - INFO - main - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 01:00:28,532 - INFO - main - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 01:00:28,547 - INFO - main - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 01:00:28,561 - INFO - main - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 01:00:28,575 - INFO - main - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 01:00:28,588 - INFO - main - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 01:00:28,604 - INFO - main - Gráfico <lambda> cargado desde cache
+2025-06-01 01:00:28,618 - INFO - main - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 01:00:28,631 - INFO - main - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 01:00:28,631 - INFO - main - /api/dashboard procesado en 9.00 segundos
+2025-06-01 01:00:41,230 - INFO - main - Solicitud recibida en /api/dashboard
+2025-06-01 01:00:49,941 - INFO - main - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 01:00:49,955 - INFO - main - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 01:00:49,978 - INFO - main - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 01:00:49,998 - INFO - main - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 01:00:50,023 - INFO - main - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 01:00:50,047 - INFO - main - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 01:00:50,071 - INFO - main - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 01:00:50,099 - INFO - main - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 01:00:50,126 - INFO - main - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 01:00:50,151 - INFO - main - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 01:00:50,178 - INFO - main - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 01:00:50,197 - INFO - main - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 01:00:50,225 - INFO - main - Gráfico <lambda> cargado desde cache
+2025-06-01 01:00:50,244 - INFO - main - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 01:00:50,268 - INFO - main - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 01:00:50,268 - INFO - main - /api/dashboard procesado en 9.04 segundos
+2025-06-01 01:04:39,834 - INFO - main - ==== INICIO: Precargando gráficos en el arranque del servidor ====
+2025-06-01 01:04:39,835 - INFO - main - Obtenida URL base de datos 
+2025-06-01 01:04:53,734 - INFO - main - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=13.90s)
+2025-06-01 01:04:53,735 - INFO - main - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 01:05:48,238 - INFO - main - Datos cargados: 1638 filas, 422 aeropuertos (t=54.50s)
+2025-06-01 01:05:48,243 - INFO - main - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 01:05:48,243 - INFO - main - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 01:05:48,243 - INFO - main - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 01:05:48,243 - INFO - main - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 01:05:48,243 - INFO - main - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 01:05:48,243 - INFO - main - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 01:05:48,243 - INFO - main - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 01:05:48,244 - INFO - main - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 01:05:48,244 - INFO - main - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 01:05:48,244 - INFO - main - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 01:05:48,244 - INFO - main - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 01:05:48,244 - INFO - main - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 01:05:48,244 - INFO - main - Gráfico <lambda> ya está en cache, no se regenera
+2025-06-01 01:05:48,244 - INFO - main - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 01:05:48,244 - INFO - main - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 01:05:48,244 - INFO - main - ==== FIN: Precarga de gráficos completada en 68.41 segundos ====
+2025-06-01 01:05:54,063 - INFO - __main__ -  INICIO: Precargando gráficos en el arranque del servidor 
+2025-06-01 01:05:54,063 - INFO - __main__ - Obtenida URL base de datos 
+2025-06-01 01:06:05,018 - INFO - __main__ - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=10.95s)
+2025-06-01 01:06:05,018 - INFO - __main__ - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 01:06:59,506 - INFO - __main__ - Datos cargados: 1000 filas, 422 aeropuertos (t=54.49s)
+2025-06-01 01:06:59,510 - INFO - __main__ - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 01:06:59,510 - INFO - __main__ - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 01:06:59,510 - INFO - __main__ - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 01:06:59,511 - INFO - __main__ - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 01:06:59,511 - INFO - __main__ - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 01:06:59,511 - INFO - __main__ - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 01:06:59,511 - INFO - __main__ - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 01:06:59,511 - INFO - __main__ - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 01:06:59,511 - INFO - __main__ - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 01:06:59,511 - INFO - __main__ - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 01:06:59,511 - INFO - __main__ - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 01:06:59,511 - INFO - __main__ - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 01:06:59,511 - INFO - __main__ - Gráfico <lambda> ya está en cache, no se regenera
+2025-06-01 01:06:59,511 - INFO - __main__ - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 01:06:59,511 - INFO - __main__ - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 01:06:59,511 - INFO - __main__ - ==== FIN: Precarga de gráficos completada en 65.45 segundos ====
+2025-06-01 01:10:03,932 - INFO - __main__ -  INICIO: Precargando gráficos en el arranque del servidor 
+2025-06-01 01:10:03,932 - INFO - __main__ - Obtenida URL base de datos 
+2025-06-01 01:10:17,516 - INFO - __main__ - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=13.58s)
+2025-06-01 01:10:17,517 - INFO - __main__ - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 01:11:24,178 - INFO - __main__ - Datos cargados: 1000 filas, 422 aeropuertos (t=66.66s)
+2025-06-01 01:11:24,183 - INFO - __main__ - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 01:11:24,183 - INFO - __main__ - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 01:11:24,183 - INFO - __main__ - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 01:11:24,184 - INFO - __main__ - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 01:11:24,184 - INFO - __main__ - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 01:11:24,184 - INFO - __main__ - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 01:11:24,184 - INFO - __main__ - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 01:11:24,184 - INFO - __main__ - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 01:11:24,184 - INFO - __main__ - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 01:11:24,184 - INFO - __main__ - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 01:11:24,184 - INFO - __main__ - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 01:11:24,184 - INFO - __main__ - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 01:11:24,184 - INFO - __main__ - Gráfico <lambda> ya está en cache, no se regenera
+2025-06-01 01:11:24,184 - INFO - __main__ - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 01:11:24,184 - INFO - __main__ - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 01:11:24,184 - INFO - __main__ - ==== FIN: Precarga de gráficos completada en 80.25 segundos ====
+2025-06-01 01:14:24,897 - INFO - __main__ -  INICIO: Precargando gráficos en el arranque del servidor 
+2025-06-01 01:14:24,897 - INFO - __main__ - Obtenida URL base de datos 
+2025-06-01 01:14:35,894 - INFO - __main__ - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=11.00s)
+2025-06-01 01:14:35,895 - INFO - __main__ - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 01:16:19,141 - INFO - __main__ - Datos cargados: 5000 filas, 422 aeropuertos (t=103.25s)
+2025-06-01 01:16:19,145 - INFO - __main__ - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 01:16:19,145 - INFO - __main__ - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 01:16:19,145 - INFO - __main__ - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 01:16:19,145 - INFO - __main__ - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 01:16:19,146 - INFO - __main__ - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 01:16:19,146 - INFO - __main__ - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 01:16:19,146 - INFO - __main__ - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 01:16:19,146 - INFO - __main__ - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 01:16:19,146 - INFO - __main__ - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 01:16:19,146 - INFO - __main__ - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 01:16:19,146 - INFO - __main__ - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 01:16:19,146 - INFO - __main__ - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 01:16:19,146 - INFO - __main__ - Gráfico <lambda> ya está en cache, no se regenera
+2025-06-01 01:16:19,146 - INFO - __main__ - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 01:16:19,146 - INFO - __main__ - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 01:16:19,146 - INFO - __main__ - ==== FIN: Precarga de gráficos completada en 114.25 segundos ====
+2025-06-01 01:17:24,540 - INFO - __main__ -  INICIO: Precargando gráficos en el arranque del servidor 
+2025-06-01 01:17:24,540 - INFO - __main__ - Obtenida URL base de datos 
+2025-06-01 01:17:35,164 - INFO - __main__ - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=10.62s)
+2025-06-01 01:17:35,165 - INFO - __main__ - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 01:18:30,346 - INFO - __main__ - Datos cargados: 4067 filas, 422 aeropuertos (t=55.18s)
+2025-06-01 01:18:30,351 - INFO - __main__ - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 01:18:30,351 - INFO - __main__ - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 01:18:30,351 - INFO - __main__ - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 01:18:30,351 - INFO - __main__ - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 01:18:30,351 - INFO - __main__ - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 01:18:30,351 - INFO - __main__ - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 01:18:30,351 - INFO - __main__ - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 01:18:30,351 - INFO - __main__ - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 01:18:30,351 - INFO - __main__ - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 01:18:30,352 - INFO - __main__ - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 01:18:30,352 - INFO - __main__ - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 01:18:30,352 - INFO - __main__ - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 01:18:30,352 - INFO - __main__ - Gráfico <lambda> ya está en cache, no se regenera
+2025-06-01 01:18:30,352 - INFO - __main__ - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 01:18:30,353 - INFO - __main__ - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 01:18:30,353 - INFO - __main__ - ==== FIN: Precarga de gráficos completada en 65.81 segundos ====
+2025-06-01 01:18:45,582 - INFO - __main__ - Solicitud recibida en /api/dashboard
+2025-06-01 01:18:57,172 - INFO - __main__ - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 01:18:57,189 - INFO - __main__ - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 01:18:57,218 - INFO - __main__ - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 01:18:57,240 - INFO - __main__ - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 01:18:57,269 - INFO - __main__ - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 01:18:57,303 - INFO - __main__ - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 01:18:57,325 - INFO - __main__ - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 01:18:57,351 - INFO - __main__ - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 01:18:57,374 - INFO - __main__ - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 01:18:57,400 - INFO - __main__ - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 01:18:57,418 - INFO - __main__ - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 01:18:57,444 - INFO - __main__ - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 01:18:57,463 - INFO - __main__ - Gráfico <lambda> cargado desde cache
+2025-06-01 01:18:57,484 - INFO - __main__ - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 01:18:57,508 - INFO - __main__ - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 01:18:57,508 - INFO - __main__ - /api/dashboard procesado en 11.93 segundos
+2025-06-01 01:19:00,733 - INFO - __main__ - Solicitud recibida en /api/dashboard
+2025-06-01 01:19:13,129 - INFO - __main__ - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 01:19:13,142 - INFO - __main__ - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 01:19:13,156 - INFO - __main__ - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 01:19:13,172 - INFO - __main__ - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 01:19:13,186 - INFO - __main__ - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 01:19:13,200 - INFO - __main__ - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 01:19:13,226 - INFO - __main__ - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 01:19:13,250 - INFO - __main__ - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 01:19:13,277 - INFO - __main__ - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 01:19:13,303 - INFO - __main__ - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 01:19:13,328 - INFO - __main__ - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 01:19:13,351 - INFO - __main__ - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 01:19:13,374 - INFO - __main__ - Gráfico <lambda> cargado desde cache
+2025-06-01 01:19:13,399 - INFO - __main__ - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 01:19:13,421 - INFO - __main__ - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 01:19:13,422 - INFO - __main__ - /api/dashboard procesado en 12.69 segundos
+2025-06-01 01:19:13,426 - INFO - __main__ - Solicitud recibida en /api/dashboard
+2025-06-01 01:19:21,331 - INFO - __main__ - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 01:19:21,347 - INFO - __main__ - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 01:19:21,377 - INFO - __main__ - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 01:19:21,414 - INFO - __main__ - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 01:19:21,452 - INFO - __main__ - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 01:19:21,483 - INFO - __main__ - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 01:19:21,505 - INFO - __main__ - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 01:19:21,533 - INFO - __main__ - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 01:19:21,559 - INFO - __main__ - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 01:19:21,578 - INFO - __main__ - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 01:19:21,603 - INFO - __main__ - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 01:19:21,619 - INFO - __main__ - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 01:19:21,643 - INFO - __main__ - Gráfico <lambda> cargado desde cache
+2025-06-01 01:19:21,669 - INFO - __main__ - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 01:19:21,693 - INFO - __main__ - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 01:19:21,693 - INFO - __main__ - /api/dashboard procesado en 8.27 segundos
+2025-06-01 01:20:04,228 - INFO - __main__ - Solicitud recibida en /api/dashboard
+2025-06-01 01:20:13,580 - INFO - __main__ - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 01:20:13,601 - INFO - __main__ - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 01:20:13,627 - INFO - __main__ - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 01:20:13,651 - INFO - __main__ - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 01:20:13,673 - INFO - __main__ - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 01:20:13,701 - INFO - __main__ - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 01:20:13,731 - INFO - __main__ - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 01:20:13,760 - INFO - __main__ - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 01:20:13,787 - INFO - __main__ - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 01:20:13,810 - INFO - __main__ - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 01:20:13,840 - INFO - __main__ - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 01:20:13,864 - INFO - __main__ - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 01:20:13,890 - INFO - __main__ - Gráfico <lambda> cargado desde cache
+2025-06-01 01:20:13,920 - INFO - __main__ - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 01:20:13,946 - INFO - __main__ - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 01:20:13,946 - INFO - __main__ - /api/dashboard procesado en 9.72 segundos
+2025-06-01 01:20:39,115 - INFO - __main__ - Solicitud recibida en /api/dashboard
+2025-06-01 01:20:48,862 - INFO - __main__ - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 01:20:48,876 - INFO - __main__ - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 01:20:48,902 - INFO - __main__ - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 01:20:48,926 - INFO - __main__ - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 01:20:48,955 - INFO - __main__ - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 01:20:48,982 - INFO - __main__ - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 01:20:49,013 - INFO - __main__ - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 01:20:49,043 - INFO - __main__ - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 01:20:49,074 - INFO - __main__ - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 01:20:49,107 - INFO - __main__ - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 01:20:49,143 - INFO - __main__ - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 01:20:49,179 - INFO - __main__ - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 01:20:49,212 - INFO - __main__ - Gráfico <lambda> cargado desde cache
+2025-06-01 01:20:49,247 - INFO - __main__ - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 01:20:49,278 - INFO - __main__ - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 01:20:49,279 - INFO - __main__ - /api/dashboard procesado en 10.16 segundos
+2025-06-01 01:21:05,407 - INFO - __main__ - Solicitud recibida en /api/dashboard
+2025-06-01 01:21:14,981 - INFO - __main__ - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 01:21:14,996 - INFO - __main__ - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 01:21:15,020 - INFO - __main__ - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 01:21:15,046 - INFO - __main__ - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 01:21:15,072 - INFO - __main__ - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 01:21:15,095 - INFO - __main__ - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 01:21:15,120 - INFO - __main__ - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 01:21:15,139 - INFO - __main__ - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 01:21:15,165 - INFO - __main__ - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 01:21:15,181 - INFO - __main__ - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 01:21:15,206 - INFO - __main__ - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 01:21:15,228 - INFO - __main__ - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 01:21:15,250 - INFO - __main__ - Gráfico <lambda> cargado desde cache
+2025-06-01 01:21:15,275 - INFO - __main__ - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 01:21:15,296 - INFO - __main__ - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 01:21:15,296 - INFO - __main__ - /api/dashboard procesado en 9.89 segundos
+2025-06-01 01:21:37,807 - INFO - __main__ - Solicitud recibida en /api/dashboard
+2025-06-01 01:21:45,099 - INFO - __main__ - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 01:21:45,112 - INFO - __main__ - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 01:21:45,126 - INFO - __main__ - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 01:21:45,141 - INFO - __main__ - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 01:21:45,155 - INFO - __main__ - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 01:21:45,168 - INFO - __main__ - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 01:21:45,183 - INFO - __main__ - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 01:21:45,196 - INFO - __main__ - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 01:21:45,211 - INFO - __main__ - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 01:21:45,225 - INFO - __main__ - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 01:21:45,240 - INFO - __main__ - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 01:21:45,252 - INFO - __main__ - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 01:21:45,266 - INFO - __main__ - Gráfico <lambda> cargado desde cache
+2025-06-01 01:21:45,280 - INFO - __main__ - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 01:21:45,292 - INFO - __main__ - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 01:21:45,292 - INFO - __main__ - /api/dashboard procesado en 7.49 segundos
+2025-06-01 01:22:44,210 - INFO - __main__ - Solicitud recibida en /api/dashboard
+2025-06-01 01:22:53,219 - INFO - __main__ - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 01:22:53,234 - INFO - __main__ - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 01:22:53,248 - INFO - __main__ - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 01:22:53,264 - INFO - __main__ - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 01:22:53,278 - INFO - __main__ - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 01:22:53,292 - INFO - __main__ - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 01:22:53,310 - INFO - __main__ - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 01:22:53,327 - INFO - __main__ - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 01:22:53,342 - INFO - __main__ - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 01:22:53,356 - INFO - __main__ - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 01:22:53,371 - INFO - __main__ - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 01:22:53,384 - INFO - __main__ - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 01:22:53,398 - INFO - __main__ - Gráfico <lambda> cargado desde cache
+2025-06-01 01:22:53,412 - INFO - __main__ - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 01:22:53,425 - INFO - __main__ - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 01:22:53,426 - INFO - __main__ - /api/dashboard procesado en 9.22 segundos
+2025-06-01 01:25:39,109 - INFO - __main__ -  INICIO: Precargando gráficos en el arranque del servidor 
+2025-06-01 01:25:39,109 - INFO - __main__ - Obtenida URL base de datos 
+2025-06-01 01:25:50,011 - INFO - __main__ - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=10.90s)
+2025-06-01 01:25:50,012 - INFO - __main__ - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 01:27:01,021 - INFO - __main__ - Datos cargados: 1000 filas, 422 aeropuertos (t=71.01s)
+2025-06-01 01:27:01,026 - INFO - __main__ - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 01:27:01,026 - INFO - __main__ - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 01:27:01,026 - INFO - __main__ - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 01:27:01,026 - INFO - __main__ - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 01:27:01,026 - INFO - __main__ - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 01:27:01,026 - INFO - __main__ - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 01:27:01,026 - INFO - __main__ - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 01:27:01,026 - INFO - __main__ - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 01:27:01,026 - INFO - __main__ - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 01:27:01,027 - INFO - __main__ - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 01:27:01,027 - INFO - __main__ - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 01:27:01,027 - INFO - __main__ - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 01:27:01,027 - INFO - __main__ - Gráfico <lambda> ya está en cache, no se regenera
+2025-06-01 01:27:01,027 - INFO - __main__ - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 01:27:01,027 - INFO - __main__ - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 01:27:01,027 - INFO - __main__ - ==== FIN: Precarga de gráficos completada en 81.92 segundos ====
+2025-06-01 01:27:14,051 - INFO - __main__ - Solicitud recibida en /api/dashboard
+2025-06-01 01:27:25,106 - INFO - __main__ - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 01:27:25,124 - INFO - __main__ - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 01:27:25,156 - INFO - __main__ - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 01:27:25,181 - INFO - __main__ - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 01:27:25,207 - INFO - __main__ - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 01:27:25,242 - INFO - __main__ - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 01:27:25,261 - INFO - __main__ - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 01:27:25,288 - INFO - __main__ - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 01:27:25,308 - INFO - __main__ - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 01:27:25,334 - INFO - __main__ - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 01:27:25,353 - INFO - __main__ - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 01:27:25,375 - INFO - __main__ - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 01:27:25,398 - INFO - __main__ - Gráfico <lambda> cargado desde cache
+2025-06-01 01:27:25,418 - INFO - __main__ - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 01:27:25,443 - INFO - __main__ - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 01:27:25,443 - INFO - __main__ - /api/dashboard procesado en 11.39 segundos
+2025-06-01 01:34:31,202 - INFO - __main__ -  INICIO: Precargando gráficos en el arranque del servidor 
+2025-06-01 01:34:31,202 - INFO - __main__ - Obtenida URL base de datos 
+2025-06-01 01:36:52,130 - INFO - __main__ - /api/dashboard procesado en 140.93 segundos
+2025-06-01 01:41:54,402 - INFO - __main__ -  INICIO: Precargando gráficos en el arranque del servidor 
+2025-06-01 01:41:54,402 - INFO - __main__ - Obtenida URL base de datos 
+2025-06-01 01:42:10,969 - INFO - __main__ - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=16.57s)
+2025-06-01 01:42:10,969 - INFO - __main__ - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 01:44:33,553 - INFO - __main__ - Datos cargados: 1000 filas, 422 aeropuertos (t=142.58s)
+2025-06-01 01:44:33,557 - INFO - __main__ - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 01:44:33,558 - INFO - __main__ - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 01:44:33,558 - INFO - __main__ - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 01:44:33,558 - INFO - __main__ - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 01:44:33,558 - INFO - __main__ - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 01:44:33,558 - INFO - __main__ - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 01:44:33,558 - INFO - __main__ - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 01:44:33,558 - INFO - __main__ - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 01:44:33,558 - INFO - __main__ - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 01:44:33,558 - INFO - __main__ - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 01:44:33,558 - INFO - __main__ - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 01:44:33,558 - INFO - __main__ - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 01:44:33,558 - INFO - __main__ - Gráfico <lambda> ya está en cache, no se regenera
+2025-06-01 01:44:33,559 - INFO - __main__ - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 01:44:33,559 - INFO - __main__ - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 01:44:33,559 - INFO - __main__ - ==== FIN: Precarga de gráficos completada en 159.16 segundos ====
+2025-06-01 01:44:47,785 - INFO - __main__ - Solicitud recibida en /api/dashboard
+2025-06-01 01:45:00,523 - INFO - __main__ - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 01:45:00,542 - INFO - __main__ - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 01:45:00,572 - INFO - __main__ - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 01:45:00,593 - INFO - __main__ - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 01:45:00,617 - INFO - __main__ - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 01:45:00,643 - INFO - __main__ - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 01:45:00,668 - INFO - __main__ - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 01:45:00,686 - INFO - __main__ - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 01:45:00,712 - INFO - __main__ - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 01:45:00,728 - INFO - __main__ - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 01:45:00,751 - INFO - __main__ - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 01:45:00,771 - INFO - __main__ - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 01:45:00,795 - INFO - __main__ - Gráfico <lambda> cargado desde cache
+2025-06-01 01:45:00,817 - INFO - __main__ - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 01:45:00,841 - INFO - __main__ - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 01:45:00,841 - INFO - __main__ - /api/dashboard procesado en 13.06 segundos
+2025-06-01 01:45:41,423 - INFO - __main__ - Solicitud recibida en /api/dashboard
+2025-06-01 01:45:51,122 - INFO - __main__ - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 01:45:51,135 - INFO - __main__ - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 01:45:51,159 - INFO - __main__ - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 01:45:51,184 - INFO - __main__ - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 01:45:51,204 - INFO - __main__ - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 01:45:51,232 - INFO - __main__ - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 01:45:51,253 - INFO - __main__ - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 01:45:51,281 - INFO - __main__ - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 01:45:51,304 - INFO - __main__ - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 01:45:51,328 - INFO - __main__ - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 01:45:51,356 - INFO - __main__ - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 01:45:51,380 - INFO - __main__ - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 01:45:51,404 - INFO - __main__ - Gráfico <lambda> cargado desde cache
+2025-06-01 01:45:51,429 - INFO - __main__ - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 01:45:51,453 - INFO - __main__ - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 01:45:51,453 - INFO - __main__ - /api/dashboard procesado en 10.03 segundos
+2025-06-01 01:46:44,437 - INFO - __main__ - Solicitud recibida en /api/dashboard
+2025-06-01 01:46:57,805 - INFO - __main__ - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 01:46:57,820 - INFO - __main__ - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 01:46:57,839 - INFO - __main__ - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 01:46:57,870 - INFO - __main__ - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 01:46:57,900 - INFO - __main__ - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 01:46:57,932 - INFO - __main__ - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 01:46:57,966 - INFO - __main__ - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 01:46:57,993 - INFO - __main__ - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 01:46:58,018 - INFO - __main__ - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 01:46:58,044 - INFO - __main__ - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 01:46:58,070 - INFO - __main__ - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 01:46:58,093 - INFO - __main__ - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 01:46:58,119 - INFO - __main__ - Gráfico <lambda> cargado desde cache
+2025-06-01 01:46:58,146 - INFO - __main__ - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 01:46:58,167 - INFO - __main__ - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 01:46:58,167 - INFO - __main__ - /api/dashboard procesado en 13.73 segundos
+2025-06-01 01:51:57,431 - INFO - __main__ -  INICIO: Precargando gráficos en el arranque del servidor 
+2025-06-01 01:51:57,431 - INFO - __main__ - Obtenida URL base de datos 
+2025-06-01 01:52:07,868 - INFO - __main__ - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=10.44s)
+2025-06-01 01:52:07,869 - INFO - __main__ - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 01:52:57,378 - INFO - __main__ - Datos cargados: 1000 filas, 422 aeropuertos (t=49.51s)
+2025-06-01 01:52:57,383 - INFO - __main__ - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 01:52:57,384 - INFO - __main__ - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 01:52:57,384 - INFO - __main__ - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 01:52:57,384 - INFO - __main__ - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 01:52:57,384 - INFO - __main__ - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 01:52:57,384 - INFO - __main__ - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 01:52:57,384 - INFO - __main__ - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 01:52:57,384 - INFO - __main__ - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 01:52:57,385 - INFO - __main__ - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 01:52:57,385 - INFO - __main__ - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 01:52:57,385 - INFO - __main__ - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 01:52:57,385 - INFO - __main__ - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 01:52:57,385 - INFO - __main__ - Gráfico <lambda> ya está en cache, no se regenera
+2025-06-01 01:52:57,385 - INFO - __main__ - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 01:52:57,385 - INFO - __main__ - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 01:52:57,385 - INFO - __main__ - ==== FIN: Precarga de gráficos completada en 59.95 segundos ====
+2025-06-01 01:54:34,273 - INFO - __main__ -  INICIO: Precargando gráficos en el arranque del servidor 
+2025-06-01 01:54:34,273 - INFO - __main__ - Obtenida URL base de datos 
+2025-06-01 01:54:45,993 - INFO - __main__ - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=11.72s)
+2025-06-01 01:54:45,994 - INFO - __main__ - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 01:56:34,909 - INFO - __main__ - Datos cargados: 1203 filas, 422 aeropuertos (t=108.92s)
+2025-06-01 01:56:34,914 - INFO - __main__ - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 01:56:34,915 - INFO - __main__ - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 01:56:34,915 - INFO - __main__ - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 01:56:34,915 - INFO - __main__ - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 01:56:34,915 - INFO - __main__ - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 01:56:34,915 - INFO - __main__ - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 01:56:34,915 - INFO - __main__ - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 01:56:34,915 - INFO - __main__ - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 01:56:34,915 - INFO - __main__ - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 01:56:34,916 - INFO - __main__ - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 01:56:34,916 - INFO - __main__ - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 01:56:34,916 - INFO - __main__ - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 01:56:34,916 - INFO - __main__ - Gráfico <lambda> ya está en cache, no se regenera
+2025-06-01 01:56:34,916 - INFO - __main__ - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 01:56:34,916 - INFO - __main__ - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 01:56:34,916 - INFO - __main__ - ==== FIN: Precarga de gráficos completada en 120.64 segundos ====
+2025-06-01 02:00:57,276 - INFO - __main__ -  INICIO: Precargando gráficos en el arranque del servidor 
+2025-06-01 02:00:57,277 - INFO - __main__ - Obtenida URL base de datos 
+2025-06-01 02:01:08,684 - INFO - __main__ - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=11.41s)
+2025-06-01 02:01:08,685 - INFO - __main__ - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 02:02:13,535 - INFO - __main__ - Datos cargados: 1003 filas, 422 aeropuertos (t=64.85s)
+2025-06-01 02:02:13,541 - INFO - __main__ - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 02:02:13,541 - INFO - __main__ - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 02:02:13,542 - INFO - __main__ - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 02:02:13,542 - INFO - __main__ - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 02:02:13,542 - INFO - __main__ - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 02:02:13,542 - INFO - __main__ - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 02:02:13,543 - INFO - __main__ - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 02:02:13,543 - INFO - __main__ - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 02:02:13,543 - INFO - __main__ - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 02:02:13,543 - INFO - __main__ - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 02:02:13,543 - INFO - __main__ - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 02:02:13,543 - INFO - __main__ - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 02:02:13,544 - INFO - __main__ - Gráfico <lambda> ya está en cache, no se regenera
+2025-06-01 02:02:13,544 - INFO - __main__ - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 02:02:13,544 - INFO - __main__ - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 02:02:13,544 - INFO - __main__ - ==== FIN: Precarga de gráficos completada en 76.27 segundos ====
+2025-06-01 02:08:02,184 - INFO - __main__ - Solicitud recibida en /api/dashboard
+2025-06-01 02:08:14,578 - INFO - __main__ - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 02:08:14,593 - INFO - __main__ - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 02:08:14,610 - INFO - __main__ - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 02:08:14,624 - INFO - __main__ - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 02:08:14,637 - INFO - __main__ - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 02:08:14,655 - INFO - __main__ - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 02:08:14,671 - INFO - __main__ - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 02:08:14,685 - INFO - __main__ - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 02:08:14,700 - INFO - __main__ - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 02:08:14,714 - INFO - __main__ - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 02:08:14,729 - INFO - __main__ - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 02:08:14,743 - INFO - __main__ - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 02:08:14,758 - INFO - __main__ - Gráfico <lambda> cargado desde cache
+2025-06-01 02:08:14,781 - INFO - __main__ - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 02:08:14,802 - INFO - __main__ - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 02:08:14,846 - INFO - __main__ - /api/dashboard procesado en 12.66 segundos
+2025-06-01 02:10:48,730 - INFO - __main__ -  INICIO: Precargando gráficos en el arranque del servidor 
+2025-06-01 02:10:48,730 - INFO - __main__ - Obtenida URL base de datos 
+2025-06-01 02:10:59,980 - INFO - __main__ - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=11.25s)
+2025-06-01 02:10:59,981 - INFO - __main__ - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 02:12:03,594 - INFO - __main__ - Datos cargados: 1300 filas, 422 aeropuertos (t=63.61s)
+2025-06-01 02:12:03,600 - INFO - __main__ - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 02:12:03,600 - INFO - __main__ - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 02:12:03,600 - INFO - __main__ - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 02:12:03,600 - INFO - __main__ - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 02:12:03,600 - INFO - __main__ - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 02:12:03,600 - INFO - __main__ - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 02:12:03,600 - INFO - __main__ - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 02:12:03,600 - INFO - __main__ - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 02:12:03,600 - INFO - __main__ - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 02:12:03,600 - INFO - __main__ - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 02:12:03,601 - INFO - __main__ - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 02:12:03,601 - INFO - __main__ - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 02:12:03,601 - INFO - __main__ - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 02:12:03,601 - INFO - __main__ - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 02:12:03,601 - INFO - __main__ - ==== FIN: Precarga de gráficos completada en 74.87 segundos ====
+2025-06-01 02:12:13,545 - INFO - __main__ - Solicitud recibida en /api/dashboard
+2025-06-01 02:12:24,378 - INFO - __main__ - Gráfico plot_delay_by_airport cargado desde cache
+2025-06-01 02:12:24,394 - INFO - __main__ - Gráfico plot_flight_counts cargado desde cache
+2025-06-01 02:12:24,412 - INFO - __main__ - Gráfico plot_arrival_delay_distribution cargado desde cache
+2025-06-01 02:12:24,426 - INFO - __main__ - Gráfico plot_cancelled_flights cargado desde cache
+2025-06-01 02:12:24,439 - INFO - __main__ - Gráfico plot_airtime_by_route cargado desde cache
+2025-06-01 02:12:24,457 - INFO - __main__ - Gráfico plot_flights_by_date cargado desde cache
+2025-06-01 02:12:24,471 - INFO - __main__ - Gráfico plot_delay_by_hour cargado desde cache
+2025-06-01 02:12:24,484 - INFO - __main__ - Gráfico plot_delay_by_airline cargado desde cache
+2025-06-01 02:12:24,499 - INFO - __main__ - Gráfico plot_distance_vs_airtime cargado desde cache
+2025-06-01 02:12:24,513 - INFO - __main__ - Gráfico plot_cancellation_rate cargado desde cache
+2025-06-01 02:12:24,526 - INFO - __main__ - Gráfico plot_most_common_routes cargado desde cache
+2025-06-01 02:12:24,539 - INFO - __main__ - Gráfico plot_delay_by_weekday cargado desde cache
+2025-06-01 02:12:24,553 - INFO - __main__ - Gráfico plot_most_diverted_airports cargado desde cache
+2025-06-01 02:12:24,565 - INFO - __main__ - Gráfico plot_monthly_delay_trend cargado desde cache
+2025-06-01 02:12:24,585 - INFO - __main__ - /api/dashboard procesado en 11.04 segundos
+2025-06-01 02:15:41,652 - INFO - __main__ -  INICIO: Precargando gráficos en el arranque del servidor 
+2025-06-01 02:15:41,652 - INFO - __main__ - Obtenida URL base de datos 
+2025-06-01 02:15:52,337 - INFO - __main__ - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=10.68s)
+2025-06-01 02:15:52,338 - INFO - __main__ - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 02:17:07,744 - INFO - __main__ - Datos cargados: 1000 filas, 422 aeropuertos (t=75.41s)
+2025-06-01 02:17:07,750 - INFO - __main__ - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 02:17:07,750 - INFO - __main__ - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 02:17:07,750 - INFO - __main__ - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 02:17:07,750 - INFO - __main__ - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 02:17:07,750 - INFO - __main__ - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 02:17:07,750 - INFO - __main__ - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 02:17:07,750 - INFO - __main__ - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 02:17:07,750 - INFO - __main__ - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 02:17:07,750 - INFO - __main__ - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 02:17:07,750 - INFO - __main__ - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 02:17:07,751 - INFO - __main__ - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 02:17:07,751 - INFO - __main__ - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 02:17:07,751 - INFO - __main__ - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 02:17:07,751 - INFO - __main__ - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 02:17:07,751 - INFO - __main__ - ==== FIN: Precarga de gráficos completada en 86.10 segundos ====
+2025-06-01 02:19:55,263 - INFO - __main__ -  INICIO: Precargando gráficos en el arranque del servidor 
+2025-06-01 02:19:55,265 - INFO - __main__ - Obtenida URL base de datos 
+2025-06-01 02:20:10,004 - INFO - __main__ - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=14.74s)
+2025-06-01 02:20:10,004 - INFO - __main__ - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 02:21:12,300 - INFO - __main__ - Datos cargados: 1013 filas, 422 aeropuertos (t=62.30s)
+2025-06-01 02:21:12,315 - INFO - __main__ - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 02:21:12,316 - INFO - __main__ - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 02:21:12,316 - INFO - __main__ - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 02:21:12,316 - INFO - __main__ - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 02:21:12,316 - INFO - __main__ - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 02:21:12,316 - INFO - __main__ - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 02:21:12,316 - INFO - __main__ - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 02:21:12,316 - INFO - __main__ - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 02:21:12,316 - INFO - __main__ - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 02:21:12,316 - INFO - __main__ - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 02:21:12,316 - INFO - __main__ - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 02:21:12,317 - INFO - __main__ - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 02:21:12,317 - INFO - __main__ - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 02:21:12,317 - INFO - __main__ - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 02:21:12,317 - INFO - __main__ - ==== FIN: Precarga de gráficos completada en 77.05 segundos ====
+2025-06-01 02:24:27,770 - INFO - __main__ -  INICIO: Precargando gráficos en el arranque del servidor 
+2025-06-01 02:24:27,770 - INFO - __main__ - Obtenida URL base de datos 
+2025-06-01 02:24:39,970 - INFO - __main__ - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=12.20s)
+2025-06-01 02:24:39,971 - INFO - __main__ - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 02:25:13,011 - INFO - __main__ -  INICIO: Precargando gráficos en el arranque del servidor 
+2025-06-01 02:25:13,011 - INFO - __main__ - Obtenida URL base de datos 
+2025-06-01 02:25:22,789 - INFO - __main__ - Fechas min/max obtenidas: 2015-02-01 / 2024-12-31 (t=9.78s)
+2025-06-01 02:25:22,790 - INFO - __main__ - Rango de fechas para datos: 2024-01-01 a 2024-12-31
+2025-06-01 02:26:29,702 - INFO - __main__ - Datos cargados: 1021 filas, 422 aeropuertos (t=66.91s)
+2025-06-01 02:26:29,707 - INFO - __main__ - Gráfico plot_delay_by_airport ya está en cache, no se regenera
+2025-06-01 02:26:29,708 - INFO - __main__ - Gráfico plot_flight_counts ya está en cache, no se regenera
+2025-06-01 02:26:29,708 - INFO - __main__ - Gráfico plot_arrival_delay_distribution ya está en cache, no se regenera
+2025-06-01 02:26:29,708 - INFO - __main__ - Gráfico plot_cancelled_flights ya está en cache, no se regenera
+2025-06-01 02:26:29,708 - INFO - __main__ - Gráfico plot_airtime_by_route ya está en cache, no se regenera
+2025-06-01 02:26:29,708 - INFO - __main__ - Gráfico plot_flights_by_date ya está en cache, no se regenera
+2025-06-01 02:26:29,708 - INFO - __main__ - Gráfico plot_delay_by_hour ya está en cache, no se regenera
+2025-06-01 02:26:29,709 - INFO - __main__ - Gráfico plot_delay_by_airline ya está en cache, no se regenera
+2025-06-01 02:26:29,709 - INFO - __main__ - Gráfico plot_distance_vs_airtime ya está en cache, no se regenera
+2025-06-01 02:26:29,709 - INFO - __main__ - Gráfico plot_cancellation_rate ya está en cache, no se regenera
+2025-06-01 02:26:29,709 - INFO - __main__ - Gráfico plot_most_common_routes ya está en cache, no se regenera
+2025-06-01 02:26:29,709 - INFO - __main__ - Gráfico plot_delay_by_weekday ya está en cache, no se regenera
+2025-06-01 02:26:29,709 - INFO - __main__ - Gráfico plot_most_diverted_airports ya está en cache, no se regenera
+2025-06-01 02:26:29,709 - INFO - __main__ - Gráfico plot_monthly_delay_trend ya está en cache, no se regenera
+2025-06-01 02:26:29,709 - INFO - __main__ - ==== FIN: Precarga de gráficos completada en 76.70 segundos ====
+2025-06-01 14:25:41,149 - INFO - main - Precargando datos comunes...
+2025-06-01 14:30:36,703 - INFO - main - Precarga de datos completada
+2025-06-01 14:30:58,723 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-06-01 14:30:58,724 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 14:31:13,613 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 14:31:13,614 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 14:32:33,014 - INFO - main - Datos cargados - Número de registros: 5156
+2025-06-01 14:32:33,023 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 14:33:29,880 - INFO - main - Encontradas 72 rutas únicas, 631 aviones únicos, 9 aerolíneas únicas
+2025-06-01 14:34:43,073 - INFO - main - Encontrados 27 aeropuertos válidos
+2025-06-01 14:34:43,073 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-06-01 14:35:10,856 - INFO - main - Selecciones finales: route=13277 → 11298, plane=10397, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 14:35:10,857 - INFO - main - Generando gráficos
+2025-06-01 14:39:19,899 - INFO - main - Gráficos generados - Cache hits: 0, Cache misses: 15
+2025-06-01 14:39:19,921 - INFO - main - Preparando respuesta exitosa
+2025-06-01 14:39:19,922 - ERROR - main - Error en el dashboard: 'dashboard.html' not found in search path: 'app/graficos/templates'
+Traceback (most recent call last):
+  File "/home/jennifer/Documentos/tercer_año/segundo_semestre/ID/AeroData/app/graficos/main.py", line 257, in dashboard
+    return templates.TemplateResponse("dashboard.html", {
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/starlette/templating.py", line 208, in TemplateResponse
+    template = self.get_template(name)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/starlette/templating.py", line 131, in get_template
+    return self.env.get_template(name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/jinja2/loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/jinja2/loaders.py", line 209, in get_source
+    raise TemplateNotFound(
+jinja2.exceptions.TemplateNotFound: 'dashboard.html' not found in search path: 'app/graficos/templates'
+2025-06-01 14:39:54,301 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-06-01 14:39:54,301 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 14:40:13,880 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 14:40:13,881 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 14:41:18,033 - INFO - main - Datos cargados - Número de registros: 4334
+2025-06-01 14:41:18,043 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 14:42:21,250 - INFO - main - Precargando datos comunes...
+2025-06-01 14:43:22,579 - INFO - main - Precarga de datos completada
+2025-06-01 14:43:34,627 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-06-01 14:43:34,627 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 14:43:41,103 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 14:43:41,105 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 14:44:35,214 - INFO - main - Datos cargados - Número de registros: 4273
+2025-06-01 14:44:35,228 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 14:47:27,538 - INFO - main - Encontradas 66 rutas únicas, 413 aviones únicos, 8 aerolíneas únicas
+2025-06-01 14:48:02,179 - INFO - main - Encontrados 24 aeropuertos válidos
+2025-06-01 14:48:02,179 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-06-01 14:48:44,041 - INFO - main - Selecciones finales: route=10599 → 12266, plane=10397, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 14:48:44,042 - INFO - main - Generando gráficos
+2025-06-01 14:56:01,254 - INFO - main - Gráficos generados - Cache hits: 0, Cache misses: 15
+2025-06-01 14:56:01,273 - INFO - main - Preparando respuesta exitosa
+2025-06-01 14:56:01,282 - ERROR - main - Error en el dashboard: Encountered unknown tag 'comment'.
+Traceback (most recent call last):
+  File "/home/jennifer/Documentos/tercer_año/segundo_semestre/ID/AeroData/app/graficos/main.py", line 257, in dashboard
+    return templates.TemplateResponse("dashboard.html", {
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/starlette/templating.py", line 208, in TemplateResponse
+    template = self.get_template(name)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/starlette/templating.py", line 131, in get_template
+    return self.env.get_template(name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "templates/dashboard.html", line 91, in template
+    {% comment %} <script>
+jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'comment'.
+2025-06-01 14:56:59,958 - INFO - main - Precargando datos comunes...
+2025-06-01 14:59:27,161 - INFO - main - Precarga de datos completada
+2025-06-01 14:59:46,059 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-06-01 14:59:46,060 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 15:00:03,042 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 15:00:03,043 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 15:01:33,008 - INFO - main - Datos cargados - Número de registros: 1005
+2025-06-01 15:01:33,018 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 15:02:06,208 - INFO - main - Encontradas 64 rutas únicas, 160 aviones únicos, 7 aerolíneas únicas
+2025-06-01 15:02:24,947 - INFO - main - Encontrados 23 aeropuertos válidos
+2025-06-01 15:02:24,947 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-06-01 15:02:45,291 - INFO - main - Selecciones finales: route=13277 → 11298, plane=10397, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 15:02:45,292 - INFO - main - Generando gráficos
+2025-06-01 15:02:45,958 - INFO - main - Gráficos generados - Cache hits: 15, Cache misses: 0
+2025-06-01 15:02:45,980 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:02:45,998 - ERROR - main - Error en el dashboard: 'locals' is undefined
+Traceback (most recent call last):
+  File "/home/jennifer/Documentos/tercer_año/segundo_semestre/ID/AeroData/app/graficos/main.py", line 257, in dashboard
+    return templates.TemplateResponse("dashboard.html", {
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/starlette/templating.py", line 209, in TemplateResponse
+    return _TemplateResponse(
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/starlette/templating.py", line 40, in __init__
+    content = template.render(context)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "templates/dashboard.html", line 113, in top-level template code
+    {% if 'graph' + i|string in locals() %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jennifer/Documentos/lib/python3.12/site-packages/jinja2/utils.py", line 92, in from_obj
+    if hasattr(obj, "jinja_pass_arg"):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'locals' is undefined
+2025-06-01 15:05:56,201 - INFO - main - Precargando datos comunes...
+2025-06-01 15:07:10,944 - INFO - main - Precarga de datos completada
+2025-06-01 15:08:39,404 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-06-01 15:08:39,405 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 15:08:47,117 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 15:08:47,118 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 15:09:28,038 - INFO - main - Precargando datos comunes...
+2025-06-01 15:09:28,562 - INFO - main - Precarga de datos completada
+2025-06-01 15:09:34,111 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-06-01 15:09:34,111 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 15:09:34,182 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 15:09:34,182 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 15:09:34,863 - INFO - main - Datos cargados - Número de registros: 1000
+2025-06-01 15:09:34,873 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 15:09:36,555 - INFO - main - Encontradas 66 rutas únicas, 170 aviones únicos, 8 aerolíneas únicas
+2025-06-01 15:09:37,257 - INFO - main - Encontrados 24 aeropuertos válidos
+2025-06-01 15:09:37,257 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-06-01 15:09:37,407 - INFO - main - Selecciones finales: route=10599 → 13204, plane=5332, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 15:09:37,407 - INFO - main - Generando gráficos
+2025-06-01 15:09:52,052 - INFO - main - Gráficos generados - Cache hits: 0, Cache misses: 15
+2025-06-01 15:09:52,069 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:12:20,158 - INFO - main - Precargando datos comunes...
+2025-06-01 15:12:20,980 - INFO - main - Precarga de datos completada
+2025-06-01 15:12:23,355 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-06-01 15:12:23,355 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 15:12:23,417 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 15:12:23,418 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 15:12:23,979 - INFO - main - Datos cargados - Número de registros: 1003
+2025-06-01 15:12:23,989 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 15:12:25,352 - INFO - main - Encontradas 62 rutas únicas, 231 aviones únicos, 7 aerolíneas únicas
+2025-06-01 15:12:26,354 - INFO - main - Encontrados 23 aeropuertos válidos
+2025-06-01 15:12:26,355 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-06-01 15:12:26,511 - INFO - main - Selecciones finales: route=13277 → 11298, plane=5332, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 15:12:26,512 - INFO - main - Generando gráficos
+2025-06-01 15:12:39,462 - INFO - main - Gráficos generados - Cache hits: 0, Cache misses: 15
+2025-06-01 15:12:39,477 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:24:10,533 - INFO - main - Precargando datos comunes...
+2025-06-01 15:24:10,992 - INFO - main - Precarga de datos completada
+2025-06-01 15:24:16,428 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-06-01 15:24:16,429 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 15:24:16,496 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 15:24:16,497 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 15:24:16,579 - INFO - main - Datos cargados - Número de registros: 1000
+2025-06-01 15:24:16,613 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 15:24:18,456 - INFO - main - Encontradas 62 rutas únicas, 184 aviones únicos, 7 aerolíneas únicas
+2025-06-01 15:24:19,399 - INFO - main - Encontrados 23 aeropuertos válidos
+2025-06-01 15:24:19,401 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-06-01 15:24:19,652 - INFO - main - Selecciones finales: route=11278 → 12217, plane=5332, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 15:24:19,652 - INFO - main - Generando gráficos
+2025-06-01 15:24:34,852 - INFO - main - Gráficos generados - Cache hits: 0, Cache misses: 15
+2025-06-01 15:24:34,866 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:25:01,865 - INFO - main - Precargando datos comunes...
+2025-06-01 15:25:02,372 - INFO - main - Precarga de datos completada
+2025-06-01 15:25:04,918 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-06-01 15:25:04,918 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 15:25:04,989 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 15:25:04,989 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 15:25:05,957 - INFO - main - Datos cargados - Número de registros: 1000
+2025-06-01 15:25:05,977 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 15:25:07,342 - INFO - main - Encontradas 62 rutas únicas, 177 aviones únicos, 7 aerolíneas únicas
+2025-06-01 15:25:08,191 - INFO - main - Encontrados 23 aeropuertos válidos
+2025-06-01 15:25:08,192 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-06-01 15:25:08,404 - INFO - main - Selecciones finales: route=13277 → 11298, plane=5332, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 15:25:08,404 - INFO - main - Generando gráficos
+2025-06-01 15:25:09,062 - INFO - main - Gráficos generados - Cache hits: 15, Cache misses: 0
+2025-06-01 15:25:09,074 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:26:23,729 - INFO - main - Iniciando dashboard con parámetros: start_date=2024-01-01, end_date=2024-12-31, selected_route=13277 → 11298, selected_plane=5332, selected_airline=['OH', 'DL', 'OO', 'MQ', '9E'], selected_airport=10397
+2025-06-01 15:26:23,729 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 15:26:23,800 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 15:26:23,800 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 15:26:24,423 - INFO - main - Datos cargados - Número de registros: 1000
+2025-06-01 15:26:24,429 - INFO - main - Filtrando por aerolíneas: ['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 15:26:25,019 - INFO - main - Registros después de filtrar aerolíneas: 839
+2025-06-01 15:26:25,019 - INFO - main - Filtrando por vuelo: 5332
+2025-06-01 15:26:25,461 - INFO - main - Registros después de filtrar vuelo: 0
+2025-06-01 15:26:25,467 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 15:26:27,027 - INFO - main - Encontradas 0 rutas únicas, 0 aviones únicos, 0 aerolíneas únicas
+2025-06-01 15:26:28,088 - INFO - main - Encontrados 0 aeropuertos válidos
+2025-06-01 15:26:28,089 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-06-01 15:26:28,250 - INFO - main - Selecciones finales: route=13277 → 11298, plane=5332, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 15:26:28,251 - INFO - main - Filtrando por aeropuerto: 10397
+2025-06-01 15:26:28,762 - INFO - main - Registros después de filtrar aeropuerto: 0
+2025-06-01 15:26:28,762 - INFO - main - Generando gráficos
+2025-06-01 15:26:29,003 - INFO - main - Gráficos generados - Cache hits: 15, Cache misses: 0
+2025-06-01 15:26:29,017 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:30:21,363 - INFO - main - Iniciando dashboard con parámetros: start_date=2024-01-01, end_date=2024-12-31, selected_route=13277 → 11298, selected_plane=5332, selected_airline=['OH', 'DL', 'OO', 'MQ', '9E'], selected_airport=10397
+2025-06-01 15:30:21,363 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 15:30:21,434 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 15:30:21,435 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 15:30:22,138 - INFO - main - Datos cargados - Número de registros: 1000
+2025-06-01 15:30:22,146 - INFO - main - Filtrando por aerolíneas: ['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 15:30:22,696 - INFO - main - Registros después de filtrar aerolíneas: 826
+2025-06-01 15:30:22,697 - INFO - main - Filtrando por vuelo: 5332
+2025-06-01 15:30:23,356 - INFO - main - Registros después de filtrar vuelo: 0
+2025-06-01 15:30:23,364 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 15:30:24,733 - INFO - main - Encontradas 0 rutas únicas, 0 aviones únicos, 0 aerolíneas únicas
+2025-06-01 15:30:25,584 - INFO - main - Encontrados 0 aeropuertos válidos
+2025-06-01 15:30:25,584 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-06-01 15:30:25,767 - INFO - main - Selecciones finales: route=13277 → 11298, plane=5332, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 15:30:25,768 - INFO - main - Filtrando por aeropuerto: 10397
+2025-06-01 15:30:26,361 - INFO - main - Registros después de filtrar aeropuerto: 0
+2025-06-01 15:30:26,361 - INFO - main - Generando gráficos
+2025-06-01 15:30:26,743 - INFO - main - Gráficos generados - Cache hits: 15, Cache misses: 0
+2025-06-01 15:30:26,759 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:37:10,145 - INFO - main - Precargando datos comunes...
+2025-06-01 15:37:10,875 - INFO - main - Precarga de datos completada
+2025-06-01 15:37:13,768 - INFO - main - Iniciando dashboard con parámetros: start_date=2024-01-01, end_date=2024-12-31, selected_route=13277 → 11298, selected_plane=5332, selected_airline=['OH', 'DL', 'OO', 'MQ', '9E'], selected_airport=10397
+2025-06-01 15:37:13,769 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 15:37:13,840 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 15:37:13,841 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 15:37:14,492 - INFO - main - Datos cargados - Número de registros: 1000
+2025-06-01 15:37:14,499 - INFO - main - Filtrando por aerolíneas: ['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 15:37:14,848 - INFO - main - Registros después de filtrar aerolíneas: 790
+2025-06-01 15:37:14,849 - INFO - main - Filtrando por vuelo: 5332
+2025-06-01 15:37:15,190 - INFO - main - Registros después de filtrar vuelo: 13
+2025-06-01 15:37:15,195 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 15:37:16,903 - INFO - main - Encontradas 3 rutas únicas, 1 aviones únicos, 2 aerolíneas únicas
+2025-06-01 15:37:17,606 - INFO - main - Encontrados 3 aeropuertos válidos
+2025-06-01 15:37:17,607 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-06-01 15:37:17,747 - INFO - main - Selecciones finales: route=13277 → 11298, plane=5332, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 15:37:17,747 - INFO - main - Filtrando por aeropuerto: 10397
+2025-06-01 15:37:18,215 - INFO - main - Registros después de filtrar aeropuerto: 0
+2025-06-01 15:37:18,215 - INFO - main - Generando gráficos
+2025-06-01 15:37:18,864 - INFO - main - Gráficos generados - Cache hits: 15, Cache misses: 0
+2025-06-01 15:37:18,876 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:37:18,876 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:37:44,858 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-06-01 15:37:44,859 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 15:37:44,922 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 15:37:44,923 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 15:37:45,599 - INFO - main - Datos cargados - Número de registros: 1000
+2025-06-01 15:37:45,616 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 15:37:46,932 - INFO - main - Encontradas 68 rutas únicas, 187 aviones únicos, 9 aerolíneas únicas
+2025-06-01 15:37:47,790 - INFO - main - Encontrados 26 aeropuertos válidos
+2025-06-01 15:37:47,791 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-06-01 15:37:47,947 - INFO - main - Selecciones finales: route=10599 → 13204, plane=5332, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 15:37:47,947 - INFO - main - Generando gráficos
+2025-06-01 15:37:48,133 - INFO - main - Gráficos generados - Cache hits: 15, Cache misses: 0
+2025-06-01 15:37:48,146 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:37:48,146 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:39:59,323 - INFO - main - Precargando datos comunes...
+2025-06-01 15:39:59,800 - INFO - main - Precarga de datos completada
+2025-06-01 15:40:02,331 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-06-01 15:40:02,332 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 15:40:02,403 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 15:40:02,403 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 15:40:03,026 - INFO - main - Datos cargados - Número de registros: 1000
+2025-06-01 15:40:03,035 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 15:40:04,390 - INFO - main - Encontradas 70 rutas únicas, 196 aviones únicos, 9 aerolíneas únicas
+2025-06-01 15:40:05,131 - INFO - main - Encontrados 27 aeropuertos válidos
+2025-06-01 15:40:05,131 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-06-01 15:40:05,291 - INFO - main - Selecciones finales: route=13277 → 11298, plane=5332, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 15:40:05,291 - INFO - main - Generando gráficos
+2025-06-01 15:40:05,927 - INFO - main - Gráficos generados - Cache hits: 15, Cache misses: 0
+2025-06-01 15:40:05,939 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:40:05,939 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:40:41,978 - INFO - main - Precargando datos comunes...
+2025-06-01 15:40:42,469 - INFO - main - Precarga de datos completada
+2025-06-01 15:40:44,824 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-06-01 15:40:44,825 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 15:40:44,890 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 15:40:44,890 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 15:40:45,520 - INFO - main - Datos cargados - Número de registros: 1000
+2025-06-01 15:40:45,530 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 15:40:47,156 - INFO - main - Encontradas 66 rutas únicas, 157 aviones únicos, 8 aerolíneas únicas
+2025-06-01 15:40:48,244 - INFO - main - Encontrados 25 aeropuertos válidos
+2025-06-01 15:40:48,245 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-06-01 15:40:48,441 - INFO - main - Selecciones finales: route=11278 → 12217, plane=5332, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 15:40:48,441 - INFO - main - Generando gráficos
+2025-06-01 15:40:49,112 - INFO - main - Gráficos generados - Cache hits: 15, Cache misses: 0
+2025-06-01 15:40:49,124 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:40:49,125 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:40:52,672 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-06-01 15:40:52,673 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 15:40:52,744 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 15:40:52,745 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 15:40:53,352 - INFO - main - Datos cargados - Número de registros: 1000
+2025-06-01 15:40:53,364 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 15:40:54,642 - INFO - main - Encontradas 64 rutas únicas, 169 aviones únicos, 9 aerolíneas únicas
+2025-06-01 15:40:55,347 - INFO - main - Encontrados 25 aeropuertos válidos
+2025-06-01 15:40:55,348 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-06-01 15:40:55,505 - INFO - main - Selecciones finales: route=11278 → 12217, plane=5332, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 15:40:55,505 - INFO - main - Generando gráficos
+2025-06-01 15:40:55,702 - INFO - main - Gráficos generados - Cache hits: 15, Cache misses: 0
+2025-06-01 15:40:55,714 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:40:55,715 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:42:16,577 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-06-01 15:42:16,577 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-06-01 15:42:16,651 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 15:42:16,652 - INFO - main - Cargando datos filtrados por fecha
+2025-06-01 15:42:17,659 - INFO - main - Datos cargados - Número de registros: 1003
+2025-06-01 15:42:17,678 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-06-01 15:42:19,026 - INFO - main - Encontradas 68 rutas únicas, 255 aviones únicos, 9 aerolíneas únicas
+2025-06-01 15:42:19,874 - INFO - main - Encontrados 25 aeropuertos válidos
+2025-06-01 15:42:19,874 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-06-01 15:42:20,040 - INFO - main - Selecciones finales: route=11278 → 12217, plane=5332, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-06-01 15:42:20,040 - INFO - main - Generando gráficos
+2025-06-01 15:42:20,234 - INFO - main - Gráficos generados - Cache hits: 15, Cache misses: 0
+2025-06-01 15:42:20,247 - INFO - main - Preparando respuesta exitosa
+2025-06-01 15:42:20,247 - INFO - main - Preparando respuesta exitosa
+2025-06-01 16:03:11,768 - INFO - main - === INICIANDO precomputación de gráficos por defecto ===
+2025-06-01 16:03:12,132 - INFO - main - Precomputando gráfico 'plot_delay_by_airport'...
+2025-06-01 16:03:13,092 - INFO - main -   → Guardado en caché (key=8e639ae9…)
+2025-06-01 16:03:13,093 - INFO - main - Precomputando gráfico 'plot_flight_counts'...
+2025-06-01 16:03:13,577 - INFO - main -   → Guardado en caché (key=10618b31…)
+2025-06-01 16:03:13,577 - INFO - main - Precomputando gráfico 'plot_arrival_delay_distribution'...
+2025-06-01 16:03:13,973 - INFO - main -   → Guardado en caché (key=f1c9a252…)
+2025-06-01 16:03:13,973 - INFO - main - Precomputando gráfico 'plot_cancelled_flights'...
+2025-06-01 16:03:15,047 - INFO - main -   → Guardado en caché (key=a6404780…)
+2025-06-01 16:03:15,048 - INFO - main - Precomputando gráfico 'plot_airtime_by_route'...
+2025-06-01 16:03:15,681 - INFO - main -   → Guardado en caché (key=d1b464fd…)
+2025-06-01 16:03:15,681 - INFO - main - Precomputando gráfico 'plot_flights_by_date'...
+2025-06-01 16:03:16,798 - INFO - main -   → Guardado en caché (key=dbfa953f…)
+2025-06-01 16:03:16,798 - INFO - main - Precomputando gráfico 'plot_delay_by_hour'...
+2025-06-01 16:03:17,796 - INFO - main -   → Guardado en caché (key=0d07e17f…)
+2025-06-01 16:03:17,796 - INFO - main - Precomputando gráfico 'plot_delay_by_airline'...
+2025-06-01 16:03:18,785 - INFO - main -   → Guardado en caché (key=ae88c823…)
+2025-06-01 16:03:18,785 - INFO - main - Precomputando gráfico 'plot_distance_vs_airtime'...
+2025-06-01 16:03:20,241 - INFO - main -   → Guardado en caché (key=b9b7ed4b…)
+2025-06-01 16:03:20,241 - INFO - main - Precomputando gráfico 'plot_cancellation_rate'...
+2025-06-01 16:03:21,929 - INFO - main -   → Guardado en caché (key=45a9741d…)
+2025-06-01 16:03:21,929 - INFO - main - Precomputando gráfico 'plot_most_common_routes'...
+2025-06-01 16:03:22,730 - INFO - main -   → Guardado en caché (key=9706d95a…)
+2025-06-01 16:03:22,730 - INFO - main - Precomputando gráfico 'plot_delay_by_weekday'...
+2025-06-01 16:03:23,894 - INFO - main -   → Guardado en caché (key=3c4ad95f…)
+2025-06-01 16:03:23,894 - INFO - main - Precomputando gráfico '<lambda>'...
+2025-06-01 16:03:25,508 - INFO - main -   → Guardado en caché (key=4720a289…)
+2025-06-01 16:03:25,508 - INFO - main - Precomputando gráfico 'plot_most_diverted_airports'...
+2025-06-01 16:03:26,635 - INFO - main -   → Guardado en caché (key=be14c853…)
+2025-06-01 16:03:26,635 - INFO - main - Precomputando gráfico 'plot_monthly_delay_trend'...
+2025-06-01 16:03:27,951 - INFO - main -   → Guardado en caché (key=f2d977f7…)
+2025-06-01 16:03:27,951 - INFO - main - === FIN precomputación de gráficos por defecto ===
+2025-06-01 16:03:33,863 - INFO - main - [REQUEST] dashboard -> start_date=None, end_date=None, route=None, plane=None, airline=[], airport=None
+2025-06-01 16:03:33,927 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 16:03:51,948 - INFO - main - Caché: 0 aciertos, 15 errores
+2025-06-01 16:04:22,192 - INFO - main - === INICIANDO precomputación de gráficos por defecto ===
+2025-06-01 16:04:22,843 - INFO - main - === FIN precomputación de gráficos por defecto ===
+2025-06-01 16:04:31,208 - INFO - main - [REQUEST] dashboard -> start_date=None, end_date=None, route=None, plane=None, airline=[], airport=None
+2025-06-01 16:04:31,274 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 16:04:48,994 - INFO - main - Caché: 0 aciertos, 15 errores
+2025-06-01 16:08:16,500 - INFO - main - === INICIANDO precomputación de gráficos por defecto ===
+2025-06-01 16:08:16,862 - INFO - main - === FIN precomputación de gráficos por defecto ===
+2025-06-01 16:08:20,048 - INFO - main - [REQUEST] dashboard -> start_date=None, end_date=None, route=None, plane=None, airline=[], airport=None
+2025-06-01 16:08:20,122 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 16:08:23,804 - INFO - main - Caché: 15 aciertos, 0 errores
+2025-06-01 16:10:51,279 - INFO - main - === INICIANDO precomputación de gráficos por defecto ===
+2025-06-01 16:10:51,814 - INFO - main - === FIN precomputación de gráficos por defecto ===
+2025-06-01 16:10:53,179 - INFO - main - [REQUEST] dashboard -> start_date=None, end_date=None, route=None, plane=None, airline=[], airport=None
+2025-06-01 16:10:53,246 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 16:10:56,788 - INFO - main - Caché: 15 aciertos, 0 errores
+2025-06-01 16:11:07,498 - INFO - main - [REQUEST] dashboard -> start_date=2024-01-01, end_date=2024-12-31, route=10599 → 13204, plane=5332, airline=['DL', 'MQ', 'OH', 'OO', '9E'], airport=
+2025-06-01 16:11:07,558 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 16:11:08,444 - WARNING - main - No hay datos para los filtros especificados.
+2025-06-01 16:12:18,469 - INFO - main - [REQUEST] dashboard -> start_date=2023-01-01, end_date=2024-01-01, route=10599 → 13204, plane=5332, airline=['DL', 'MQ', 'OH', 'OO', '9E'], airport=
+2025-06-01 16:12:18,540 - INFO - main - Fechas usadas → start_date=2023-01-01, end_date=2024-01-01
+2025-06-01 16:12:19,586 - WARNING - main - No hay datos para los filtros especificados.
+2025-06-01 16:14:34,546 - INFO - main - === INICIANDO precomputación de gráficos por defecto ===
+2025-06-01 16:14:34,926 - INFO - main - === FIN precomputación de gráficos por defecto ===
+2025-06-01 16:14:43,910 - INFO - main - [REQUEST] dashboard -> start_date=None, end_date=None, route=None, plane=None, airline=[], airport=None
+2025-06-01 16:14:43,991 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 16:14:45,191 - INFO - main - Usando gráfico cacheado: plot_delay_by_airport
+2025-06-01 16:14:45,206 - INFO - main - Usando gráfico cacheado: plot_flight_counts
+2025-06-01 16:14:45,228 - INFO - main - Usando gráfico cacheado: plot_arrival_delay_distribution
+2025-06-01 16:14:45,241 - INFO - main - Usando gráfico cacheado: plot_cancelled_flights
+2025-06-01 16:14:45,254 - INFO - main - Usando gráfico cacheado: plot_airtime_by_route
+2025-06-01 16:14:45,273 - INFO - main - Usando gráfico cacheado: plot_flights_by_date
+2025-06-01 16:14:45,290 - INFO - main - Usando gráfico cacheado: plot_delay_by_hour
+2025-06-01 16:14:45,304 - INFO - main - Usando gráfico cacheado: plot_delay_by_airline
+2025-06-01 16:14:45,320 - INFO - main - Usando gráfico cacheado: plot_distance_vs_airtime
+2025-06-01 16:14:45,336 - INFO - main - Usando gráfico cacheado: plot_cancellation_rate
+2025-06-01 16:14:45,354 - INFO - main - Usando gráfico cacheado: plot_most_common_routes
+2025-06-01 16:14:45,371 - INFO - main - Usando gráfico cacheado: plot_delay_by_weekday
+2025-06-01 16:14:45,392 - INFO - main - Usando gráfico cacheado: <lambda>
+2025-06-01 16:14:45,413 - INFO - main - Usando gráfico cacheado: plot_most_diverted_airports
+2025-06-01 16:14:45,432 - INFO - main - Usando gráfico cacheado: plot_monthly_delay_trend
+2025-06-01 16:15:29,912 - INFO - main - [REQUEST] dashboard -> start_date=2023-01-01, end_date=2024-12-31, route=, plane=, airline=[], airport=
+2025-06-01 16:15:29,980 - INFO - main - Fechas usadas → start_date=2023-01-01, end_date=2024-12-31
+2025-06-01 16:15:30,775 - INFO - main - Generando gráfico en vivo: plot_delay_by_airport
+2025-06-01 16:15:31,511 - INFO - main - Generando gráfico en vivo: plot_flight_counts
+2025-06-01 16:15:32,223 - INFO - main - Generando gráfico en vivo: plot_arrival_delay_distribution
+2025-06-01 16:15:32,674 - INFO - main - Generando gráfico en vivo: plot_cancelled_flights
+2025-06-01 16:15:33,352 - INFO - main - Generando gráfico en vivo: plot_airtime_by_route
+2025-06-01 16:15:33,892 - INFO - main - Generando gráfico en vivo: plot_flights_by_date
+2025-06-01 16:15:34,784 - INFO - main - Generando gráfico en vivo: plot_delay_by_hour
+2025-06-01 16:15:35,545 - INFO - main - Generando gráfico en vivo: plot_delay_by_airline
+2025-06-01 16:15:36,380 - INFO - main - Generando gráfico en vivo: plot_distance_vs_airtime
+2025-06-01 16:15:38,003 - INFO - main - Generando gráfico en vivo: plot_cancellation_rate
+2025-06-01 16:15:39,571 - INFO - main - Generando gráfico en vivo: plot_most_common_routes
+2025-06-01 16:15:40,465 - INFO - main - Generando gráfico en vivo: plot_delay_by_weekday
+2025-06-01 16:15:41,777 - INFO - main - Generando gráfico en vivo: <lambda>
+2025-06-01 16:15:43,734 - INFO - main - Generando gráfico en vivo: plot_most_diverted_airports
+2025-06-01 16:15:44,996 - INFO - main - Generando gráfico en vivo: plot_monthly_delay_trend
+2025-06-01 16:16:16,489 - INFO - main - [REQUEST] dashboard -> start_date=None, end_date=None, route=None, plane=None, airline=[], airport=None
+2025-06-01 16:16:16,561 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 16:16:17,649 - INFO - main - Usando gráfico cacheado: plot_delay_by_airport
+2025-06-01 16:16:17,677 - INFO - main - Usando gráfico cacheado: plot_flight_counts
+2025-06-01 16:16:17,712 - INFO - main - Usando gráfico cacheado: plot_arrival_delay_distribution
+2025-06-01 16:16:17,750 - INFO - main - Usando gráfico cacheado: plot_cancelled_flights
+2025-06-01 16:16:17,779 - INFO - main - Usando gráfico cacheado: plot_airtime_by_route
+2025-06-01 16:16:17,812 - INFO - main - Usando gráfico cacheado: plot_flights_by_date
+2025-06-01 16:16:17,837 - INFO - main - Usando gráfico cacheado: plot_delay_by_hour
+2025-06-01 16:16:17,857 - INFO - main - Usando gráfico cacheado: plot_delay_by_airline
+2025-06-01 16:16:17,878 - INFO - main - Usando gráfico cacheado: plot_distance_vs_airtime
+2025-06-01 16:16:17,897 - INFO - main - Usando gráfico cacheado: plot_cancellation_rate
+2025-06-01 16:16:17,920 - INFO - main - Usando gráfico cacheado: plot_most_common_routes
+2025-06-01 16:16:17,935 - INFO - main - Usando gráfico cacheado: plot_delay_by_weekday
+2025-06-01 16:16:17,948 - INFO - main - Usando gráfico cacheado: <lambda>
+2025-06-01 16:16:17,972 - INFO - main - Usando gráfico cacheado: plot_most_diverted_airports
+2025-06-01 16:16:17,990 - INFO - main - Usando gráfico cacheado: plot_monthly_delay_trend
+2025-06-01 16:16:56,060 - INFO - main - === INICIANDO precomputación de gráficos por defecto ===
+2025-06-01 16:16:56,411 - INFO - main - === FIN precomputación de gráficos por defecto ===
+2025-06-01 16:17:01,196 - INFO - main - [REQUEST] dashboard -> start_date=None, end_date=None, route=None, plane=None, airline=[], airport=None
+2025-06-01 16:17:01,273 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 16:17:02,608 - INFO - main - Usando gráfico cacheado: plot_delay_by_airport
+2025-06-01 16:17:02,622 - INFO - main - Usando gráfico cacheado: plot_flight_counts
+2025-06-01 16:17:02,643 - INFO - main - Usando gráfico cacheado: plot_arrival_delay_distribution
+2025-06-01 16:17:02,656 - INFO - main - Usando gráfico cacheado: plot_cancelled_flights
+2025-06-01 16:17:02,670 - INFO - main - Usando gráfico cacheado: plot_airtime_by_route
+2025-06-01 16:17:02,689 - INFO - main - Usando gráfico cacheado: plot_flights_by_date
+2025-06-01 16:17:02,705 - INFO - main - Usando gráfico cacheado: plot_delay_by_hour
+2025-06-01 16:17:02,719 - INFO - main - Usando gráfico cacheado: plot_delay_by_airline
+2025-06-01 16:17:02,738 - INFO - main - Usando gráfico cacheado: plot_distance_vs_airtime
+2025-06-01 16:17:02,758 - INFO - main - Usando gráfico cacheado: plot_cancellation_rate
+2025-06-01 16:17:02,797 - INFO - main - Usando gráfico cacheado: plot_most_common_routes
+2025-06-01 16:17:02,827 - INFO - main - Usando gráfico cacheado: plot_delay_by_weekday
+2025-06-01 16:17:02,855 - INFO - main - Usando gráfico cacheado: <lambda>
+2025-06-01 16:17:02,868 - INFO - main - Usando gráfico cacheado: plot_most_diverted_airports
+2025-06-01 16:17:02,885 - INFO - main - Usando gráfico cacheado: plot_monthly_delay_trend
+2025-06-01 16:17:19,725 - INFO - main - [REQUEST] dashboard -> start_date=2023-01-01, end_date=2024-12-31, route=, plane=, airline=[], airport=
+2025-06-01 16:17:19,797 - INFO - main - Fechas usadas → start_date=2023-01-01, end_date=2024-12-31
+2025-06-01 16:17:20,618 - INFO - main - Usando gráfico cacheado: plot_delay_by_airport
+2025-06-01 16:17:20,643 - INFO - main - Usando gráfico cacheado: plot_flight_counts
+2025-06-01 16:17:20,679 - INFO - main - Usando gráfico cacheado: plot_arrival_delay_distribution
+2025-06-01 16:17:20,714 - INFO - main - Usando gráfico cacheado: plot_cancelled_flights
+2025-06-01 16:17:20,748 - INFO - main - Usando gráfico cacheado: plot_airtime_by_route
+2025-06-01 16:17:20,774 - INFO - main - Usando gráfico cacheado: plot_flights_by_date
+2025-06-01 16:17:20,801 - INFO - main - Usando gráfico cacheado: plot_delay_by_hour
+2025-06-01 16:17:20,823 - INFO - main - Usando gráfico cacheado: plot_delay_by_airline
+2025-06-01 16:17:20,841 - INFO - main - Usando gráfico cacheado: plot_distance_vs_airtime
+2025-06-01 16:17:20,863 - INFO - main - Usando gráfico cacheado: plot_cancellation_rate
+2025-06-01 16:17:20,881 - INFO - main - Usando gráfico cacheado: plot_most_common_routes
+2025-06-01 16:17:20,901 - INFO - main - Usando gráfico cacheado: plot_delay_by_weekday
+2025-06-01 16:17:20,920 - INFO - main - Usando gráfico cacheado: <lambda>
+2025-06-01 16:17:20,938 - INFO - main - Usando gráfico cacheado: plot_most_diverted_airports
+2025-06-01 16:17:20,957 - INFO - main - Usando gráfico cacheado: plot_monthly_delay_trend
+2025-06-01 16:18:47,660 - INFO - main - === INICIANDO precomputación de gráficos por defecto ===
+2025-06-01 16:18:48,009 - INFO - main - === FIN precomputación de gráficos por defecto ===
+2025-06-01 16:19:33,615 - INFO - main - [REQUEST] dashboard -> start_date=2023-01-01, end_date=2024-12-31, route=10599 → 13204, plane=5442, airline=[], airport=12191
+2025-06-01 16:19:33,693 - INFO - main - Fechas usadas → start_date=2023-01-01, end_date=2024-12-31
+2025-06-01 16:19:34,619 - WARNING - main - No hay datos para los filtros especificados.
+2025-06-01 16:19:43,219 - INFO - main - [REQUEST] dashboard -> start_date=2023-01-01, end_date=2024-12-31, route=10599 → 13204, plane=5442, airline=[], airport=
+2025-06-01 16:19:43,286 - INFO - main - Fechas usadas → start_date=2023-01-01, end_date=2024-12-31
+2025-06-01 16:19:44,344 - WARNING - main - No hay datos para los filtros especificados.
+2025-06-01 16:19:54,491 - INFO - main - [REQUEST] dashboard -> start_date=None, end_date=None, route=None, plane=None, airline=[], airport=None
+2025-06-01 16:19:54,560 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 16:19:55,774 - INFO - main - Usando gráfico cacheado: plot_flight_counts
+2025-06-01 16:19:55,796 - INFO - main - Usando gráfico cacheado: plot_arrival_delay_distribution
+2025-06-01 16:19:55,815 - INFO - main - Usando gráfico cacheado: plot_cancelled_flights
+2025-06-01 16:19:55,833 - INFO - main - Usando gráfico cacheado: plot_airtime_by_route
+2025-06-01 16:19:55,860 - INFO - main - Usando gráfico cacheado: plot_flights_by_date
+2025-06-01 16:19:55,886 - INFO - main - Usando gráfico cacheado: plot_delay_by_hour
+2025-06-01 16:19:55,910 - INFO - main - Usando gráfico cacheado: plot_delay_by_airline
+2025-06-01 16:19:55,936 - INFO - main - Usando gráfico cacheado: plot_distance_vs_airtime
+2025-06-01 16:19:55,955 - INFO - main - Usando gráfico cacheado: plot_cancellation_rate
+2025-06-01 16:19:55,981 - INFO - main - Usando gráfico cacheado: plot_most_common_routes
+2025-06-01 16:19:55,996 - INFO - main - Usando gráfico cacheado: plot_delay_by_weekday
+2025-06-01 16:19:56,017 - INFO - main - Usando gráfico cacheado: <lambda>
+2025-06-01 16:19:56,042 - INFO - main - Usando gráfico cacheado: plot_most_diverted_airports
+2025-06-01 16:19:56,055 - INFO - main - Usando gráfico cacheado: plot_monthly_delay_trend
+2025-06-01 16:20:13,691 - INFO - main - [REQUEST] dashboard -> start_date=2024-01-01, end_date=2024-12-31, route=12217 → 11433, plane=1934, airline=['AA'], airport=10397
+2025-06-01 16:20:13,759 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 16:20:14,690 - WARNING - main - No hay datos para los filtros especificados.
+2025-06-01 16:20:25,836 - INFO - main - [REQUEST] dashboard -> start_date=2024-01-01, end_date=2024-12-31, route=12217 → 11433, plane=1934, airline=['AA'], airport=
+2025-06-01 16:20:25,910 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 16:20:26,775 - WARNING - main - No hay datos para los filtros especificados.
+2025-06-01 16:20:33,909 - INFO - main - [REQUEST] dashboard -> start_date=2024-01-01, end_date=2024-12-31, route=, plane=, airline=['AA'], airport=
+2025-06-01 16:20:33,978 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 16:20:34,802 - INFO - main - Generando gráfico en vivo: plot_flight_counts
+2025-06-01 16:20:35,342 - INFO - main - Generando gráfico en vivo: plot_arrival_delay_distribution
+2025-06-01 16:20:35,765 - INFO - main - Generando gráfico en vivo: plot_cancelled_flights
+2025-06-01 16:20:36,721 - INFO - main - Generando gráfico en vivo: plot_airtime_by_route
+2025-06-01 16:20:37,243 - INFO - main - Generando gráfico en vivo: plot_flights_by_date
+2025-06-01 16:20:37,931 - INFO - main - Generando gráfico en vivo: plot_delay_by_hour
+2025-06-01 16:20:38,682 - INFO - main - Generando gráfico en vivo: plot_delay_by_airline
+2025-06-01 16:20:39,435 - INFO - main - Generando gráfico en vivo: plot_distance_vs_airtime
+2025-06-01 16:20:40,906 - INFO - main - Generando gráfico en vivo: plot_cancellation_rate
+2025-06-01 16:20:42,412 - INFO - main - Generando gráfico en vivo: plot_most_common_routes
+2025-06-01 16:20:43,033 - INFO - main - Generando gráfico en vivo: plot_delay_by_weekday
+2025-06-01 16:20:44,006 - INFO - main - Generando gráfico en vivo: <lambda>
+2025-06-01 16:20:45,483 - INFO - main - Generando gráfico en vivo: plot_most_diverted_airports
+2025-06-01 16:20:46,378 - INFO - main - Generando gráfico en vivo: plot_monthly_delay_trend
+2025-06-01 16:43:45,621 - INFO - main - [REQUEST] dashboard -> start_date=None, end_date=None, route=None, plane=None, airline=[], airport=None
+2025-06-01 16:43:45,700 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 16:43:46,512 - INFO - main - Usando gráfico cacheado: plot_flight_counts
+2025-06-01 16:43:46,529 - INFO - main - Usando gráfico cacheado: plot_arrival_delay_distribution
+2025-06-01 16:43:46,559 - INFO - main - Usando gráfico cacheado: plot_cancelled_flights
+2025-06-01 16:43:46,591 - INFO - main - Usando gráfico cacheado: plot_airtime_by_route
+2025-06-01 16:43:46,624 - INFO - main - Usando gráfico cacheado: plot_flights_by_date
+2025-06-01 16:43:46,642 - INFO - main - Usando gráfico cacheado: plot_delay_by_hour
+2025-06-01 16:43:46,679 - INFO - main - Usando gráfico cacheado: plot_delay_by_airline
+2025-06-01 16:43:46,703 - INFO - main - Usando gráfico cacheado: plot_distance_vs_airtime
+2025-06-01 16:43:46,717 - INFO - main - Usando gráfico cacheado: plot_cancellation_rate
+2025-06-01 16:43:46,733 - INFO - main - Usando gráfico cacheado: plot_most_common_routes
+2025-06-01 16:43:46,749 - INFO - main - Usando gráfico cacheado: plot_delay_by_weekday
+2025-06-01 16:43:46,768 - INFO - main - Usando gráfico cacheado: <lambda>
+2025-06-01 16:43:46,787 - INFO - main - Usando gráfico cacheado: plot_most_diverted_airports
+2025-06-01 16:43:46,820 - INFO - main - Usando gráfico cacheado: plot_monthly_delay_trend
+2025-06-01 16:53:33,258 - INFO - main - === INICIANDO precomputación de gráficos por defecto ===
+2025-06-01 16:53:33,568 - INFO - main - === FIN precomputación de gráficos por defecto ===
+2025-06-01 16:53:36,954 - INFO - main - [REQUEST] dashboard -> start_date=None, end_date=None, route=None, plane=None, airline=[], airport=None
+2025-06-01 16:53:36,992 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 16:53:37,936 - INFO - main - Usando gráfico cacheado: plot_flight_counts
+2025-06-01 16:53:37,948 - INFO - main - Usando gráfico cacheado: plot_arrival_delay_distribution
+2025-06-01 16:53:37,959 - INFO - main - Usando gráfico cacheado: plot_cancelled_flights
+2025-06-01 16:53:37,967 - INFO - main - Usando gráfico cacheado: plot_airtime_by_route
+2025-06-01 16:53:37,978 - INFO - main - Usando gráfico cacheado: plot_flights_by_date
+2025-06-01 16:53:37,986 - INFO - main - Usando gráfico cacheado: plot_delay_by_hour
+2025-06-01 16:53:37,997 - INFO - main - Usando gráfico cacheado: plot_delay_by_airline
+2025-06-01 16:53:38,012 - INFO - main - Usando gráfico cacheado: plot_distance_vs_airtime
+2025-06-01 16:53:38,023 - INFO - main - Usando gráfico cacheado: plot_cancellation_rate
+2025-06-01 16:53:38,032 - INFO - main - Usando gráfico cacheado: plot_most_common_routes
+2025-06-01 16:53:38,041 - INFO - main - Usando gráfico cacheado: plot_delay_by_weekday
+2025-06-01 16:53:38,054 - INFO - main - Usando gráfico cacheado: <lambda>
+2025-06-01 16:53:38,062 - INFO - main - Usando gráfico cacheado: plot_most_diverted_airports
+2025-06-01 16:53:38,069 - INFO - main - Usando gráfico cacheado: plot_monthly_delay_trend
+2025-06-01 16:56:32,163 - INFO - main - === INICIANDO precomputación de gráficos por defecto ===
+2025-06-01 16:57:45,929 - INFO - main - === FIN precomputación de gráficos por defecto ===
+2025-06-01 16:57:52,051 - INFO - main - [REQUEST] dashboard -> start_date=None, end_date=None, route=None, plane=None, airline=[], airport=None
+2025-06-01 16:58:02,907 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 16:59:54,632 - INFO - main - Usando gráfico cacheado: plot_flight_counts
+2025-06-01 16:59:54,644 - INFO - main - Usando gráfico cacheado: plot_arrival_delay_distribution
+2025-06-01 16:59:54,654 - INFO - main - Usando gráfico cacheado: plot_cancelled_flights
+2025-06-01 16:59:54,667 - INFO - main - Usando gráfico cacheado: plot_airtime_by_route
+2025-06-01 16:59:54,678 - INFO - main - Usando gráfico cacheado: plot_flights_by_date
+2025-06-01 16:59:54,689 - INFO - main - Usando gráfico cacheado: plot_delay_by_hour
+2025-06-01 16:59:54,703 - INFO - main - Usando gráfico cacheado: plot_delay_by_airline
+2025-06-01 16:59:54,711 - INFO - main - Usando gráfico cacheado: plot_distance_vs_airtime
+2025-06-01 16:59:54,725 - INFO - main - Usando gráfico cacheado: plot_cancellation_rate
+2025-06-01 16:59:54,734 - INFO - main - Usando gráfico cacheado: plot_most_common_routes
+2025-06-01 16:59:54,742 - INFO - main - Usando gráfico cacheado: plot_delay_by_weekday
+2025-06-01 16:59:54,750 - INFO - main - Usando gráfico cacheado: <lambda>
+2025-06-01 16:59:54,759 - INFO - main - Usando gráfico cacheado: plot_most_diverted_airports
+2025-06-01 16:59:54,767 - INFO - main - Usando gráfico cacheado: plot_monthly_delay_trend
+2025-06-01 17:05:52,389 - INFO - main - [REQUEST] dashboard -> start_date=2024-01-01, end_date=2023-12-31, route=, plane=, airline=[], airport=
+2025-06-01 17:06:01,731 - INFO - main - Fechas invertidas para corregir orden
+2025-06-01 17:06:01,731 - INFO - main - Fechas usadas → start_date=2023-12-31, end_date=2024-01-01
+2025-06-01 17:07:03,761 - INFO - main - Generando gráfico en vivo: plot_flight_counts
+2025-06-01 17:07:10,385 - INFO - main - Generando gráfico en vivo: plot_arrival_delay_distribution
+2025-06-01 17:07:17,931 - INFO - main - Generando gráfico en vivo: plot_cancelled_flights
+2025-06-01 17:07:27,161 - INFO - main - Generando gráfico en vivo: plot_airtime_by_route
+2025-06-01 17:07:35,541 - INFO - main - Generando gráfico en vivo: plot_flights_by_date
+2025-06-01 17:07:43,542 - INFO - main - Generando gráfico en vivo: plot_delay_by_hour
+2025-06-01 17:07:54,721 - INFO - main - Generando gráfico en vivo: plot_delay_by_airline
+2025-06-01 17:08:08,324 - INFO - main - Generando gráfico en vivo: plot_distance_vs_airtime
+2025-06-01 17:08:17,037 - INFO - main - Generando gráfico en vivo: plot_cancellation_rate
+2025-06-01 17:08:31,764 - INFO - main - Generando gráfico en vivo: plot_most_common_routes
+2025-06-01 17:08:38,132 - INFO - main - Generando gráfico en vivo: plot_delay_by_weekday
+2025-06-01 17:08:44,124 - INFO - main - Generando gráfico en vivo: <lambda>
+2025-06-01 17:08:52,462 - INFO - main - Generando gráfico en vivo: plot_most_diverted_airports
+2025-06-01 17:08:58,757 - INFO - main - Generando gráfico en vivo: plot_monthly_delay_trend
+2025-06-01 17:11:10,999 - INFO - main - [REQUEST] dashboard -> start_date=None, end_date=None, route=None, plane=None, airline=[], airport=None
+2025-06-01 17:11:21,953 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 17:12:00,959 - INFO - main - Usando gráfico cacheado: plot_flight_counts
+2025-06-01 17:12:00,969 - INFO - main - Usando gráfico cacheado: plot_arrival_delay_distribution
+2025-06-01 17:12:00,987 - INFO - main - Usando gráfico cacheado: plot_cancelled_flights
+2025-06-01 17:12:01,001 - INFO - main - Usando gráfico cacheado: plot_airtime_by_route
+2025-06-01 17:12:01,021 - INFO - main - Usando gráfico cacheado: plot_flights_by_date
+2025-06-01 17:12:01,037 - INFO - main - Usando gráfico cacheado: plot_delay_by_hour
+2025-06-01 17:12:01,055 - INFO - main - Usando gráfico cacheado: plot_delay_by_airline
+2025-06-01 17:12:01,067 - INFO - main - Usando gráfico cacheado: plot_distance_vs_airtime
+2025-06-01 17:12:01,084 - INFO - main - Usando gráfico cacheado: plot_cancellation_rate
+2025-06-01 17:12:01,097 - INFO - main - Usando gráfico cacheado: plot_most_common_routes
+2025-06-01 17:12:01,104 - INFO - main - Usando gráfico cacheado: plot_delay_by_weekday
+2025-06-01 17:12:01,113 - INFO - main - Usando gráfico cacheado: <lambda>
+2025-06-01 17:12:01,122 - INFO - main - Usando gráfico cacheado: plot_most_diverted_airports
+2025-06-01 17:12:01,131 - INFO - main - Usando gráfico cacheado: plot_monthly_delay_trend
+2025-06-01 17:12:33,794 - INFO - main - [REQUEST] dashboard -> start_date=None, end_date=None, route=None, plane=None, airline=[], airport=None
+2025-06-01 17:12:42,812 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 17:13:34,012 - INFO - main - Usando gráfico cacheado: plot_flight_counts
+2025-06-01 17:13:34,023 - INFO - main - Usando gráfico cacheado: plot_arrival_delay_distribution
+2025-06-01 17:13:34,039 - INFO - main - Usando gráfico cacheado: plot_cancelled_flights
+2025-06-01 17:13:34,053 - INFO - main - Usando gráfico cacheado: plot_airtime_by_route
+2025-06-01 17:13:34,070 - INFO - main - Usando gráfico cacheado: plot_flights_by_date
+2025-06-01 17:13:34,086 - INFO - main - Usando gráfico cacheado: plot_delay_by_hour
+2025-06-01 17:13:34,106 - INFO - main - Usando gráfico cacheado: plot_delay_by_airline
+2025-06-01 17:13:34,123 - INFO - main - Usando gráfico cacheado: plot_distance_vs_airtime
+2025-06-01 17:13:34,137 - INFO - main - Usando gráfico cacheado: plot_cancellation_rate
+2025-06-01 17:13:34,151 - INFO - main - Usando gráfico cacheado: plot_most_common_routes
+2025-06-01 17:13:34,164 - INFO - main - Usando gráfico cacheado: plot_delay_by_weekday
+2025-06-01 17:13:34,178 - INFO - main - Usando gráfico cacheado: <lambda>
+2025-06-01 17:13:34,188 - INFO - main - Usando gráfico cacheado: plot_most_diverted_airports
+2025-06-01 17:13:34,200 - INFO - main - Usando gráfico cacheado: plot_monthly_delay_trend
+2025-06-01 17:14:28,804 - INFO - main - [REQUEST] dashboard -> start_date=None, end_date=None, route=None, plane=None, airline=[], airport=None
+2025-06-01 17:14:38,701 - INFO - main - Fechas usadas → start_date=2024-01-01, end_date=2024-12-31
+2025-06-01 17:15:56,192 - INFO - main - Usando gráfico cacheado: plot_flight_counts
+2025-06-01 17:15:56,200 - INFO - main - Usando gráfico cacheado: plot_arrival_delay_distribution
+2025-06-01 17:15:56,215 - INFO - main - Usando gráfico cacheado: plot_cancelled_flights
+2025-06-01 17:15:56,230 - INFO - main - Usando gráfico cacheado: plot_airtime_by_route
+2025-06-01 17:15:56,249 - INFO - main - Usando gráfico cacheado: plot_flights_by_date
+2025-06-01 17:15:56,262 - INFO - main - Usando gráfico cacheado: plot_delay_by_hour
+2025-06-01 17:15:56,279 - INFO - main - Usando gráfico cacheado: plot_delay_by_airline
+2025-06-01 17:15:56,292 - INFO - main - Usando gráfico cacheado: plot_distance_vs_airtime
+2025-06-01 17:15:56,300 - INFO - main - Usando gráfico cacheado: plot_cancellation_rate
+2025-06-01 17:15:56,316 - INFO - main - Usando gráfico cacheado: plot_most_common_routes
+2025-06-01 17:15:56,330 - INFO - main - Usando gráfico cacheado: plot_delay_by_weekday
+2025-06-01 17:15:56,350 - INFO - main - Usando gráfico cacheado: <lambda>
+2025-06-01 17:15:56,365 - INFO - main - Usando gráfico cacheado: plot_most_diverted_airports
+2025-06-01 17:15:56,378 - INFO - main - Usando gráfico cacheado: plot_monthly_delay_trend

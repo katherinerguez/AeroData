@@ -1,7 +1,6 @@
-Python  
+fastapi
+uvicorn[standard]
 jinja2
-fastapi 
-uvicorn
 sqlalchemy
 supabase
 pandas
@@ -9,5 +8,18 @@ psycopg2
 plotly
 dask
 pydantic
-dotenv
 kafka 2.6.0
+openpyxl
+redis
+bcrypt
+python-dotenv
+diskcache
+python-multipart  
+dotenv
+plotly
+pyarrow
+statsmodels
+pydantic
+uuid
+typing
+passlib
