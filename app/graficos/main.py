@@ -110,7 +110,7 @@ def precompute_default_graphs():
                 logger.error(f"  ❌ Error precomputando '{func_name}': {e}", exc_info=True)
     logger.info("=== FIN precomputación de gráficos por defecto ===")
 
-@app.get("/graficos", response_class=HTMLResponse)
+@app.get("/", response_class=HTMLResponse)
 async def dashboard(
     request: Request,
     start_date: str = Query(None),
