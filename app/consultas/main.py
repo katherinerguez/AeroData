@@ -26,7 +26,7 @@ async def mostrar_login():
 
 from fastapi.responses import RedirectResponse
 
-@app.get("/", response_class=HTMLResponse)
+@app.get("/consultas", response_class=HTMLResponse)
 async def raiz():
     return RedirectResponse(url="/login")
 
