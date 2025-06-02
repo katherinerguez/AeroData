@@ -1,4 +1,4 @@
-Python  
+python  
 jinja2
 fastapi 
 uvicorn
