@@ -21,3 +21,4 @@ statsmodels
 pydantic
 uuid
 typing
+passlib
