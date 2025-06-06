@@ -1,8 +1,17 @@
+<<<<<<< HEAD
+version: '3.8'
+
+=======
+>>>>>>> origin/main
 services:
   zookeeper:
     image: wurstmeister/zookeeper:latest
     ports:
+<<<<<<< HEAD
+      - "22181:2181"
+=======
       - "2181:2181"
+>>>>>>> origin/main
     environment:
       ALLOW_ANONYMOUS_LOGIN: "yes"
     networks:
@@ -16,8 +25,13 @@ services:
       - "9092:9092"
     environment:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+<<<<<<< HEAD
+      KAFKA_LISTENERS: "PLAINTEXT://0.0.0.0:9092"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://host.docker.internal:9092"  
+=======
       KAFKA_LISTENERS: "PLAINTEXT://0.0.0.0:9092"         # Escucha en todas las interfaces
       KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://host.docker.internal:9092"  # Accesible desde el host
+>>>>>>> origin/main
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       ALLOW_PLAINTEXT_LISTENER: "yes"
     depends_on:
@@ -26,8 +40,11 @@ services:
       - kafka-net
     volumes:
       - kafka_data:/kafka
+<<<<<<< HEAD
+=======
     extra_hosts:
       - "host.docker.internal:host-gateway"  # Necesario para Linux
+>>>>>>> origin/main
 
 networks:
   kafka-net:
