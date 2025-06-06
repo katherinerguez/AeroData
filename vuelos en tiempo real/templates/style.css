@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    text-align: center; 
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: left; 
+}
+
+.buttons {
+    margin-top: 10px;
+}
+
+.buttons button {
+    margin-right: 10px;
+}
+
+.result-block {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-top: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.result-block h3 {
+    margin-top: 0;
+}
+
+.query-block {
+    border-top: 2px dashed #ccc;
+    padding-top: 20px;
+    margin-top: 30px;
+}

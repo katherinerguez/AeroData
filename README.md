@@ -17,5 +17,6 @@ La base de datos se creó en postgres, sacando las entidades y sus relaciones. S
 
 ## 4. Interfaz Visual
   Para la interfaz visual se presenta una página web, realizada con Fast API, donde se muestran los análisis respecto a los aeropuertos. Además en otro puerto se presenta la API que nos brinda los datos a través de request y tambiénn se encuentra para realizar consultas directas a la base de datos.
-  Todos estos archivos se encuentran disponibles en la carpeta llamada app, para ejecutar los acrhivos se encuentra el archivo run, con el cual se levantan todos los procesos de manera automática. Para ejecutar este archivo se ejecuta el siguiente comando en la consola, ./run.sh
+  Todos estos archivos se encuentran disponibles en la carpeta llamada app, para ejecutar los acrhivos se encuentra el archivo main.py ,que al ejecutar el archivo desde la raiz del repositorio con el comando uvicorn app.main:app se despliegan los tres servicios web.
+  Si desea acceder al análisis de los datos histiricos, lo encontrara en https://aerodata.onrender.com/graficos/, si desea acceder a la api, debera registrarse en https://aerodata.onrender.com/api/register/, y luego acceder desde python a los daton con https://aerodata.onrender.com/api/ , y si tiene el conocimiento sql y desea hacer consultas sql a la base de datos, puede acceder a https://aerodata.onrender.com/consultas/
 

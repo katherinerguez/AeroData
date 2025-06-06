@@ -1,24 +1,40 @@
-# schemas.py
-from pydantic import BaseModel
+from pydantic import BaseModel, SecretStr, field_validator
 from typing import Optional
 from datetime import datetime, time
 
 class UserCreate(BaseModel):
     username: str
+    password: SecretStr
+    
+    @field_validator('password')
+    def validate_password(cls, v):
+        if len(v.get_secret_value()) < 8:
+            raise ValueError("La contraseña debe tener al menos 8 caracteres")
+        return v
 
 class UserOut(BaseModel):
     id: int
     username: str
-    api_key: str
+    api_key: str  # Añadido para devolver la API key
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+        
+class ApiKeySchema(BaseModel):
+    id: int
+    user_id: int
+    key: str
+    created_at: datetime
+    active: bool
 
+    class Config:
+        from_attributes = True
+        
 # ---------------- AIRPORT ----------------
 class AirportSchema(BaseModel):
     airport_id: int
     airport_seq_id: int
-    city_market_id: int
+    city_market_id: str
     code: str
     city_name: str
     state_abr: str

@@ -66,7 +66,12 @@ def send_to_kafka(states_data, flights_data, topic='flight-data-topic'):
                     "estDepartureAirport": flight.get("estDepartureAirport"),
                     "estArrivalAirport": flight.get("estArrivalAirport")
                 }
+<<<<<<< HEAD
 
+=======
+    
+    # Procesar cada estado
+>>>>>>> origin/main
     for state in states_data["states"]:
         if len(state) < 17:  
             continue
@@ -94,7 +99,11 @@ def send_to_kafka(states_data, flights_data, topic='flight-data-topic'):
                 "heading": state[10],
                 "vertical_rate": state[11]
             },
+<<<<<<< HEAD
             "flight_info": flight_info  
+=======
+            "flight_info": flight_info  # Datos de vuelo asociados
+>>>>>>> origin/main
         }
         
         producer.send(

@@ -1,0 +1,13 @@
+2025-05-29 01:40:50,400 - INFO - main - Iniciando dashboard con parámetros: start_date=None, end_date=None, selected_route=None, selected_plane=None, selected_airline=None, selected_airport=None
+2025-05-29 01:40:50,401 - INFO - main - Obteniendo rango de fechas mínimo y máximo
+2025-05-29 01:40:50,472 - INFO - main - Fechas finales usadas: start_date=2024-01-01, end_date=2024-12-31
+2025-05-29 01:40:50,472 - INFO - main - Cargando datos filtrados por fecha
+2025-05-29 01:40:51,196 - INFO - main - Datos cargados - Número de registros: 1000
+2025-05-29 01:40:51,206 - INFO - main - Calculando listas únicas de rutas, aviones y aerolíneas
+2025-05-29 01:40:52,652 - INFO - main - Encontradas 66 rutas únicas, 186 aviones únicos, 9 aerolíneas únicas
+2025-05-29 01:40:53,381 - INFO - main - Encontrados 24 aeropuertos válidos
+2025-05-29 01:40:53,381 - INFO - main - Obteniendo top aerolíneas y aviones
+2025-05-29 01:40:53,559 - INFO - main - Selecciones finales: route=13277 → 11298, plane=5332, airline=['OH', 'DL', 'OO', 'MQ', '9E']
+2025-05-29 01:40:53,559 - INFO - main - Generando gráficos
+2025-05-29 01:41:10,889 - INFO - main - Gráficos generados - Cache hits: 0, Cache misses: 15
+2025-05-29 01:41:10,904 - INFO - main - Preparando respuesta exitosa
