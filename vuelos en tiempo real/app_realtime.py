@@ -5,6 +5,7 @@ import plotly.express as px
 from dotenv import load_dotenv
 from waitress import serve 
 import os
+import plotly.colors
 
 load_dotenv()
 
@@ -27,18 +28,30 @@ def index():
         df_vuelos_activos = df[df['est_arrival_airport'] != True]
        
         df_grouped = df_vuelos_activos.groupby("origin_country").size().reset_index(name="count")
-        
+        df_grouped = df_grouped.sort_values('count', ascending=True) #ordenarlos de maner ascendente
         # Grafico de barras horizontales para la cantidad de vuelos por paises
-        fig = px.bar(
-            df_grouped,
-            x="count",
-            y="origin_country",  
-            orientation='h',           
-            title="Cantidad de vuelos activos por país",
-            labels={"count": "Cantidad de vuelos", "origin_country": "País"}
+        custom_colors = plotly.colors.qualitative.Dark2 # predefinir colores para cada pais
+        fig = px.bar(df_grouped, 
+                 x='count',
+                 y='origin_country',
+                 orientation='h',
+                 title='Cantidad de vuelos activos por país',
+                 color='origin_country',  
+                 color_discrete_sequence=custom_colors  
+                )
+
+        fig.update_layout(
+            xaxis_title='Cantidad de vuelos',
+            yaxis_title='País',
+            title_x=0.5,
+            height=750,  
+            margin=dict(l=100, r=50, t=80, b=50),  
+            showlegend=False 
         )
+
+        # fig.update_traces(hovertemplate=None, hoverinfo='none')  
+
         graph_html = fig.to_html(full_html=False)
-        
         return render_template("diseno.html", graph_html=graph_html)
     
     except Exception as e:
