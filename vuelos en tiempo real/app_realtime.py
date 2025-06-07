@@ -47,15 +47,27 @@ def index():
             height=750,  
             margin=dict(l=100, r=50, t=80, b=50),  
             showlegend=False 
-        )
-
-        # fig.update_traces(hovertemplate=None, hoverinfo='none')  
+        )  
 
         graph_html = fig.to_html(full_html=False)
         return render_template("diseno.html", graph_html=graph_html)
     
     except Exception as e:
         return f"Error: {str(e)}", 500
+@app.route('/')
+def location(): 
+    """
+    Esta funcion es para extraer las localizaciones de los vuelos y 
+    representarlos en un mapa donde se muestra su ubicacion en tiempo real en un mapa interactivo
+    """
+    try:
+        location = supabase.table("current flights").select("latitude, longitude").execute()
+        data_location = location.data  
+            
+        df_locations = pd.DataFrame(data_location)
+        
+    except Exception as e:
+        return f"Error en obtener las posiciones"
 
 if __name__ == "__main__":
 
