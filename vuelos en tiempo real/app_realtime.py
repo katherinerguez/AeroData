@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from supabase import create_client, Client
 import pandas as pd
 import plotly.express as px
@@ -54,18 +54,18 @@ def index():
     
     except Exception as e:
         return f"Error: {str(e)}", 500
-@app.route('/')
+@app.route('/get_location')
 def location(): 
     """
     Esta funcion es para extraer las localizaciones de los vuelos y 
     representarlos en un mapa donde se muestra su ubicacion en tiempo real en un mapa interactivo
     """
     try:
-        location = supabase.table("current flights").select("latitude, longitude").execute()
+        location = supabase.table("current flights").select("icao24, latitude, longitude").execute()
         data_location = location.data  
             
-        df_locations = pd.DataFrame(data_location)
-        
+        return jsonify(data_location)
+
     except Exception as e:
         return f"Error en obtener las posiciones"
 
