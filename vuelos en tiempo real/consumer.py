@@ -45,17 +45,13 @@ class FlightDataConsumer:
         Procesa y almacena los datos de vuelo en Supabase
         """
         try:
-<<<<<<< HEAD
-=======
             # Validación de datos requeridos (ajustada para campos anidados)
->>>>>>> origin/main
             position = flight_data.get("position", {})
             
             if not flight_data.get("icao24") or not position.get("last_contact"):
                 self.logger.warning(f"Datos incompletos recibidos: {flight_data}")
                 return False
 
-<<<<<<< HEAD
             processed_data = {
                 "icao24": flight_data.get("icao24"),
                 "origin_country": flight_data.get("origin_country"),
@@ -72,7 +68,7 @@ class FlightDataConsumer:
             }
             print("datos procesados",processed_data)
             # Insertar en Supabase
-=======
+
             # Preparación de datos para inserción (accede a campos anidados)
             processed_data = {
                 "icao24": flight_data.get("icao24"),
@@ -90,7 +86,7 @@ class FlightDataConsumer:
             }
             print("datos procesados",processed_data)
             # Inserción en Supabase
->>>>>>> origin/main
+
             response = self.supabase.table("current_flight").insert(processed_data).execute()
             
             if response.data:
@@ -145,8 +141,6 @@ class FlightDataConsumer:
         """
 
         processed_batch = []
-<<<<<<< HEAD
-=======
         
 #         for flight_data in batch:
 #             if self.validate_flight_data(flight_data):
@@ -155,7 +149,6 @@ class FlightDataConsumer:
 #             if not flight_data.get('position', {}).get('last_contact'):
 #                 processed_data = self.transform_flight_data(flight_data)
 #                 processed_batch.append(processed_data)
->>>>>>> origin/main
 
         for i, flight_data in enumerate(batch):
 
@@ -175,10 +168,7 @@ class FlightDataConsumer:
         if processed_batch:
             try:
                 response = self.supabase.table('current flights').insert(processed_batch).execute()
-<<<<<<< HEAD
-=======
-                print(1111111111111111111111111111111111111)
->>>>>>> origin/main
+
                 if response:   
                     self.logger.info(f"Lote de {len(processed_batch)} registros insertado exitosamente")
             except Exception as e:
@@ -186,31 +176,21 @@ class FlightDataConsumer:
                 
     def validate_flight_data(self, flight_data: Dict[str, Any]) -> bool:
         """
-<<<<<<< HEAD
         Valida el contenido de los datos de vuelo
         """
         position = flight_data.get("position", {})
 
-=======
-        Valida la estructura y contenido de los datos de vuelo
-        """
-        position = flight_data.get("position", {})
-
-        # Campos requeridos: nombres de las claves, no sus valores
->>>>>>> origin/main
         required_fields = ['icao24']
         position_required_fields = ['last_contact']
 
-        # Verificar campos requeridos en el nivel principal
         for field in required_fields:
             if field not in flight_data or flight_data[field] is None:
                 return False
 
-<<<<<<< HEAD
         for field in position_required_fields:
             if field not in position or position[field] is None:
                 return False     
-=======
+
         # Verificar campos requeridos dentro de 'position'
         for field in position_required_fields:
             if field not in position or position[field] is None:
@@ -242,8 +222,6 @@ class FlightDataConsumer:
         # if flight_data.get('altitude'):
         #     if not (-1000 <= float(flight_data['altitude']) <= 50000):
         #         return False
-                
->>>>>>> origin/main
         return True
     def safe_int_conversion(self, value):
         try:
@@ -288,17 +266,13 @@ def setup_logging():
             logging.StreamHandler()
         ]
     )
-
-<<<<<<< HEAD
 if __name__ == "__main__":
     setup_logging()
 
-=======
 # Punto de entrada principal
 if __name__ == "__main__":
     setup_logging()
-    print(111111111111111111111111111111111111111111111)
->>>>>>> origin/main
+
     kafka_config = {
         'bootstrap_servers': ['localhost:9092'],
         'group_id': 'flight-data-consumer'
