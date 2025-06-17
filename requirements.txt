@@ -16,19 +16,13 @@ python-dotenv
 diskcache
 python-multipart  
 dotenv
-<<<<<<< HEAD
-=======
 plotly
->>>>>>> origin/main
 pyarrow
 statsmodels
 pydantic
 uuid
 typing
 passlib
-<<<<<<< HEAD
 flask
 requests
 
-=======
->>>>>>> origin/main
