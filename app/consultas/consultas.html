@@ -26,7 +26,7 @@
 
     if (!usuario || !contrasena) {
         alert("No has iniciado sesión. Serás redirigido al login.");
-        window.location.href = "/consultas";
+        window.location.href = "/";
 
     }
 </script>
@@ -79,7 +79,7 @@
                 resultDiv.innerHTML = "";
                 downloadDiv.style.display = "none";
 
-                const res = await fetch("/execute", {
+                const res = await fetch("/consultas/execute", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -137,7 +137,7 @@
                 return;
             }
 
-            const res = await fetch(`/download/${formato}`, {
+            const res = await fetch(`/consultas/download/${formato}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
