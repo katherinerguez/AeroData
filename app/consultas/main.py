@@ -27,10 +27,14 @@ async def mostrar_login():
 from fastapi.responses import RedirectResponse
 
 @app.get("/", response_class=HTMLResponse)
-async def raiz():
+async def raiz(request: Request):
+    auth_header = request.headers.get("authorization")
+    if auth_header:
+        return RedirectResponse(url="/consultas/dashboar")
     return RedirectResponse(url="/consultas/login")
 
-@app.get("/", response_class=HTMLResponse)
+
+@app.get("/dashboar", response_class=HTMLResponse)
 async def mostrar_dashboard():
     # Leer el archivo HTML directamente
     html_path = os.path.join(os.path.dirname(__file__), "consultas.html")
