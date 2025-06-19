@@ -46,7 +46,7 @@ setup_logging()
 logger = logging.getLogger(__name__)
 
 # App y configuración
-app = FastAPI()
+app = FastAPI(root_path="/graficos")
 templates = Jinja2Templates(directory="app/graficos/templates")
 cache = Cache("./plot_cache")
 

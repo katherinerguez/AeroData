@@ -54,7 +54,7 @@
         <hr>
 
         <!-- Botón para mostrar/ocultar formulario de registro -->
-        <button type="button" onclick="window.location.href='/register'" style="background-color: #28a745;">Crear cuenta</button>       
+        <button type="button" onclick="window.location.href='/consultas/register'" style="background-color: #28a745;">Crear cuenta</button>       
         
         <!-- Formulario de Registro (oculto al inicio) -->
         <div id="registroForm">
@@ -72,7 +72,7 @@
             const usuario = document.getElementById("usuario").value;
             const contrasena = document.getElementById("contrasena").value;
 
-            const res = await fetch("/execute", {
+            const res = await fetch("/consultas/execute", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -84,7 +84,7 @@
             if (res.status === 200) {
             localStorage.setItem("usuario", usuario);
             localStorage.setItem("contrasena", contrasena);
-            window.location.href = "/consultas";
+            window.location.href = "/consultas/dashboar";
         }
 
              else {
@@ -116,7 +116,7 @@
             formData.append("password", nuevaContrasena);
 
             try {
-                const res = await fetch("/register", {
+                const res = await fetch("/consultas/register", {
                     method: "POST",
                     body: formData  // Se envía como application/x-www-form-urlencoded
                 });

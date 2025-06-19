@@ -32,31 +32,55 @@ def verify_api_key(x_api_key: str = Header(...), db: Session = Depends(get_db)):
     
 @app.post("/register/", response_model=schemas.UserOut)
 def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    if db.query(tablas.User).filter(tablas.User.username == user.username).first():
-        raise HTTPException(status_code=400, detail="El usuario ya existe")
+    existing_user = db.query(tablas.User).filter(tablas.User.username == user.username).first()
 
     try:
-        # Crear usuario
+        if existing_user:
+            # Validar contraseña
+            if not existing_user.verify_password(user.password.get_secret_value()):
+                raise HTTPException(status_code=401, detail="Contraseña incorrecta")
+            
+            # Revisar si ya tiene API Key
+            existing_api_key = db.query(tablas.ApiKey).filter(tablas.ApiKey.user_id == existing_user.id).first()
+            if existing_api_key:
+                return {
+                    "id": existing_user.id,
+                    "username": existing_user.username,
+                    "api_key": existing_api_key.key
+                }
+            else:
+                # Generar nueva API Key para usuario existente sin clave
+                api_key = str(uuid.uuid4())
+                new_api_key = tablas.ApiKey(user_id=existing_user.id, key=api_key)
+                db.add(new_api_key)
+                db.commit()
+                return {
+                    "id": existing_user.id,
+                    "username": existing_user.username,
+                    "api_key": api_key
+                }
+
+        # Crear nuevo usuario
         new_user = tablas.User(username=user.username)
         new_user.set_password(user.password.get_secret_value())
         db.add(new_user)
-        db.flush()  # Para obtener el ID
-        
-        # Crear API Key
+        db.flush()  # Obtener ID para clave API
+
         api_key = str(uuid.uuid4())
         new_api_key = tablas.ApiKey(user_id=new_user.id, key=api_key)
         db.add(new_api_key)
-        
         db.commit()
-        
+
         return {
             "id": new_user.id,
             "username": new_user.username,
             "api_key": api_key
         }
+
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=str(e))
+
     
 from fastapi.responses import HTMLResponse
 
@@ -111,7 +135,7 @@ async def show_register_form():
                 }
                 
                 try {
-                    const response = await fetch('/register/', {
+                    const response = await fetch('/api/register/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
