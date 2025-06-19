@@ -8,7 +8,7 @@ psycopg2
 plotly
 dask
 pydantic
-kafka == 2.6.0
+kafka 
 openpyxl
 redis
 bcrypt
