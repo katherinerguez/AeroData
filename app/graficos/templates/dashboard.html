@@ -4,151 +4,295 @@
     <meta charset="UTF-8" />
     <title>Dashboard de Vuelos</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
     <style>
-        /* Estilos básicos para centrar el form y los gráficos */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
+    :root {
+        --primary-color: #1a73e8;
+        --secondary-color: #f1f3f4;
+        --accent-color: #34a853;
+        --text-color: #202124;
+        --light-text: #5f6368;
+        --border-color: #dadce0;
+        --warning-bg: #fce8e6;
+        --warning-border: #f28b82;
+    }
+    
+    body {
+        font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        color: var(--text-color);
+        background-color: #f8f9fa;
+        line-height: 1.5;
+    }
+    
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+    
+    h1 {
+        color: var(--primary-color);
+        margin-bottom: 24px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 2px 0 rgba(60,64,67,0.1), 0 2px 6px 2px rgba(60,64,67,0.15);
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .alert {
+        padding: 12px 16px;
+        background-color: var(--warning-bg);
+        border: 1px solid var(--warning-border);
+        border-radius: 6px;
+        color: #d93025;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .alert strong {
+        font-weight: 500;
+    }
+    
+    form {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+    
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    label {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--light-text);
+    }
+    
+    input, select, button {
+        padding: 10px 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 14px;
+        transition: border-color 0.2s;
+    }
+    
+    input:focus, select:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(26,115,232,0.2);
+    }
+    
+    select[multiple] {
+        min-height: 120px;
+        padding: 8px;
+    }
+    
+    button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-weight: 500;
+        align-self: flex-end;
+        transition: background-color 0.2s;
+    }
+    
+    button:hover {
+        background-color: #1765d1;
+    }
+    
+    .graphs {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 20px;
+    }
+    
+    .graph-container {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 2px 0 rgba(60,64,67,0.1), 0 1px 3px 1px rgba(60,64,67,0.1);
+        padding: 16px;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .graph-container:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 1px 3px 0 rgba(60,64,67,0.2), 0 4px 8px 3px rgba(60,64,67,0.1);
+    }
+    
+    @media (max-width: 768px) {
         form {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            max-width: 800px;
-            margin-bottom: 20px;
+            grid-template-columns: 1fr;
         }
-        form label {
-            flex-basis: 100%;
-        }
-        form input,
-        form select,
-        form button {
-            padding: 5px;
-            font-size: 14px;
-        }
+        
         .graphs {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr;
         }
-        .graph-container {
-            border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
-            background-color: #fafafa;
-        }
-        h1 {
-            margin-top: 0;
-        }
-        .alert {
-            padding: 10px;
-            background-color: #f9ecec;
-            border: 1px solid #e0b4b4;
-            border-radius: 4px;
-            color: #9f3a38;
-            margin-bottom: 20px;
-        }
-    </style>
+    }
+</style>
+
+
 </head>
+
 <body>
-    {% if warning_message %}
-        <div class="alert">
-            {{ warning_message }}
-        </div>
-    {% endif %}
-
-    <h1>📊 Dashboard de Vuelos</h1>
-
-    <form method="get" action="/graficos">
-        <div>
-            <label for="start_date">Fecha inicial:</label><br>
-            <input type="date" id="start_date" name="start_date" value="{{ start_date }}">
-        </div>
-
-        <div>
-            <label for="end_date">Fecha final:</label><br>
-            <input type="date" id="end_date" name="end_date" value="{{ end_date }}">
-        </div>
-
-        <div>
-            <label for="selected_airline">Aerolíneas (múltiple):</label><br>
-            <select name="selected_airline" id="selected_airline" multiple size="5">
-            {% for airline in airlines %}
-                <option value="{{ airline }}"
-                    {% if airline in selected_airline %}
-                        selected
-                    {% endif %}
-                >{{ airline }}</option>
-            {% endfor %}
-            </select>
-        </div>
-
-        <div>
-            <label for="selected_route">Ruta:</label><br>
-            <select name="selected_route" id="selected_route">
-                <option value="">-- Todas las rutas --</option>
-                {% for route in routes %}
-                    <option value="{{ route }}"
-                        {% if route == selected_route %}selected{% endif %}
-                    >{{ route }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div>
-            <label for="selected_plane">Avión:</label><br>
-            <select name="selected_plane" id="selected_plane">
-                <option value="">-- Todos los aviones --</option>
-                {% for plane in planes %}
-                    <option value="{{ plane }}"
-                        {% if plane == selected_plane %}selected{% endif %}
-                    >{{ plane }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div>
-            <label for="selected_airport">Aeropuerto:</label><br>
-            <select name="selected_airport" id="selected_airport">
-                <option value="">-- Todos los aeropuertos --</option>
-                {% for airport in valid_airports %}
-                    <option value="{{ airport }}"
-                        {% if airport == selected_airport %}selected{% endif %}
-                    >{{ airport }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div style="align-self: flex-end;">
-            <button type="submit">Filtrar</button>
-        </div>
-    </form>
-
-    {% if no_data %}
-        <div class="alert">
-            <strong>⚠️ No se encontraron datos en el rango seleccionado.</strong><br>
-            Por favor, ajuste las fechas o los filtros y pruebe de nuevo.
-        </div>
-    {% else %}
-        <div class="graphs">
-            {% for i in range(1, 16) %}
-                <div class="graph-container">
-                    <div id="graph{{ i }}" style="width:100%; height:100%;"></div>
-                </div>
-            {% endfor %}
-        </div>
-
-       <script>
-    {% for i in range(1, 16) %}
-        {% set key = 'graph' ~ i %}
-        {% if key in graph_data %}
-            var graph{{ i }}_data = JSON.parse('{{ graph_data[key] | safe }}');
-            Plotly.newPlot("graph{{ i }}", graph{{ i }}_data.data, graph{{ i }}_data.layout);
+    <div class="container">
+        {% if warning_message %}
+            <div class="alert">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 8V12M12 16H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#D93025" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div>{{ warning_message }}</div>
+            </div>
         {% endif %}
-    {% endfor %}
-</script>
 
-    {% endif %}
+        <div class="dashboard-header">
+            <h1>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11L10.75 7H12.25L13 13Z" fill="#1A73E8"/>
+                </svg>
+                Dashboard de Vuelos
+            </h1>
+            
+            <div class="filters-summary">
+                {% if start_date or end_date or selected_airline or selected_route or selected_plane or selected_airport %}
+                    <small>Filtros aplicados: 
+                        {{ start_date }} a {{ end_date }} | 
+                        {% if selected_airline %}{{ selected_airline|join(', ') }} | {% endif %}
+                        {% if selected_route %}{{ selected_route }} | {% endif %}
+                        {% if selected_plane %}{{ selected_plane }} | {% endif %}
+                        {% if selected_airport %}{{ selected_airport }}{% endif %}
+                    </small>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card">
+            <form method="get" action="/graficos">
+                <div class="form-group">
+                    <label for="start_date">Fecha inicial</label>
+                    <input type="date" id="start_date" name="start_date" value="{{ start_date }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="end_date">Fecha final</label>
+                    <input type="date" id="end_date" name="end_date" value="{{ end_date }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="selected_airline">Aerolíneas (selección múltiple)</label>
+                    <select name="selected_airline" id="selected_airline" multiple>
+                    {% for airline in airlines %}
+                        <option value="{{ airline }}"
+                            {% if airline in selected_airline %}
+                                selected
+                            {% endif %}
+                        >{{ airline }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="selected_route">Ruta</label>
+                    <select name="selected_route" id="selected_route">
+                        <option value="">Todas las rutas</option>
+                        {% for route in routes %}
+                            <option value="{{ route }}"
+                                {% if route == selected_route %}selected{% endif %}
+                            >{{ route }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="selected_plane">Avión</label>
+                    <select name="selected_plane" id="selected_plane">
+                        <option value="">Todos los aviones</option>
+                        {% for plane in planes %}
+                            <option value="{{ plane }}"
+                                {% if plane == selected_plane %}selected{% endif %}
+                            >{{ plane }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="selected_airport">Aeropuerto</label>
+                    <select name="selected_airport" id="selected_airport">
+                        <option value="">Todos los aeropuertos</option>
+                        {% for airport in valid_airports %}
+                            <option value="{{ airport }}"
+                                {% if airport == selected_airport %}selected{% endif %}
+                            >{{ airport }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group" style="align-self: flex-end;">
+                    <button type="submit">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Aplicar Filtros
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        {% if no_data %}
+            <div class="alert">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 8V12M12 16H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#D93025" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div>
+                    <strong>No se encontraron datos en el rango seleccionado</strong><br>
+                    Por favor, ajuste las fechas o los filtros y pruebe de nuevo.
+                </div>
+            </div>
+        {% else %}
+            <div class="graphs">
+                {% for i in range(1, 16) %}
+                    <div class="graph-container">
+                        <div id="graph{{ i }}" style="width:100%; height:400px;"></div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <script>
+                {% for i in range(1, 16) %}
+                    {% set key = 'graph' ~ i %}
+                    {% if key in graph_data %}
+                        var graph{{ i }}_data = JSON.parse('{{ graph_data[key] | safe }}');
+                        Plotly.newPlot("graph{{ i }}", graph{{ i }}_data.data, graph{{ i }}_data.layout);
+                    {% endif %}
+                {% endfor %}
+            </script>
+        {% endif %}
+    </div>
 </body>
+
 </html>
