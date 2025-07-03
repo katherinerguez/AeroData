@@ -1,8 +1,11 @@
-from sqlalchemy import create_engine, text  
 from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy import create_engine, text  
+
+from datetime import datetime
 
 from dotenv import load_dotenv
 import os
+
 load_dotenv()
 
 # local_Jenni=os.getenv('local_Jenni')
@@ -54,4 +57,72 @@ def get_usuario(username: str):
             {"username": username}
         ).fetchone()
         return result
-    
+
+
+
+def save_query_to_history(username: str, query: str):
+    """Guarda una consulta en el historial con valores explícitos"""
+    with engine.connect() as conn:
+        # Verificar si la consulta ya existe para este usuario
+        existing = conn.execute(
+            text("""
+            SELECT id, execution_count FROM query_history 
+            WHERE username = :username AND query = :query
+            """),
+            {"username": username, "query": query}
+        ).fetchone()
+        
+        if existing:
+            # Actualizar el conteo y timestamp si ya existe
+            conn.execute(
+                text("""
+                UPDATE query_history 
+                SET execution_count = :count, 
+                    timestamp = :timestamp
+                WHERE id = :id
+                """),
+                {
+                    "count": existing[1] + 1,
+                    "timestamp": datetime.now(),  # Actualiza el timestamp también
+                    "id": existing[0]
+                }
+            )
+        else:
+            # Insertar nueva consulta con valores explícitos
+            conn.execute(
+                text("""
+                INSERT INTO query_history 
+                    (username, query, timestamp, execution_count, type) 
+                VALUES 
+                    (:username, :query, :timestamp, :execution_count, :type)
+                """),
+                {
+                    "username": username,
+                    "query": query,
+                    "timestamp": datetime.now(),  # Momento exacto
+                    "execution_count": 1,        # Siempre 1 para nuevas consultas
+                    "type": "Consultas"          # Valor fijo explícito
+                }
+            )
+        conn.commit()
+
+def get_user_query_history(username: str, limit: int = 10):
+    """Obtiene el historial de consultas de un usuario con valores por defecto"""
+    with engine.connect() as conn:
+        result = conn.execute(
+            text("""
+            SELECT 
+                id,
+                query,
+                COALESCE(timestamp, CURRENT_TIMESTAMP) as timestamp,
+                COALESCE(execution_count, 1) as execution_count,
+                username,
+                COALESCE(type, 'Consultas') as type
+            FROM query_history 
+            WHERE username = :username 
+            ORDER BY timestamp DESC 
+            LIMIT :limit
+            """),
+            {"username": username, "limit": limit}
+        )
+        return [dict(row) for row in result.mappings()]  # Convierte a lista de diccionarios
