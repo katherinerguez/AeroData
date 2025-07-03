@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registrarse</title>
+    <style>
+        body {
+            font-family: Arial;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .register-box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            width: 300px;
+        }
+        input {
+            margin: 10px 0;
+            width: 100%;
+            padding: 8px;
+        }
+        button {
+            padding: 8px 12px;
+            width: 100%;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        p {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-box">
+        <h2 style="text-align:center;">Registro</h2>
+        <input type="text" id="nuevo_usuario" placeholder="Nuevo usuario">
+        <input type="password" id="nueva_contrasena" placeholder="Nueva contraseña">
+        <button onclick="registrarUsuario()">Registrar</button>
+        <p id="registro_error" style="color:red;"></p>
+    </div>
+
+    <script>
+        async function registrarUsuario() {
+            const nuevoUsuario = document.getElementById("nuevo_usuario").value;
+            const nuevaContrasena = document.getElementById("nueva_contrasena").value;
+            const errorDiv = document.getElementById("registro_error");
+
+            if (!nuevoUsuario || !nuevaContrasena) {
+                errorDiv.textContent = "Por favor ingresa usuario y contraseña";
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("username", nuevoUsuario);
+            formData.append("password", nuevaContrasena);
+
+            try {
+                const res = await fetch("/graficos/register", {
+                    method: "POST",
+                    body: formData
+                });
+
+                if (res.ok) {
+                    localStorage.setItem("usuario", nuevoUsuario);
+                    localStorage.setItem("contrasena", nuevaContrasena);
+                    window.location.href = "/graficos/dashboard";
+                } else {
+                    const data = await res.json();
+                    errorDiv.style.color = "red";
+                    errorDiv.textContent = data.detail || "Error al crear el usuario";
+                }
+            } catch (err) {
+                console.error(err);
+                errorDiv.textContent = "Error de conexión";
+            }
+        }
+    </script>
+</body>
+</html>
