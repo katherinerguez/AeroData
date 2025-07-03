@@ -1,0 +1,22 @@
+services:
+  frontend:
+    build: ./app
+    ports:
+      - "80:80" 
+      - "443:443" 
+    depends_on:
+      - graficos
+      - consultas
+      - api
+  graficos:
+    build: ./app/graficos
+    expose:
+      - "8002"
+  consultas:
+    build: ./app/consultas
+    expose:
+      - "8001"
+  api:
+    build: ./app/api
+    expose:
+      - "8000"
