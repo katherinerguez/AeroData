@@ -72,14 +72,14 @@
             const usuario = document.getElementById("usuario").value;
             const contrasena = document.getElementById("contrasena").value;
 
-            const res = await fetch("/consultas/execute", {
+             const res = await fetch("/consultas/execute", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": "Basic " + btoa(usuario + ":" + contrasena)
                 },
-                body: JSON.stringify({ query: "SELECT 1" })
-            });
+                body: JSON.stringify({ query: "SELECT 1 FROM airlines LIMIT 1" })
+            }); 
 
             if (res.status === 200) {
             localStorage.setItem("usuario", usuario);
