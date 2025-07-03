@@ -109,7 +109,26 @@ def obtener_aeropuertos():
         return None
 
 
-
+def obtener_vuelos_csv(lote_size=50):
+    """Obtiene vuelos en formato CSV como texto"""
+    page = 1
+    while True:
+        params = {
+            "page": page,
+            "page_size": lote_size,
+            "format": "csv"
+        }
+        response = requests.get(f"{BASE_URL}/flights/", params=params, headers=headers)
+        
+        if response.status_code != 200:
+            print(f"Error al obtener CSV de vuelos (página {page}):", response.status_code)
+            break
+        
+        csv_data = response.text
+        print(f"\n📄 CSV de la página {page}:\n", csv_data[:300])  # Mostrar primeras líneas
+        page += 1
+        break  
+    
 if __name__ == "__main__":
     
     print("\n🌍 Obteniendo aeropuertos...")
