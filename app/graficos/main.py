@@ -18,9 +18,9 @@ import pandas as pd
 import dask.dataframe as dd
 import plotly
 from datetime import datetime, timedelta
-from app.graficos.auth import get_current_user,registrar_usuario
-from app.graficos.database import get_db_url,get_usuario,save_query_to_history,get_user_query_history
-import app.graficos.plots as plots
+from auth import get_current_user,registrar_usuario
+from database import get_db_url,get_usuario,save_query_to_history,get_user_query_history
+import plots as plots
 # from app.graficos.database import get_db_url
 # import app.graficos.plots as plots
 

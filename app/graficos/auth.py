@@ -1,9 +1,18 @@
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 import bcrypt
-from app.consultas.database import get_usuario, insert_usuario
-
+# from consultas.database import get_usuario, insert_usuario
+import requests
 security = HTTPBasic()
+consultas_url='http://consultas:8001'
+
+def get_usuario(username):
+    response = requests.get(f"{consultas_url}/usuarios/{username}")
+    return response.json()
+
+def insert_usuario(nombre):
+    response = requests.post(f"{consultas_url}/usuarios", json={"nombre": nombre})
+    return response.json()
 
 def get_current_user(credentials: HTTPBasicCredentials = Depends(security)):
     username = credentials.username

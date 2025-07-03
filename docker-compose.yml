@@ -1,22 +1,29 @@
 services:
-  frontend:
-    build: ./app
+  home:
+    image: home
     ports:
-      - "80:80" 
-      - "443:443" 
-    depends_on:
-      - graficos
-      - consultas
-      - api
+      - "8080:80"
+      - "8443:443"
+    networks:
+      - backend
   graficos:
-    build: ./app/graficos
-    expose:
-      - "8002"
+    image: graficos
+    ports:
+      - "8002:8002"
+    networks:
+      - backend
   consultas:
-    build: ./app/consultas
-    expose:
-      - "8001"
+    image: consultas
+    ports:
+      - "8001:8001"
+    networks:
+      - backend
   api:
-    build: ./app/api
-    expose:
-      - "8000"
+    image: api
+    ports:
+      - "8000:8000"
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge

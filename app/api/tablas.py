@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime, Time, ForeignKey
-from app.api.database import Base
+from database import Base
 from datetime import datetime
 from passlib.context import CryptContext
 

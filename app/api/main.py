@@ -3,9 +3,9 @@ from fastapi.responses import JSONResponse, StreamingResponse,HTMLResponse
 from sqlalchemy.orm import Session
 from typing import List, Optional
 
-from app.api.database import SessionLocal, engine, save_query_to_history
-import app.api.tablas as tablas
-import app.api.schemas as schemas
+from database import SessionLocal, engine, save_query_to_history
+import tablas as tablas
+import schemas as schemas
 
 import uuid
 import io

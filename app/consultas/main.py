@@ -1,12 +1,12 @@
 from fastapi import FastAPI, HTTPException,Body, Form, Depends, Request
 from fastapi.responses import StreamingResponse, HTMLResponse, JSONResponse, RedirectResponse
 from pydantic import BaseModel
-from app.consultas.auth import get_current_user,registrar_usuario
+from auth import get_current_user,registrar_usuario
 import pandas as pd
 import io
 import os
 
-from app.consultas.database import execute_sql, save_query_to_history,get_user_query_history
+from database import execute_sql, save_query_to_history,get_user_query_history
 
 from datetime import datetime
 
