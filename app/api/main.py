@@ -1,11 +1,15 @@
-from fastapi import FastAPI, Depends,HTTPException , Header
+from fastapi import FastAPI, Depends,HTTPException , Header,Query
+from fastapi.responses import JSONResponse, StreamingResponse,HTMLResponse
 from sqlalchemy.orm import Session
 from typing import List, Optional
-from app.api.database import SessionLocal, engine
+
+from app.api.database import SessionLocal, engine, save_query_to_history
 import app.api.tablas as tablas
 import app.api.schemas as schemas
-import uuid
 
+import uuid
+import io
+import csv
 
 tablas.Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Flight API")
@@ -19,17 +23,19 @@ def get_db():
 
 
 def verify_api_key(x_api_key: Optional[str] = Header(None), db: Session = Depends(get_db)):
-    if not x_api_key:
-        raise HTTPException(status_code=401, detail="API Key requerida")
 
-    user = db.query(tablas.User).filter(tablas.User.api_key == x_api_key).first()
-
-def verify_api_key(x_api_key: str = Header(...), db: Session = Depends(get_db)):
-    user = db.query(tablas.ApiKey).filter(tablas.ApiKey.key == x_api_key).first()
-    if not user:
+    api_key_entry = db.query(tablas.ApiKey).filter(tablas.ApiKey.key == x_api_key).first()
+    if not api_key_entry:
         raise HTTPException(status_code=401, detail="API Key inválida")
-    return user
     
+    user = db.query(tablas.User).filter(tablas.User.id == api_key_entry.user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    
+    return {"user_id": user.id, "username": user.username}
+
+
+
 @app.post("/register/", response_model=schemas.UserOut)
 def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     existing_user = db.query(tablas.User).filter(tablas.User.username == user.username).first()
@@ -82,7 +88,6 @@ def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=str(e))
 
     
-from fastapi.responses import HTMLResponse
 
 @app.get("/register/", response_class=HTMLResponse)
 async def show_register_form():
@@ -171,54 +176,99 @@ async def show_register_form():
 def get_api_keys(db: Session = Depends(get_db)):
     return db.query(tablas.ApiKey).all()
 
-@app.get("/airports/", response_model=List[schemas.AirportSchema], dependencies=[Depends(verify_api_key)])
-def get_airports(db: Session = Depends(get_db)):
-    return db.query(tablas.Airport).all()
-
-@app.get("/airlines/", response_model=List[schemas.AirlineSchema], dependencies=[Depends(verify_api_key)])
-def get_airlines(db: Session = Depends(get_db)):
-    flights = db.query(tablas.Airline).limit(5).all()
-    print("Mostrando primeros 5 vuelos:")
-    for flight in flights:
-        print(flight.flight_id, flight.fl_date, flight.op_carrier)
-    return flights
-    # db.query(tablas.Airline).all()
-    # return db.query(tablas.Airline).all()
-
-from fastapi import Query
-
 @app.get("/airlines/", response_model=List[schemas.AirlineSchema], dependencies=[Depends(verify_api_key)])
 def get_airlines(
-    page: int = Query(1, ge=1, description="Número de página"),
-    page_size: int = Query(50, ge=1, le=1000, description="Tamaño de la página"),
-    db: Session = Depends(get_db)
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=1000),
+    format: str = Query("json", enum=["json", "csv"]),
+    db: Session = Depends(get_db),
+    user=Depends(verify_api_key)
 ):
+    save_query_to_history(username=user["username"], query=f"/airlines/?page={page}&page_size={page_size}&format={format}")
     offset = (page - 1) * page_size
     airlines = db.query(tablas.Airline).offset(offset).limit(page_size).all()
-    
-    print(f"Mostrando aerolíneas {offset + 1} a {offset + len(airlines)}:")
-    for airline in airlines:
-        print(airline.airline_id, airline.name)
-    
-    return airlines
+
+    if format == "json":
+        return airlines
+
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(["airline_id", "unique_carrier"])
+    for a in airlines:
+        writer.writerow([a.airline_id, a.unique_carrier])
+    output.seek(0)
+    return StreamingResponse(output, media_type="text/csv", headers={"Content-Disposition": "attachment; filename=airlines.csv"})
+
 
 @app.get("/flights/", response_model=List[schemas.FlightSchema], dependencies=[Depends(verify_api_key)])
 def get_flights(
     airline_id: Optional[int] = None,
-    page: int = Query(1, ge=1, description="Número de página"),
-    page_size: int = Query(50, ge=1, le=1000, description="Tamaño de la página"),
-    db: Session = Depends(get_db)
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=1000),
+    format: str = Query("json", enum=["json", "csv"]),
+    db: Session = Depends(get_db),
+    user=Depends(verify_api_key)
 ):
+    query_str = f"/flights/?airline_id={airline_id}&page={page}&page_size={page_size}&format={format}"
+    save_query_to_history(username=user["username"], query=query_str)
+
     offset = (page - 1) * page_size
     query = db.query(tablas.Flight)
-
     if airline_id is not None:
         query = query.filter(tablas.Flight.op_carrier_airline_id == airline_id)
 
     flights = query.offset(offset).limit(page_size).all()
-    
-    print(f"Mostrando vuelos {offset + 1} a {offset + len(flights)}:")
-    for flight in flights:
-        print(flight.flight_id, flight.fl_date, flight.op_carrier)
-    
-    return flights
+
+    if format == "json":
+        return flights
+
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow([
+        "flight_id", "fl_date", "op_unique_carrier", "op_carrier_airline_id",
+        "op_carrier", "tail_num", "op_carrier_fl_num", "origin_airport_id",
+        "dest_airport_id", "crs_dep_time", "dep_time", "dep_delay",
+        "wheels_off", "wheels_on", "crs_arr_time", "arr_time", "arr_delay",
+        "cancelled", "diverted", "air_time", "distance", "flights"
+    ])
+    for f in flights:
+        writer.writerow([
+            f.flight_id, f.fl_date, f.op_unique_carrier, f.op_carrier_airline_id,
+            f.op_carrier, f.tail_num, f.op_carrier_fl_num, f.origin_airport_id,
+            f.dest_airport_id, f.crs_dep_time, f.dep_time, f.dep_delay,
+            f.wheels_off, f.wheels_on, f.crs_arr_time, f.arr_time, f.arr_delay,
+            f.cancelled, f.diverted, f.air_time, f.distance, f.flights
+        ])
+    output.seek(0)
+    return StreamingResponse(output, media_type="text/csv", headers={"Content-Disposition": "attachment; filename=flights.csv"})
+
+
+@app.get("/airports/", response_model=List[schemas.AirportSchema], dependencies=[Depends(verify_api_key)])
+def get_airports(
+    format: str = Query("json", enum=["json", "csv"]),
+    db: Session = Depends(get_db),
+    user=Depends(verify_api_key)
+): 
+    save_query_to_history(username=user["username"], query=f"/airports/?format={format}")
+    airports = db.query(tablas.Airport).all()
+
+    if format == "json":
+        return airports
+
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(["airport_id", "airport_seq_id", "city_market_id", "code", "city_name", "state_abr", "state_fips", "state_name", "wac"])
+    for a in airports:
+        writer.writerow([
+            a.airport_id,
+            a.airport_seq_id,
+            a.city_market_id,
+            a.code,
+            a.city_name,
+            a.state_abr,
+            a.state_fips,
+            a.state_name,
+            a.wac
+        ])
+    output.seek(0)
+    return StreamingResponse(output, media_type="text/csv", headers={"Content-Disposition": "attachment; filename=airports.csv"})
