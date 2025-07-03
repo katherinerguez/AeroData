@@ -62,7 +62,7 @@
             formData.append("password", nuevaContrasena);
 
             try {
-                const res = await fetch("/consultas/register", {
+                const res = await fetch("/register", {
                     method: "POST",
                     body: formData
                 });
@@ -70,7 +70,7 @@
                 if (res.ok) {
                     localStorage.setItem("usuario", nuevoUsuario);
                     localStorage.setItem("contrasena", nuevaContrasena);
-                    window.location.href = "/consultas/dashboar";
+                    window.location.href = "/dashboar";
                 } else {
                     const data = await res.json();
                     errorDiv.style.color = "red";

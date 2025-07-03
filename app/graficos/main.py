@@ -51,7 +51,7 @@ logger = logging.getLogger(__name__)
 
 # App y configuración
 app = FastAPI()
-templates = Jinja2Templates(directory="app/graficos/templates")
+templates = Jinja2Templates(directory="app/templates")
 cache = Cache("./plot_cache")
 
 def get_cache_key(func_name: str, start_date: str, end_date: str,
@@ -119,8 +119,8 @@ async def raiz(request: Request):
     print(1)
     auth_header = request.headers.get("authorization")
     if auth_header:
-        return RedirectResponse(url="/graficos/dashboard")
-    return RedirectResponse(url="/graficos/login")
+        return RedirectResponse(url="/dashboard")
+    return RedirectResponse(url="/login")
 from fastapi import Body
 
 @app.post("/login_comprobar")
@@ -280,7 +280,7 @@ async def dashboard(
         current_username = user["username"]
     except HTTPException as e:
         logger.error(f"Error de autenticación: {str(e)}")
-        return RedirectResponse(url="/graficos/login")
+        return RedirectResponse(url="/login")
 
     # Verificar consistencia entre parámetro y usuario autenticado
     if username and username != current_username:

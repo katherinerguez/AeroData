@@ -184,7 +184,7 @@
             </h1>
             
             <div class="filters-summary">
-                <a href="/graficos/history" style="text-decoration:none; font-size:14px; color:var(--primary-color); font-weight:500;">🕓 Ver Historial</a><br>
+                <a href="/history" style="text-decoration:none; font-size:14px; color:var(--primary-color); font-weight:500;">🕓 Ver Historial</a><br>
                 {% if start_date or end_date or selected_airline or selected_route or selected_plane or selected_airport %}
                     <small>Filtros aplicados: 
                         {{ start_date }} a {{ end_date }} | 
@@ -198,7 +198,7 @@
         </div>
 
         <div class="card">
-            <form method="get" action="/graficos/dashboard">
+            <form method="get" action="/dashboard">
                 <div class="form-group">
                     <label for="start_date">Fecha inicial</label>
                     <input type="date" id="start_date" name="start_date" value="{{ start_date }}">
@@ -299,10 +299,10 @@
     const contrasena = localStorage.getItem("contrasena");
 
     if (!usuario || !contrasena) {
-        window.location.href = "/graficos/login";
+        window.location.href = "/login";
     } else {
         // Mostrar usuario en la interfaz
-        document.getElementById('user-info').textContent = `Usuario: ${usuario}`;
+        document.getElementById('user-info').textContent = Usuario: ${usuario};
         
         // Configurar fetch para incluir autenticación
         const authHeader = 'Basic ' + btoa(usuario + ':' + contrasena);
@@ -324,7 +324,7 @@
     function logout() {
         localStorage.removeItem("usuario");
         localStorage.removeItem("contrasena");
-        window.location.href = "/graficos/login";
+        window.location.href = "/login";
     }
 
 
@@ -339,7 +339,7 @@
                 function logout() {
                 localStorage.removeItem("usuario");
                 localStorage.removeItem("contrasena");
-                window.location.href = "/graficos/login";
+                window.location.href = "/login";
             } 
             </script>
         {% endif %}

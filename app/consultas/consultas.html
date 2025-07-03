@@ -217,7 +217,7 @@
     function logout() {
         localStorage.removeItem("usuario");
         localStorage.removeItem("contrasena");
-        window.location.href = "/consultas/login";
+        window.location.href = "/login";
     }
 
     // --- NUEVO CÓDIGO A INSERTAR ---
@@ -258,7 +258,7 @@
             downloadDiv.style.display = "none";
 
             try {
-                const res = await fetch("/consultas/execute", {
+                const res = await fetch("/execute", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -292,7 +292,7 @@
 
 async function loadHistory() {
     try {
-        const response = await fetch('/consultas/history', {
+        const response = await fetch('/history', {
             headers: {
                 'Authorization': 'Basic ' + btoa(usuario + ':' + contrasena),
                 'Content-Type': 'application/json'
@@ -393,7 +393,7 @@ async function loadHistory() {
         }
 
         try {
-            const res = await fetch(`/consultas/download/${formato}`, {
+            const res = await fetch(`/download/${formato}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -425,7 +425,7 @@ async function loadHistory() {
     // Funciones para el historial
     async function loadHistory() {
         try {
-            const response = await fetch('/consultas/history', {
+            const response = await fetch('/history', {
                 headers: {
                     'Authorization': 'Basic ' + btoa(usuario + ':' + contrasena)
                 }

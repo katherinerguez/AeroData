@@ -32,8 +32,8 @@ from fastapi.responses import RedirectResponse
 async def raiz(request: Request):
     auth_header = request.headers.get("authorization")
     if auth_header:
-        return RedirectResponse(url="/consultas/dashboar")
-    return RedirectResponse(url="/consultas/login")
+        return RedirectResponse(url="/dashboar")
+    return RedirectResponse(url="/login")
 
 
 @app.get("/dashboar", response_class=HTMLResponse)

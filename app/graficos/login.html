@@ -54,7 +54,7 @@
         <hr>
 
         <!-- Botón para mostrar/ocultar formulario de registro -->
-        <button type="button" onclick="window.location.href='/graficos/register'" style="background-color: #28a745;">Crear cuenta</button>       
+        <button type="button" onclick="window.location.href='/register'" style="background-color: #28a745;">Crear cuenta</button>       
         
         <!-- Formulario de Registro (oculto al inicio) -->
         <div id="registroForm">
@@ -74,7 +74,7 @@
         const errorMsg = document.getElementById("error");
 
         try {
-            const res = await fetch("/graficos/login_comprobar", {
+            const res = await fetch("/login_comprobar", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -91,7 +91,7 @@
                 // Guardar token o usuario si lo necesitas
                 localStorage.setItem("usuario", usuario);
                 localStorage.setItem("contrasena", contrasena);
-                window.location.href = "/graficos/dashboard";
+                window.location.href = "/dashboard";
             } else {
                 errorMsg.textContent = data.detail || "Error al iniciar sesión";
             }
@@ -126,7 +126,7 @@
             formData.append("password", nuevaContrasena);
 
             try {
-                const res = await fetch("/graficos/register", {
+                const res = await fetch("/register", {
                     method: "POST",
                     body: formData  // Se envía como application/x-www-form-urlencoded
                 });
