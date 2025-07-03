@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial de Gráficos</title>
+</head>
+<body>
+    <h2>Historial de Consultas de Gráficos – {{ username }}</h2>
+    <ul>
+        {% for item in history %}
+            <li>
+                <a href="{{ item.query }}">🔗 Ir a consulta</a><br>
+                {% for k, v in item.filtros.items() %}
+                    <strong>{{ k|capitalize }}:</strong> {{ v }} |
+                {% endfor %}
+            </li>
+        {% else %}
+            <li>No hay historial de gráficos registrado.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="/graficos/dashboard">⬅ Volver al Dashboard</a>
+</body>
+</html>
