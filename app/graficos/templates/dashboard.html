@@ -160,6 +160,11 @@
 </head>
 
 <body>
+    <div>
+        <span class="user-info" id="user-info"></span>
+        <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+    </div>
+
     <div class="container">
         {% if warning_message %}
             <div class="alert">
@@ -179,6 +184,7 @@
             </h1>
             
             <div class="filters-summary">
+                <a href="/graficos/history" style="text-decoration:none; font-size:14px; color:var(--primary-color); font-weight:500;">🕓 Ver Historial</a><br>
                 {% if start_date or end_date or selected_airline or selected_route or selected_plane or selected_airport %}
                     <small>Filtros aplicados: 
                         {{ start_date }} a {{ end_date }} | 
@@ -192,7 +198,7 @@
         </div>
 
         <div class="card">
-            <form method="get" action="/graficos">
+            <form method="get" action="/graficos/dashboard">
                 <div class="form-group">
                     <label for="start_date">Fecha inicial</label>
                     <input type="date" id="start_date" name="start_date" value="{{ start_date }}">
@@ -259,8 +265,13 @@
                         </svg>
                         Aplicar Filtros
                     </button>
-                </div>
-            </form>
+                    <input type="hidden" id="username" name="username" value="{{ usuario }}">            
+            <div class="form-group" style="align-self: flex-end;">
+                <button type="submit">
+                    <!-- Botón existente... -->
+                </button>
+            </div>
+        </form>
         </div>
 
         {% if no_data %}
@@ -282,7 +293,42 @@
                 {% endfor %}
             </div>
 
-            <script>
+            // En tu dashboard.html
+<script>
+    const usuario = localStorage.getItem("usuario");
+    const contrasena = localStorage.getItem("contrasena");
+
+    if (!usuario || !contrasena) {
+        window.location.href = "/graficos/login";
+    } else {
+        // Mostrar usuario en la interfaz
+        document.getElementById('user-info').textContent = `Usuario: ${usuario}`;
+        
+        // Configurar fetch para incluir autenticación
+        const authHeader = 'Basic ' + btoa(usuario + ':' + contrasena);
+        
+        // Interceptar todas las solicitudes
+        const originalFetch = window.fetch;
+        window.fetch = function(url, options = {}) {
+            options.headers = {
+                ...options.headers,
+                'Authorization': authHeader
+            };
+            return originalFetch(url, options);
+        };
+        
+        // Poblar campo oculto del formulario
+        document.getElementById('username').value = usuario;
+    }
+
+    function logout() {
+        localStorage.removeItem("usuario");
+        localStorage.removeItem("contrasena");
+        window.location.href = "/graficos/login";
+    }
+
+
+
                 {% for i in range(1, 16) %}
                     {% set key = 'graph' ~ i %}
                     {% if key in graph_data %}
@@ -290,6 +336,11 @@
                         Plotly.newPlot("graph{{ i }}", graph{{ i }}_data.data, graph{{ i }}_data.layout);
                     {% endif %}
                 {% endfor %}
+                function logout() {
+                localStorage.removeItem("usuario");
+                localStorage.removeItem("contrasena");
+                window.location.href = "/graficos/login";
+            } 
             </script>
         {% endif %}
     </div>
