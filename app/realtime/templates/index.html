@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadísticas de vuelos en tiempo real</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Estadísticas de vuelos en tiempo real</h1>
+    <div class="chart-container">
+        {{ graph_html|safe }}
+    </div>
+
+</body>
+</html>
