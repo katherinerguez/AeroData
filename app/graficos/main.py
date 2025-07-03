@@ -4,23 +4,27 @@ import json
 import hashlib
 import pickle
 import logging
-from datetime import datetime, timedelta
 import logging.handlers
+from diskcache import Cache
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
-from fastapi import FastAPI, Request, Query
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Request, Query, HTTPException, Form, Request, Body, Depends
+from fastapi.responses import StreamingResponse, HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
+from urllib.parse import urlparse, parse_qs
+import bcrypt
 import pandas as pd
 import dask.dataframe as dd
 import plotly
-
-from diskcache import Cache
-from app.graficos.database import get_db_url
+from datetime import datetime, timedelta
+from app.graficos.auth import get_current_user,registrar_usuario
+from app.graficos.database import get_db_url,get_usuario,save_query_to_history,get_user_query_history
 import app.graficos.plots as plots
 # from app.graficos.database import get_db_url
 # import app.graficos.plots as plots
 
+security = HTTPBasic()
 # ———————————— Configuración de logging ————————————
 def setup_logging():
     if not os.path.exists('logs'):
@@ -46,7 +50,7 @@ setup_logging()
 logger = logging.getLogger(__name__)
 
 # App y configuración
-app = FastAPI(root_path="/graficos")
+app = FastAPI()
 templates = Jinja2Templates(directory="app/graficos/templates")
 cache = Cache("./plot_cache")
 
@@ -111,6 +115,154 @@ def precompute_default_graphs():
     logger.info("=== FIN precomputación de gráficos por defecto ===")
 
 @app.get("/", response_class=HTMLResponse)
+async def raiz(request: Request):
+    print(1)
+    auth_header = request.headers.get("authorization")
+    if auth_header:
+        return RedirectResponse(url="/graficos/dashboard")
+    return RedirectResponse(url="/graficos/login")
+from fastapi import Body
+
+@app.post("/login_comprobar")
+async def login(payload: dict = Body(...)):
+    username = payload.get("username")
+    password = payload.get("password")
+
+    if not username or not password:
+        raise HTTPException(status_code=400, detail="Faltan usuario o contraseña")
+
+    user_data = get_usuario(username)
+
+    if not user_data:
+        raise HTTPException(status_code=401, detail="Usuario no encontrado")
+
+    stored_hash = user_data[1]
+
+    if not bcrypt.checkpw(password.encode('utf-8'), stored_hash.encode('utf-8')):
+        raise HTTPException(status_code=401, detail="Contraseña incorrecta")
+
+    return {"message": "Login exitoso", "username": username}
+
+@app.get("/login", response_class=HTMLResponse)
+async def mostrar_login():
+    html_path = os.path.join(os.path.dirname(__file__), "login.html")
+    try:
+        with open(html_path, "r", encoding="utf-8") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Archivo login.html no encontrado")
+@app.get("/register", response_class=HTMLResponse)
+async def mostrar_registro():
+    html_path = os.path.join(os.path.dirname(__file__), "register.html")
+    try:
+        with open(html_path, "r", encoding="utf-8") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Archivo register.html no encontrado")
+
+@app.post("/register")
+async def register(username: str = Form(...), password: str = Form(...)):
+    if not username or not password:
+        raise HTTPException(status_code=400, detail="Faltan usuario o contraseña")
+    
+    try:
+        registrar_usuario(username, password, role="usuario")
+        return {"message": "Usuario registrado correctamente"}
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@app.get("/history", response_class=HTMLResponse)
+async def get_history(request: Request, user: dict = Depends(get_current_user)):
+    """Muestra el historial del usuario filtrado solo con type='Graficos', y descompone los filtros desde la URL"""
+    try:
+        history = get_user_query_history(user["username"])
+
+        # Traducción de nombres de filtros a etiquetas más amigables
+        filtro_labels = {
+            "start_date": "Fecha inicial",
+            "end_date": "Fecha final",
+            "selected_route": "Ruta seleccionada",
+            "selected_plane": "Avión seleccionado",
+            "selected_airline": "Aerolínea seleccionada",
+            "selected_airport": "Aeropuerto seleccionado"
+        }
+
+        processed_history = []
+        for item in history:
+            if item.get("type") != "Graficos":
+                continue
+
+            url = item.get("query", "#")
+            filtros = {}
+
+            try:
+                parsed = urlparse(url)
+                query_params = parse_qs(parsed.query)
+
+                for key, val in query_params.items():
+                    etiqueta = filtro_labels.get(key, key)
+                    filtros[etiqueta] = ", ".join(val)
+
+            except Exception as e:
+                filtros = {"Error": "No se pudieron leer los filtros"}
+
+            processed_history.append({
+                "query": url,
+                "filtros": filtros
+            })
+
+        return templates.TemplateResponse("history.html", {
+            "request": request,
+            "username": user["username"],
+            "history": processed_history
+        })
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error al obtener historial: {str(e)}"
+        )
+
+
+
+# @app.post("/execute")
+# async def run_sql(query: SQLQuery, user: dict = Depends(get_current_user)):
+#     try:
+#         # Guardar en el historial primero
+#         save_query_to_history(user["username"], query.query)
+        
+#         # Si no es admin, aplicar restricciones
+#         if user["role"] != "admin":
+#             # Verificar que sea SELECT
+#             if not query.query.strip().lower().startswith("select"):
+#                 raise HTTPException(
+#                     status_code=403,
+#                     detail="Solo puedes realizar consultas SELECT"
+#                 )
+            
+#             # Verificar tablas permitidas
+#             tablas_permitidas = ['airports', 'airlines', 'flights']
+#             query_lower = query.query.lower()
+            
+#             if not any(f"from {tabla}" in query_lower or f"join {tabla}" in query_lower 
+#                       for tabla in tablas_permitidas):
+#                 raise HTTPException(
+#                     status_code=403,
+#                     detail="Solo puedes consultar las tablas: airports, airlines y flights"
+#                 )
+        
+#         # Ejecutar la consulta
+#         result = execute_sql(query.query)
+#         df = pd.DataFrame(result)
+#         return {"result": df.to_dict(orient="records")}
+    
+#     except HTTPException:
+#         raise  # Re-lanzar excepciones HTTP que ya hemos capturado
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=str(e))
+    
+@app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard(
     request: Request,
     start_date: str = Query(None),
@@ -118,19 +270,42 @@ async def dashboard(
     selected_route: str = Query(None),
     selected_plane: str = Query(None),
     selected_airline: list[str] = Query(default_factory=list),
-    selected_airport: str = Query(None)
+    selected_airport: str = Query(None), 
+    username: str = Query(None),
+    credentials: HTTPBasicCredentials = Depends(security)
 ):
+    # Obtener y validar usuario
+    try:
+        user = get_current_user(credentials)
+        current_username = user["username"]
+    except HTTPException as e:
+        logger.error(f"Error de autenticación: {str(e)}")
+        return RedirectResponse(url="/graficos/login")
+
+    # Verificar consistencia entre parámetro y usuario autenticado
+    if username and username != current_username:
+        raise HTTPException(status_code=403, detail="No autorizado")
+    
+    username = username or current_username
+    # Obtener el usuario autenticado desde los headers
+    auth_header = request.headers.get("authorization")
+    
+    
     logger.info(
         f"[REQUEST] dashboard -> start_date={start_date}, "
         f"end_date={end_date}, route={selected_route}, "
         f"plane={selected_plane}, airline={selected_airline}, airport={selected_airport}"
     )
-
+    
     db_url = get_db_url()
     min_date, max_date = plots.get_min_max_dates(db_url)
     last_year = (max_date - timedelta(days=365)).strftime("%Y-%m-%d")
     max_date_str = max_date.strftime("%Y-%m-%d")
-
+    
+    # Guardar la URL de la consulta como historial
+    base_url = str(request.url_for("dashboard"))
+    query_params = []
+    print(base_url)
     try:
         user_end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
     except (TypeError, ValueError):
@@ -155,8 +330,14 @@ async def dashboard(
 
     if selected_airline:
         df = df[df["op_carrier"].isin(selected_airline)]
+        
+        for airline in selected_airline:
+            query_params.append(f"selected_airline={airline}")
+            
     if selected_plane:
         df = df[df["op_carrier_fl_num"] == selected_plane]
+        
+        query_params.append(f"selected_plane={selected_plane}")
 
     df["route"] = df["origin_airport_id"].astype(str) + " → " + df["dest_airport_id"].astype(str)
 
@@ -169,6 +350,25 @@ async def dashboard(
             (df["dest_airport_id"] == selected_airport)
         ]
 
+    if start_date:
+        query_params.append(f"start_date={start_date}")
+    if end_date:
+        query_params.append(f"end_date={end_date}")
+    if selected_route:
+        query_params.append(f"selected_route={selected_route}")
+    if selected_airport:
+        query_params.append(f"selected_airport={selected_airport}")
+
+    full_query = base_url + "?" + "&".join(query_params) if query_params else base_url
+    logger.info(f"URL guardada en historial: {full_query}")
+
+    try:
+        if not username:
+            raise ValueError("Nombre de usuario no puede ser nulo")
+            
+        save_query_to_history(username, full_query)
+    except Exception as e:
+        logger.error(f"Error guardando historial: {str(e)}")
     row_count = df.map_partitions(len).compute().sum()
     if row_count == 0:
         logger.warning("No hay datos para los filtros especificados.")
@@ -246,9 +446,8 @@ async def dashboard(
         ),
         "selected_airport": selected_airport,
     })
-import os
 
-if __name__ == "__main__":
-    import uvicorn
-    port = int(os.environ.get("PORT", 8000))
-    uvicorn.run("app.graficos.main:app", host="0.0.0.0", port=port, reload=False)
+# if __name__ == "__main__":
+#     import uvicorn
+#     port = int(os.environ.get("PORT", 8000))
+#     uvicorn.run("app.graficos.main:app", host="0.0.0.0", port=port, reload=False)
