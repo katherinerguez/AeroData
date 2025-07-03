@@ -3,82 +3,261 @@
 <head>
     <title>Consulta SQL con Historial Dinámico</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        textarea { width: 100%; height: 150px; }
-        table { border-collapse: collapse; width: 100%; }
-        th, td { padding: 8px; border: 1px solid #ccc; text-align: left; }
-        .buttons { margin-top: 10px; }
-        .buttons button { margin-right: 10px; }
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            line-height: 1.6;
+        }
+        textarea { 
+            width: 100%; 
+            height: 150px; 
+            font-family: monospace;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin-top: 10px;
+        }
+        th, td { 
+            padding: 8px; 
+            border: 1px solid #ccc; 
+            text-align: left; 
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .buttons { 
+            margin-top: 10px; 
+        }
+        .buttons button { 
+            margin-right: 10px;
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .buttons button:hover {
+            background-color: #45a049;
+        }
         .result-block {
             border: 1px solid #ddd;
             padding: 15px;
             margin-top: 15px;
             background-color: #f9f9f9;
             border-radius: 8px;
+            overflow-x: auto;
         }
-        .result-block h3 { margin-top: 0; }
-        .query-block { border-top: 2px dashed #ccc; padding-top: 20px; margin-top: 30px; }
+        .result-block h3 { 
+            margin-top: 0; 
+            color: #333;
+        }
+        .query-block { 
+            border-top: 2px dashed #ccc; 
+            padding-top: 20px; 
+            margin-top: 30px; 
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #007B9E;
+        }
+        
+        /* Estilos para el historial */
+        .history-container {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .history-controls {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        #history-search {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .history-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .history-item pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background: #f5f5f5;
+            padding: 8px;
+            border-radius: 3px;
+            font-family: monospace;
+            margin: 0;
+        }
+        
+        .history-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .history-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .history-actions button {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .btn-reuse {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .btn-reuse:hover {
+            background: #45a049;
+        }
+        
+        .btn-delete {
+            background: #f44336;
+            color: white;
+        }
+        
+        .btn-delete:hover {
+            background: #d32f2f;
+        }
+        
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #f44336;
+        }
+        
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .user-info {
+            font-size: 14px;
+            color: #666;
+        }
     </style>
 </head>
-<script>
-    const usuario = localStorage.getItem("usuario");
-    const contrasena = localStorage.getItem("contrasena");
-
-    if (!usuario || !contrasena) {
-        alert("No has iniciado sesión. Serás redirigido al login.");
-        window.location.href = "/";
-
-    }
-</script>
-
 <body>
-    <h1>Consulta SQL con Historial Dinámico</h1>
-
-
+    <div class="header">
+        <h1>Consulta SQL con Historial Dinámico</h1>
+        <div>
+            <span class="user-info" id="user-info"></span>
+            <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+        </div>
+    </div>
 
     <div id="query-container"></div>
 
-    <script>
+    <!-- Sección de Historial -->
+    <div class="history-container">
+        <h2>Historial de Consultas</h2>
+        <div class="history-controls">
+            <input type="text" id="history-search" placeholder="Buscar en historial...">
+            <button onclick="loadHistory()">Actualizar</button>
+        </div>
+        <div id="history-list">
+            <!-- Las consultas se cargarán aquí dinámicamente -->
+        </div>
+    </div>
 
-        function guardarCredenciales() {
-            usuario = document.getElementById("usuario").value;
-            contrasena = document.getElementById("contrasena").value;
-            document.getElementById("login-status").textContent = "Credenciales guardadas.";
-        }
+<script>
+    // Verificar credenciales
+    const usuario = localStorage.getItem("usuario");
+    const contrasena = localStorage.getItem("contrasena");
+    
+    if (!usuario || !contrasena) {
+        alert("No has iniciado sesión. Serás redirigido al login.");
+        window.location.href = "/";
+    } else {
+        document.getElementById('user-info').textContent = `Usuario: ${usuario}`;
+    }
+    
+    function logout() {
+        localStorage.removeItem("usuario");
+        localStorage.removeItem("contrasena");
+        window.location.href = "/consultas/login";
+    }
 
-        let queryCount = 0;
+    // --- NUEVO CÓDIGO A INSERTAR ---
+    let queryCount = 0;
 
-        function createQueryForm() {
-            queryCount++;
-            const formId = `sqlForm${queryCount}`;
-            const textareaId = `query${queryCount}`;
-            const downloadId = `downloadButtons${queryCount}`;
-            const resultId = `resultContainer${queryCount}`;
+    function createQueryForm(initialQuery = "") {
+        queryCount++;
+        const formId = `sqlForm${queryCount}`;
+        const textareaId = `query${queryCount}`;
+        const downloadId = `downloadButtons${queryCount}`;
+        const resultId = `resultContainer${queryCount}`;
 
-            const formHTML = `
-                <div class="query-block" id="queryBlock${queryCount}">
-                    <form id="${formId}">
-                        <label for="${textareaId}">Escribe tu consulta SQL:</label><br>
-                        <textarea id="${textareaId}" name="query" placeholder="SELECT * FROM airports LIMIT 10;"></textarea><br><br>
-                        <button type="submit">Ejecutar Consulta</button>
-                    </form>
-                    <div id="${resultId}"></div>
-                    <div class="buttons" id="${downloadId}" style="display: none;">
-                        <button type="button" onclick="downloadFile('${textareaId}', 'csv')">Descargar CSV</button>
-                    </div>
+        const formHTML = `
+            <div class="query-block" id="queryBlock${queryCount}">
+                <form id="${formId}">
+                    <label for="${textareaId}">Consulta SQL #${queryCount}:</label><br>
+                    <textarea id="${textareaId}" name="query" placeholder="SELECT * FROM tabla LIMIT 10;">${initialQuery}</textarea><br><br>
+                    <button type="submit">Ejecutar</button>
+                    <button type="button" onclick="removeQueryBlock('queryBlock${queryCount}')" style="background: #f44336;">Eliminar</button>
+                    <button type="button" onclick="createQueryForm()" style="background: #ff9800;">Añadir otra consulta</button>
+                </form>
+                <div id="${resultId}"></div>
+                <div class="buttons" id="${downloadId}" style="display: none;">
+                    <button type="button" onclick="downloadFile('${textareaId}', 'csv')">Descargar CSV</button>
                 </div>
-            `;
+            </div>
+        `;
 
-            document.getElementById("query-container").insertAdjacentHTML("beforeend", formHTML);
+        document.getElementById("query-container").insertAdjacentHTML("beforeend", formHTML);
 
-            document.getElementById(formId).addEventListener("submit", async (e) => {
-                e.preventDefault();
-                const query = document.getElementById(textareaId).value;
-                const downloadDiv = document.getElementById(downloadId);
-                const resultDiv = document.getElementById(resultId);
-                resultDiv.innerHTML = "";
-                downloadDiv.style.display = "none";
+        document.getElementById(formId).addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const query = document.getElementById(textareaId).value;
+            const downloadDiv = document.getElementById(downloadId);
+            const resultDiv = document.getElementById(resultId);
+            
+            resultDiv.innerHTML = "<p>Procesando consulta...</p>";
+            downloadDiv.style.display = "none";
 
+            try {
                 const res = await fetch("/consultas/execute", {
                     method: "POST",
                     headers: {
@@ -103,40 +282,117 @@
                         downloadDiv.style.display = "block";
                     }
                 }
-
-                createQueryForm(); // agregar nueva consulta
-            });
-        }
-
-        function jsonToTable(jsonData, timestamp) {
-            if (!jsonData || jsonData.length === 0) {
-                return `<div class="result-block" style="color: red;">
-                            <h3>Resultado - ${timestamp}</h3>
-                            <p>No hay datos</p>
-                        </div>`;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="result-block" style="color: red;">
+                        <h3>Error</h3>
+                        <p>${error.message}</p>
+                    </div>`;
             }
 
-            const headers = Object.keys(jsonData[0]);
-            let html = `<div class="result-block"><h3>Resultado - ${timestamp}</h3><table><thead><tr>`;
-            headers.forEach(h => html += `<th>${h}</th>`);
-            html += "</tr></thead><tbody>";
-            jsonData.forEach(row => {
-                html += "<tr>";
-                headers.forEach(h => html += `<td>${row[h] ?? ""}</td>`);
-                html += "</tr>";
-            });
-            html += "</tbody></table></div>";
-            return html;
+async function loadHistory() {
+    try {
+        const response = await fetch('/consultas/history', {
+            headers: {
+                'Authorization': 'Basic ' + btoa(usuario + ':' + contrasena),
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
         }
 
-        async function downloadFile(textareaId, formato) {
-            const query = document.getElementById(textareaId).value;
+        const data = await response.json();
+        
+        // Verifica que la respuesta tenga el formato esperado
+        if (!data || !data.history) {
+            console.error('Formato de respuesta inválido:', data);
+            document.getElementById('history-list').innerHTML = '<p>Formato de historial inválido</p>';
+            return;
+        }
 
-            if (!query.trim().toLowerCase().startsWith("select")) {
-                alert("Solo se permiten consultas SELECT para descargar.");
-                return;
+        renderHistory(data.history);
+    } catch (error) {
+        console.error('Error cargando historial:', error);
+        document.getElementById('history-list').innerHTML = `
+            <div class="error-message">
+                <p>Error al cargar el historial: ${error.message}</p>
+            </div>`;
+    }
+}        });
+    }
+
+    // Función para eliminar bloques de consulta
+    function removeQueryBlock(blockId) {
+        const block = document.getElementById(blockId);
+        if (block) {
+            block.remove();
+            // Reorganizar los números de consulta si es necesario
+            updateQueryNumbers();
+        }
+    }
+
+    // Función para actualizar los números de consulta
+    function updateQueryNumbers() {
+        const blocks = document.querySelectorAll('.query-block');
+        let counter = 1;
+        blocks.forEach(block => {
+            const label = block.querySelector('label');
+            if (label) {
+                label.textContent = `Consulta SQL #${counter}:`;
             }
+            counter++;
+        });
+        queryCount = blocks.length;
+    }
 
+    // Modificación de useQueryAgain para usar el nuevo sistema
+    function useQueryAgain(query) {
+        createQueryForm(query);
+    }
+    // --- FIN DEL NUEVO CÓDIGO ---
+
+    function jsonToTable(jsonData, timestamp) {
+        if (!jsonData || jsonData.length === 0) {
+            return `<div class="result-block" style="color: red;">
+                        <h3>Resultado - ${timestamp}</h3>
+                        <p>No hay datos</p>
+                    </div>`;
+        }
+
+        const headers = Object.keys(jsonData[0]);
+        let html = `<div class="result-block"><h3>Resultado - ${timestamp}</h3><table><thead><tr>`;
+        headers.forEach(h => html += `<th>${h}</th>`);
+        html += "</tr></thead><tbody>";
+        
+        jsonData.forEach(row => {
+            html += "<tr>";
+            headers.forEach(h => {
+                let cellValue = row[h];
+                if (cellValue === null || cellValue === undefined) {
+                    cellValue = "<i>NULL</i>";
+                } else if (typeof cellValue === 'object') {
+                    cellValue = JSON.stringify(cellValue);
+                }
+                html += `<td>${cellValue}</td>`;
+            });
+            html += "</tr>";
+        });
+        
+        html += "</tbody></table><p>Filas mostradas: ${jsonData.length}</p></div>";
+        return html;
+    }
+
+    async function downloadFile(textareaId, formato) {
+        const query = document.getElementById(textareaId).value;
+
+        if (!query.trim().toLowerCase().startsWith("select")) {
+            alert("Solo se permiten consultas SELECT para descargar.");
+            return;
+        }
+
+        try {
             const res = await fetch(`/consultas/download/${formato}`, {
                 method: "POST",
                 headers: {
@@ -156,14 +412,89 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = `consulta.${formato}`;
+            a.download = `consulta_${new Date().toISOString().slice(0,10)}.${formato}`;
             document.body.appendChild(a);
             a.click();
             a.remove();
             URL.revokeObjectURL(url);
+        } catch (error) {
+            alert(`Error al descargar: ${error.message}`);
         }
+    }
 
+    // Funciones para el historial
+    async function loadHistory() {
+        try {
+            const response = await fetch('/consultas/history', {
+                headers: {
+                    'Authorization': 'Basic ' + btoa(usuario + ':' + contrasena)
+                }
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Respuesta del servidor:', data);
+                renderHistory(data.history);
+            } else {
+                console.error('Error cargando historial:', response.status);
+            }
+        } catch (error) {
+            console.error('Error cargando historial:', error);
+        }
+    };
+
+function renderHistory(history) {
+    const historyList = document.getElementById('history-list');
+    historyList.innerHTML = '';
+    
+    if (!history || history.length === 0) {
+        historyList.innerHTML = '<p>No hay consultas en el historial.</p>';
+        return;
+    }
+
+    history.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'history-item';
+        itemElement.innerHTML = `
+            <pre>${escapeHtml(item.query || 'Consulta sin texto')}</pre>
+            <div class="history-meta">
+                <span>Usada ${item.execution_count || 1} veces</span>
+                <span>${item.timestamp ? new Date(item.timestamp).toLocaleString() : 'Fecha no disponible'}</span>
+            </div>
+            <div class="history-actions">
+                <button class="btn-reuse" onclick="useQueryAgain('${escapeSingleQuotes(item.query || '')}')">
+                    Reutilizar
+                </button>
+            </div>
+        `;
+        historyList.appendChild(itemElement);
+    });
+}
+
+    // Funciones de utilidad
+    function escapeHtml(unsafe) {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function escapeSingleQuotes(str) {
+        return str.replace(/'/g, "\\'");
+    }
+
+    // Inicialización
+    document.addEventListener('DOMContentLoaded', () => {
         createQueryForm();
-    </script>
+        loadHistory();
+        
+        // Búsqueda en tiempo real
+        document.getElementById('history-search').addEventListener('input', () => {
+            loadHistory();
+        });
+    });
+</script>
 </body>
 </html>
