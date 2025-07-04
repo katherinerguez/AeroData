@@ -302,7 +302,7 @@
         window.location.href = "/login";
     } else {
         // Mostrar usuario en la interfaz
-        document.getElementById('user-info').textContent = Usuario: ${usuario};
+        document.getElementById('user-info').textContent = `Usuario: ${usuario}`;
         
         // Configurar fetch para incluir autenticación
         const authHeader = 'Basic ' + btoa(usuario + ':' + contrasena);

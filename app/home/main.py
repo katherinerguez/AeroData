@@ -25,11 +25,9 @@ async def index(request: Request):
 @app.get("/api")
 async def api_service():
     async with httpx.AsyncClient() as client:
-        try:
-            response = await client.get(f"{MICROSERVICIOS['api']}/status")
-            return response.json()
-        except Exception:
-            raise HTTPException(status_code=503, detail="Microservicio API no disponible")
+        response = await client.get("http://api:8000")  
+        return response.json()
+
 
 @app.get("/consultas")
 async def consultas_service():
@@ -44,7 +42,7 @@ async def consultas_service():
 async def analisis_service():
     async with httpx.AsyncClient() as client:
         try:
-            response = await client.get(f"{MICROSERVICIOS['analisis']}/status")
+            response = await client.get(f"{MICROSERVICIOS['analisis']}")
             return response.json()
         except Exception:
             raise HTTPException(status_code=503, detail="Microservicio Análisis no disponible")
