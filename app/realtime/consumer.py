@@ -1,12 +1,12 @@
 import os
 import json
+
 from supabase import create_client, Client
 from supabase.client import ClientOptions
 from kafka import KafkaConsumer
-from typing import Dict, Any
+from typing import Dict, Any, List
 import logging
 import time
-from typing import List, Dict, Any
 from datetime import datetime
 from dotenv import load_dotenv
 
@@ -15,22 +15,12 @@ load_dotenv()
 SUPABASE_URL = os.getenv("supabase_url_realtime")
 SUPABASE_KEY = os.getenv("superbase_key_realtime")
 
-# Inicialización del cliente Supabase con opciones personalizadas
-# supabase: Client = create_client(
-#     SUPABASE_URL,
-#     SUPABASE_KEY,
-#     options=ClientOptions(
-#         postgrest_client_timeout=30,
-#         storage_client_timeout=30,
-#         schema='public'
-#     )
-# )
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 class FlightDataConsumer:
     def __init__(self, kafka_config: Dict[str, Any]):
         self.supabase = supabase
         self.consumer = KafkaConsumer(
-            'flight-data-topic',  # Nombre del topic
+            'flight-data-topic', 
             bootstrap_servers=kafka_config.get('bootstrap_servers', ['localhost:9092']),
             group_id='flight-data-consumer-group',
             value_deserializer=lambda m: json.loads(m.decode('utf-8')),
@@ -45,7 +35,7 @@ class FlightDataConsumer:
         Procesa y almacena los datos de vuelo en Supabase
         """
         try:
-            # Validación de datos requeridos (ajustada para campos anidados)
+            # Validación de datos requeridos 
             position = flight_data.get("position", {})
             
             if not flight_data.get("icao24") or not position.get("last_contact"):
