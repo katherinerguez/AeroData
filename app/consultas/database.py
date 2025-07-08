@@ -5,18 +5,16 @@ from datetime import datetime
 
 from dotenv import load_dotenv
 import os
+import requests
 
 load_dotenv()
 
-# local_Jenni=os.getenv('local_Jenni')
-# db_url = f"postgresql://{local_Jenni}"
-user=os.getenv('user')
-password=os.getenv('password')
-host=os.getenv('host')
-port=os.getenv('port')
-dbname=os.getenv('dbname')
-db_url = f"postgresql://{user}:{password}@{host}:{port}/{dbname}"
-
+def fetch_db_url():
+    response = requests.get("https://database-realtime.onrender.com/")
+    response.raise_for_status()
+    data = response.json()
+    return data["db_url"]
+db_url=fetch_db_url()
 def get_engine():
     return create_engine(db_url)
 

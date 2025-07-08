@@ -3,36 +3,32 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles  
 import os
-from fastapi import FastAPI, Request, APIRouter
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
+
 from supabase import create_client, Client
 import pandas as pd
 import plotly.express as px
 from dotenv import load_dotenv
+import requests
 
 load_dotenv()
-
-# Configuración de Supabase
-SUPABASE_URL = os.getenv('supabase_url_realtime')
-SUPABASE_KEY = os.getenv('superbase_key_realtime')
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")  
 
 router = APIRouter(prefix="/realtime-flights")
 templates = Jinja2Templates(directory="templates")
-url_database='https://database-v3ki.onrender.com/tabla/current flights'
+
 def generate_flight_chart():
     """Genera el gráfico HTML de vuelos activos"""
     try:
         # Obtener datos de Supabase
-        result = supabase.table("current flights").select("origin_country, est_arrival_airport").execute()
-        datos = result.data  
+        database=requests.get('https://database-realtime.onrender.com/tabla/current%20flights')
         
-        df = pd.DataFrame(datos)
+        result = database.json()
+        datos = pd.DataFrame(result)  
+        
+        df = datos[["origin_country", "est_arrival_airport"]]
+        
         df_vuelos_activos = df[df['est_arrival_airport'] != True]
        
         df_grouped = df_vuelos_activos.groupby("origin_country").size().reset_index(name="count")
@@ -52,16 +48,6 @@ def generate_flight_chart():
             height=800
         )
         
-        fig.update_layout(
-            plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)',
-            font=dict(color="#ffffff"),
-            xaxis_title_font=dict(size=14),
-            yaxis_title_font=dict(size=14),
-            yaxis=dict(tickfont=dict(size=12)),
-            margin=dict(l=150, r=50, t=80, b=50)
-        )
-        
         return fig.to_html(full_html=False, include_plotlyjs='cdn')
     
     except Exception as e:
@@ -72,7 +58,7 @@ async def index(request: Request):
    
     graph_html = generate_flight_chart()
     
-    return templates.TemplateResponse("diseno.html", {
+    return templates.TemplateResponse("index.html", {
         "request": request,
         "graph_html": graph_html,
         "titulo": "Vuelos en tiempo real"

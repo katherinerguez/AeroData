@@ -1,17 +1,10 @@
 from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.orm import sessionmaker, declarative_base
-from dotenv import load_dotenv
-import os
+
 from datetime import datetime
+import requests
 
-load_dotenv()
-
-user = os.getenv('user')
-password = os.getenv('password')
-host = os.getenv('host')
-port = os.getenv('port')
-dbname = os.getenv('dbname')
-db_url = f"postgresql://{user}:{password}@{host}:{port}/{dbname}"
+db_url=requests.get('https://database-realtime.onrender.com/')
 
 engine = create_engine(db_url)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
