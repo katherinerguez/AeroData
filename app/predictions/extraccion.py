@@ -8,18 +8,13 @@ from geopy.distance import geodesic
 from sqlalchemy import create_engine, MetaData, Table, insert
 from sqlalchemy.orm import sessionmaker, declarative_base
 import pandas as pd
+from catboost import CatBoostRegressor, Pool
 import os
 from dotenv import load_dotenv
-from catboost import CatBoostRegressor, Pool
 
 load_dotenv()
 
-user=os.getenv('user')
-password=os.getenv('password')
-host=os.getenv('host')
-port=os.getenv('port')
-dbname=os.getenv('dbname')
-DB_URL = f"postgresql://{user}:{password}@{host}:{port}/{dbname}"
+DB_URL = 'https://database-realtime.onrender.com/'
 
 API_KEY = os.getenv("API_KEY")
 current_id = 1039705
