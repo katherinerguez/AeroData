@@ -1,126 +1,127 @@
-from sqlalchemy.orm import sessionmaker, declarative_base
-from sqlalchemy import create_engine, text  
-
-from datetime import datetime
+from sqlalchemy.orm import sessionmaker, Session, declarative_base
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, func
+from sqlalchemy.exc import SQLAlchemyError
 
 from dotenv import load_dotenv
 import os
 import requests
+from datetime import datetime
 
 load_dotenv()
 
-def fetch_db_url():
-    response = requests.get("https://database-realtime.onrender.com/")
-    response.raise_for_status()
-    data = response.json()
-    return data["db_url"]
-db_url=fetch_db_url()
-def get_engine():
-    return create_engine(db_url)
-
-engine = get_engine()  
-
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
+class User(Base):
+    __tablename__ = 'users'
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String(50), unique=True, nullable=False)
+    password = Column(String(100), nullable=False)
+    role = Column(String(20), nullable=False)
+
+class QueryHistory(Base):
+    __tablename__ = 'query_history'
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String(50), nullable=False)
+    query = Column(String(500), nullable=False)
+    timestamp = Column(DateTime, nullable=False, default=datetime.utcnow)
+    execution_count = Column(Integer, nullable=False, default=1)
+    type = Column(String(20), nullable=False, default='Consultas')
+
 def get_db_url():
-    return db_url
+    resp = requests.get("https://database-realtime.onrender.com/")
+    resp.raise_for_status()
+    return resp.text.strip('"').strip("'")
+
+engine = create_engine(get_db_url())
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base.metadata.create_all(bind=engine)
+
+def get_session():
+    """Retorna una nueva sesión de base de datos"""
+    return SessionLocal()
 
 def execute_sql(query: str):
-    """Ejecuta una consulta SQL y devuelve los resultados"""
+    """Ejecuta consultas SQL """
+    session = get_session()
     try:
-        with engine.connect() as conn:
-            result = conn.execute(text(query))  
-            return result.fetchall()
-    except Exception as e:
-       
+        result = session.execute(text(query))
+        return result.fetchall()
+    except SQLAlchemyError as e:
         print(f"Error ejecutando SQL: {e}")
         return []
-    
+    finally:
+        session.close()
+
 def insert_usuario(username: str, hashed_pw: str, role: str):
-    with engine.connect() as conn:
-        try:
-            conn.execute(
-                text("INSERT INTO users (username, password, role) VALUES (:username, :password, :role)"),
-                {"username": username, "password": hashed_pw, "role": role}
-            )
-            conn.commit()
-        except Exception as e:
-            raise ValueError(f"Error al registrar usuario: {str(e)}")
+    """Inserta un nuevo usuario """
+    session = get_session()
+    try:
+        new_user = User(
+            username=username,
+            password=hashed_pw,
+            role=role
+        )
+        session.add(new_user)
+        session.commit()
+        return new_user
+    except SQLAlchemyError as e:
+        session.rollback()
+        raise ValueError(f"Error al registrar usuario: {str(e)}")
+    finally:
+        session.close()
 
 def get_usuario(username: str):
-    with engine.connect() as conn:
-        result = conn.execute(
-            text("SELECT username, password, role FROM users WHERE username = :username"),
-            {"username": username}
-        ).fetchone()
-        return result
-
-
+    """Obtiene un usuario por username"""
+    session = get_session()
+    try:
+        return session.query(User).filter(User.username == username).first()
+    finally:
+        session.close()
 
 def save_query_to_history(username: str, query: str):
-    """Guarda una consulta en el historial con valores explícitos"""
-    with engine.connect() as conn:
-        # Verificar si la consulta ya existe para este usuario
-        existing = conn.execute(
-            text("""
-            SELECT id, execution_count FROM query_history 
-            WHERE username = :username AND query = :query
-            """),
-            {"username": username, "query": query}
-        ).fetchone()
+    """Guarda una consulta en el historial"""
+    session = get_session()
+    try:
+        # Buscar consulta existente
+        existing = session.query(QueryHistory).filter(
+            QueryHistory.username == username,
+            QueryHistory.query == query
+        ).first()
         
         if existing:
-            # Actualizar el conteo y timestamp si ya existe
-            conn.execute(
-                text("""
-                UPDATE query_history 
-                SET execution_count = :count, 
-                    timestamp = :timestamp
-                WHERE id = :id
-                """),
-                {
-                    "count": existing[1] + 1,
-                    "timestamp": datetime.now(),  # Actualiza el timestamp también
-                    "id": existing[0]
-                }
-            )
+
+            existing.execution_count += 1
+            existing.timestamp = datetime.utcnow()
         else:
-            # Insertar nueva consulta con valores explícitos
-            conn.execute(
-                text("""
-                INSERT INTO query_history 
-                    (username, query, timestamp, execution_count, type) 
-                VALUES 
-                    (:username, :query, :timestamp, :execution_count, :type)
-                """),
-                {
-                    "username": username,
-                    "query": query,
-                    "timestamp": datetime.now(),  # Momento exacto
-                    "execution_count": 1,        # Siempre 1 para nuevas consultas
-                    "type": "Consultas"          # Valor fijo explícito
-                }
+            
+            new_entry = QueryHistory(
+                username=username,
+                query=query,
+                type="Consultas"
             )
-        conn.commit()
+            session.add(new_entry)
+        
+        session.commit()
+        return existing if existing else new_entry
+    except SQLAlchemyError as e:
+        session.rollback()
+        raise RuntimeError(f"Error al guardar historial: {str(e)}")
+    finally:
+        session.close()
 
 def get_user_query_history(username: str, limit: int = 10):
-    """Obtiene el historial de consultas de un usuario con valores por defecto"""
-    with engine.connect() as conn:
-        result = conn.execute(
-            text("""
-            SELECT 
-                id,
-                query,
-                COALESCE(timestamp, CURRENT_TIMESTAMP) as timestamp,
-                COALESCE(execution_count, 1) as execution_count,
-                username,
-                COALESCE(type, 'Consultas') as type
-            FROM query_history 
-            WHERE username = :username 
-            ORDER BY timestamp DESC 
-            LIMIT :limit
-            """),
-            {"username": username, "limit": limit}
+    """Obtiene historial de consultas usando ORM"""
+    session = get_session()
+    try:
+        return (
+            session.query(QueryHistory)
+            .filter(QueryHistory.username == username)
+            .order_by(QueryHistory.timestamp.desc())
+            .limit(limit)
+            .all()
         )
-        return [dict(row) for row in result.mappings()]  # Convierte a lista de diccionarios
+    finally:
+        session.close()
