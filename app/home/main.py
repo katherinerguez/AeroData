@@ -17,7 +17,8 @@ MICROSERVICIOS = {
     "api": "http://api:8000",
     "consultas": "http://consultas:8001",
     "analisis": "http://graficos:8002",
-    "vuelos en tiempo real": 'https://realtime-wj1e.onrender.com/realtime-flights/'
+    "vuelos en tiempo real": 'https://realtime-wj1e.onrender.com/realtime-flights/',
+    "predicciones": 'https://realtime-wj1e.onrender.com/realtime-flights/'
 }
 
 @app.get("/", response_class=HTMLResponse)
@@ -63,3 +64,14 @@ def vuelos_en_tiempo_real():
     if not url:
         raise HTTPException(status_code=503, detail="Vuelos en tiempo real no disponibles")
     return RedirectResponse(url)
+
+@app.get("/predicciones")
+def redirect_vuelos_en_tiempo_real():
+    """
+    Redirige a la página del microservicio de las predicciones.
+    """
+    url = MICROSERVICIOS.get("predicciones")
+    if not url:
+        raise HTTPException(status_code=503, detail="Prediccines no disponible")
+    return RedirectResponse(url)
+
