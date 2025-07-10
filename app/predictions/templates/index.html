@@ -1,0 +1,188 @@
+<div class="flight-search-container">
+<h2 class="search-title">Búsqueda de Vuelos</h2>
+<form method="post" action="/search" class="flight-search-form">
+
+    <!-- Origen -->
+    <div class="form-group">
+        <label class="form-label">
+            <i class="fas fa-plane-departure"></i> Aeropuerto de Origen
+        </label>
+        <select name="origin_airport_id" >
+            <option value="" disabled selected>-- Selecciona --</option>
+            {% for airport in airports1 %}
+                <option value="{{ airport }}" {% if airport == selected_airport1 %}selected{% endif %}>{{ airport }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Destino -->
+    <div class="form-group">
+        <label class="form-label">
+            <i class="fas fa-plane-arrival"></i> Aeropuerto de Destino
+        </label>
+        <select name="destination_airport_id" >
+            <option value="" disabled selected>-- Selecciona --</option>
+            {% for airport in airports2 %}
+                <option value="{{ airport }}" {% if airport == selected_airport2 %}selected{% endif %}>{{ airport }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Aerolínea -->
+    <div class="form-group">
+        <label class="form-label">
+            <i class="fas fa-building"></i> Aerolínea
+        </label>
+        <select name="airline_name" >
+            <option value="" disabled selected>-- Selecciona --</option>
+            {% for line in aereoline %}
+                <option value="{{ line }}" {% if line == selected_aereoline %}selected{% endif %}>{{ line }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Número de vuelo -->
+    <div class="form-group">
+        <label class="form-label">
+            <i class="fas fa-ticket-alt"></i> Número de Vuelo
+        </label>
+        <select name="op_carrier_fl_num" >
+            <option value="" disabled selected>-- Selecciona --</option>
+            {% for flight_num in flight_nums %}
+                <option value="{{ flight_num }}" {% if flight_num == selected_flight %}selected{% endif %}>{{ flight_num }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Hora -->
+    <div class="form-group">
+        <label class="form-label">
+            <i class="far fa-clock"></i> Hora de Salida
+        </label>
+        <select name="dep_hour">
+            <option value="" selected>-- Todas --</option>
+            {% for hour in hours %}
+                <option value="{{ "%02d"|format(hour) }}" {% if "%02d"|format(hour) == selected_hour %}selected{% endif %}>{{ "%02d"|format(hour) }}:00</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit" class="search-button">
+        <i class="fas fa-search"></i> Buscar
+    </button>
+
+</form>
+</div>
+{% if flights %}
+<div class="results-container">
+    <h3>Resultados</h3>
+    <table class="results-table">
+        <thead>
+            <tr>
+                {% for col in flights[0].keys() %}
+                <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for flight in flights %}
+            <tr>
+                {% for value in flight.values() %}
+                <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% elif message %}
+<p>{{ message }}</p>
+{% endif %}
+
+
+<style>
+    .flight-search-container {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 25px;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-title {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 24px;
+    }
+
+    .flight-search-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #34495e;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .form-select {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 16px;
+        background-color: #f8f9fa;
+        transition: all 0.3s;
+    }
+
+    .form-select:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        outline: none;
+    }
+
+    .search-button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .search-button:hover {
+        background-color: #2980b9;
+    }
+
+    @media (max-width: 768px) {
+        .flight-search-container {
+            padding: 15px;
+            margin: 15px;
+        }
+        
+        .form-select, .search-button {
+            padding: 10px 12px;
+        }
+    }
+</style>
+
+<!-- Incluye Font Awesome para los iconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
