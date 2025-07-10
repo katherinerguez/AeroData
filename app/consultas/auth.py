@@ -1,5 +1,6 @@
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
+
 import bcrypt
 from database import get_usuario, insert_usuario
 
