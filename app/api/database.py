@@ -4,8 +4,8 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from datetime import datetime
 import requests
 
-db_url=requests.get('https://database-realtime.onrender.com/')
-
+respo=requests.get('https://database-realtime.onrender.com/')
+db_url=respo.text.strip('"').strip("'")
 engine = create_engine(db_url)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
