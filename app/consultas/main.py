@@ -12,11 +12,9 @@ from datetime import datetime
 
 app = FastAPI()
 
-# Modelo para recibir consultas SQL
 class SQLQuery(BaseModel):
     query: str
 
-# --- Ruta para mostrar la interfaz web ---
 @app.get("/login", response_class=HTMLResponse)
 async def mostrar_login():
     html_path = os.path.join(os.path.dirname(__file__), "login.html")
@@ -67,7 +65,6 @@ async def register(username: str = Form(...), password: str = Form(...)):
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
   
-# --- Ruta para descargar como CSV  ---
 @app.post("/download/{formato}")
 async def download_sql(query: SQLQuery, formato: str):
     if not query.query.strip().lower().startswith("select"):
@@ -77,7 +74,6 @@ async def download_sql(query: SQLQuery, formato: str):
         result = execute_sql(query.query)
         df = pd.DataFrame(result)
 
-        # Generar archivo CSV 
         if formato.lower() == "csv":
             stream = io.StringIO()
             df.to_csv(stream, index=False)
@@ -86,7 +82,6 @@ async def download_sql(query: SQLQuery, formato: str):
         else:
             raise HTTPException(status_code=400, detail="Formato no soportado. Usa 'csv' .")
 
-        # Devolver archivo como descarga
         stream.seek(0)
         return StreamingResponse(
             stream,
@@ -132,14 +127,13 @@ async def run_sql(query: SQLQuery, user: dict = Depends(get_current_user)):
         
         # Si no es admin, aplicar restricciones
         if user["role"] != "admin":
-            # Verificar que sea SELECT
+           
             if not query.query.strip().lower().startswith("select"):
                 raise HTTPException(
                     status_code=403,
                     detail="Solo puedes realizar consultas SELECT"
                 )
             
-            # Verificar tablas permitidas
             tablas_permitidas = ['airports', 'airlines', 'flights']
             query_lower = query.query.lower()
             
